@@ -1,0 +1,359 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"stm32f10x_rtc.c"
+  15              		.section	.text.RTC_ITConfig,"ax",%progbits
+  16              		.align	1
+  17              		.global	RTC_ITConfig
+  18              		.thumb
+  19              		.thumb_func
+  21              	RTC_ITConfig:
+  22              		@ args = 0, pretend = 0, frame = 0
+  23              		@ frame_needed = 0, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 044B     		ldr	r3, .L5
+  26 0002 1A88     		ldrh	r2, [r3, #0]
+  27 0004 92B2     		uxth	r2, r2
+  28 0006 09B1     		cbz	r1, .L2
+  29 0008 1043     		orrs	r0, r0, r2
+  30 000a 01E0     		b	.L4
+  31              	.L2:
+  32 000c 22EA0000 		bic	r0, r2, r0
+  33              	.L4:
+  34 0010 1880     		strh	r0, [r3, #0]	@ movhi
+  35 0012 7047     		bx	lr
+  36              	.L6:
+  37              		.align	2
+  38              	.L5:
+  39 0014 00280040 		.word	1073752064
+  41              		.section	.text.RTC_EnterConfigMode,"ax",%progbits
+  42              		.align	1
+  43              		.global	RTC_EnterConfigMode
+  44              		.thumb
+  45              		.thumb_func
+  47              	RTC_EnterConfigMode:
+  48              		@ args = 0, pretend = 0, frame = 0
+  49              		@ frame_needed = 0, uses_anonymous_args = 0
+  50              		@ link register save eliminated.
+  51 0000 034B     		ldr	r3, .L8
+  52 0002 9A88     		ldrh	r2, [r3, #4]
+  53 0004 92B2     		uxth	r2, r2
+  54 0006 42F01002 		orr	r2, r2, #16
+  55 000a 9A80     		strh	r2, [r3, #4]	@ movhi
+  56 000c 7047     		bx	lr
+  57              	.L9:
+  58 000e 00BF     		.align	2
+  59              	.L8:
+  60 0010 00280040 		.word	1073752064
+  62              		.section	.text.RTC_ExitConfigMode,"ax",%progbits
+  63              		.align	1
+  64              		.global	RTC_ExitConfigMode
+  65              		.thumb
+  66              		.thumb_func
+  68              	RTC_ExitConfigMode:
+  69              		@ args = 0, pretend = 0, frame = 0
+  70              		@ frame_needed = 0, uses_anonymous_args = 0
+  71              		@ link register save eliminated.
+  72 0000 034A     		ldr	r2, .L11
+  73 0002 9388     		ldrh	r3, [r2, #4]
+  74 0004 23F01003 		bic	r3, r3, #16
+  75 0008 1B04     		lsls	r3, r3, #16
+  76 000a 1B0C     		lsrs	r3, r3, #16
+  77 000c 9380     		strh	r3, [r2, #4]	@ movhi
+  78 000e 7047     		bx	lr
+  79              	.L12:
+  80              		.align	2
+  81              	.L11:
+  82 0010 00280040 		.word	1073752064
+  84              		.section	.text.RTC_GetCounter,"ax",%progbits
+  85              		.align	1
+  86              		.global	RTC_GetCounter
+  87              		.thumb
+  88              		.thumb_func
+  90              	RTC_GetCounter:
+  91              		@ args = 0, pretend = 0, frame = 0
+  92              		@ frame_needed = 0, uses_anonymous_args = 0
+  93              		@ link register save eliminated.
+  94 0000 034B     		ldr	r3, .L14
+  95 0002 9A8B     		ldrh	r2, [r3, #28]
+  96 0004 188B     		ldrh	r0, [r3, #24]
+  97 0006 92B2     		uxth	r2, r2
+  98 0008 42EA0040 		orr	r0, r2, r0, lsl #16
+  99 000c 7047     		bx	lr
+ 100              	.L15:
+ 101 000e 00BF     		.align	2
+ 102              	.L14:
+ 103 0010 00280040 		.word	1073752064
+ 105              		.section	.text.RTC_SetCounter,"ax",%progbits
+ 106              		.align	1
+ 107              		.global	RTC_SetCounter
+ 108              		.thumb
+ 109              		.thumb_func
+ 111              	RTC_SetCounter:
+ 112              		@ args = 0, pretend = 0, frame = 0
+ 113              		@ frame_needed = 0, uses_anonymous_args = 0
+ 114 0000 10B5     		push	{r4, lr}
+ 115 0002 0446     		mov	r4, r0
+ 116 0004 FFF7FEFF 		bl	RTC_EnterConfigMode
+ 117 0008 034B     		ldr	r3, .L17
+ 118 000a 220C     		lsrs	r2, r4, #16
+ 119 000c 1A83     		strh	r2, [r3, #24]	@ movhi
+ 120 000e 9C83     		strh	r4, [r3, #28]	@ movhi
+ 121 0010 BDE81040 		pop	{r4, lr}
+ 122 0014 FFF7FEBF 		b	RTC_ExitConfigMode
+ 123              	.L18:
+ 124              		.align	2
+ 125              	.L17:
+ 126 0018 00280040 		.word	1073752064
+ 128              		.section	.text.RTC_SetPrescaler,"ax",%progbits
+ 129              		.align	1
+ 130              		.global	RTC_SetPrescaler
+ 131              		.thumb
+ 132              		.thumb_func
+ 134              	RTC_SetPrescaler:
+ 135              		@ args = 0, pretend = 0, frame = 0
+ 136              		@ frame_needed = 0, uses_anonymous_args = 0
+ 137 0000 10B5     		push	{r4, lr}
+ 138 0002 0446     		mov	r4, r0
+ 139 0004 FFF7FEFF 		bl	RTC_EnterConfigMode
+ 140 0008 044B     		ldr	r3, .L20
+ 141 000a C4F30342 		ubfx	r2, r4, #16, #4
+ 142 000e 1A81     		strh	r2, [r3, #8]	@ movhi
+ 143 0010 9C81     		strh	r4, [r3, #12]	@ movhi
+ 144 0012 BDE81040 		pop	{r4, lr}
+ 145 0016 FFF7FEBF 		b	RTC_ExitConfigMode
+ 146              	.L21:
+ 147 001a 00BF     		.align	2
+ 148              	.L20:
+ 149 001c 00280040 		.word	1073752064
+ 151              		.section	.text.RTC_SetAlarm,"ax",%progbits
+ 152              		.align	1
+ 153              		.global	RTC_SetAlarm
+ 154              		.thumb
+ 155              		.thumb_func
+ 157              	RTC_SetAlarm:
+ 158              		@ args = 0, pretend = 0, frame = 0
+ 159              		@ frame_needed = 0, uses_anonymous_args = 0
+ 160 0000 10B5     		push	{r4, lr}
+ 161 0002 0446     		mov	r4, r0
+ 162 0004 FFF7FEFF 		bl	RTC_EnterConfigMode
+ 163 0008 034B     		ldr	r3, .L23
+ 164 000a 220C     		lsrs	r2, r4, #16
+ 165 000c 1A84     		strh	r2, [r3, #32]	@ movhi
+ 166 000e 9C84     		strh	r4, [r3, #36]	@ movhi
+ 167 0010 BDE81040 		pop	{r4, lr}
+ 168 0014 FFF7FEBF 		b	RTC_ExitConfigMode
+ 169              	.L24:
+ 170              		.align	2
+ 171              	.L23:
+ 172 0018 00280040 		.word	1073752064
+ 174              		.section	.text.RTC_GetDivider,"ax",%progbits
+ 175              		.align	1
+ 176              		.global	RTC_GetDivider
+ 177              		.thumb
+ 178              		.thumb_func
+ 180              	RTC_GetDivider:
+ 181              		@ args = 0, pretend = 0, frame = 0
+ 182              		@ frame_needed = 0, uses_anonymous_args = 0
+ 183              		@ link register save eliminated.
+ 184 0000 044B     		ldr	r3, .L26
+ 185 0002 188A     		ldrh	r0, [r3, #16]
+ 186 0004 9B8A     		ldrh	r3, [r3, #20]
+ 187 0006 00F00F00 		and	r0, r0, #15
+ 188 000a 9BB2     		uxth	r3, r3
+ 189 000c 43EA0040 		orr	r0, r3, r0, lsl #16
+ 190 0010 7047     		bx	lr
+ 191              	.L27:
+ 192 0012 00BF     		.align	2
+ 193              	.L26:
+ 194 0014 00280040 		.word	1073752064
+ 196              		.section	.text.RTC_WaitForLastTask,"ax",%progbits
+ 197              		.align	1
+ 198              		.global	RTC_WaitForLastTask
+ 199              		.thumb
+ 200              		.thumb_func
+ 202              	RTC_WaitForLastTask:
+ 203              		@ args = 0, pretend = 0, frame = 0
+ 204              		@ frame_needed = 0, uses_anonymous_args = 0
+ 205              		@ link register save eliminated.
+ 206 0000 034A     		ldr	r2, .L34
+ 207              	.L29:
+ 208 0002 9388     		ldrh	r3, [r2, #4]
+ 209 0004 03F02003 		and	r3, r3, #32
+ 210 0008 9BB2     		uxth	r3, r3
+ 211 000a 002B     		cmp	r3, #0
+ 212 000c F9D0     		beq	.L29
+ 213 000e 7047     		bx	lr
+ 214              	.L35:
+ 215              		.align	2
+ 216              	.L34:
+ 217 0010 00280040 		.word	1073752064
+ 219              		.section	.text.RTC_WaitForSynchro,"ax",%progbits
+ 220              		.align	1
+ 221              		.global	RTC_WaitForSynchro
+ 222              		.thumb
+ 223              		.thumb_func
+ 225              	RTC_WaitForSynchro:
+ 226              		@ args = 0, pretend = 0, frame = 0
+ 227              		@ frame_needed = 0, uses_anonymous_args = 0
+ 228              		@ link register save eliminated.
+ 229 0000 064A     		ldr	r2, .L42
+ 230 0002 9388     		ldrh	r3, [r2, #4]
+ 231 0004 23F00803 		bic	r3, r3, #8
+ 232 0008 1B04     		lsls	r3, r3, #16
+ 233 000a 1B0C     		lsrs	r3, r3, #16
+ 234 000c 9380     		strh	r3, [r2, #4]	@ movhi
+ 235              	.L37:
+ 236 000e 9388     		ldrh	r3, [r2, #4]
+ 237 0010 03F00803 		and	r3, r3, #8
+ 238 0014 9BB2     		uxth	r3, r3
+ 239 0016 002B     		cmp	r3, #0
+ 240 0018 F9D0     		beq	.L37
+ 241 001a 7047     		bx	lr
+ 242              	.L43:
+ 243              		.align	2
+ 244              	.L42:
+ 245 001c 00280040 		.word	1073752064
+ 247              		.section	.text.RTC_GetFlagStatus,"ax",%progbits
+ 248              		.align	1
+ 249              		.global	RTC_GetFlagStatus
+ 250              		.thumb
+ 251              		.thumb_func
+ 253              	RTC_GetFlagStatus:
+ 254              		@ args = 0, pretend = 0, frame = 0
+ 255              		@ frame_needed = 0, uses_anonymous_args = 0
+ 256              		@ link register save eliminated.
+ 257 0000 034B     		ldr	r3, .L45
+ 258 0002 9B88     		ldrh	r3, [r3, #4]
+ 259 0004 1842     		tst	r0, r3
+ 260 0006 0CBF     		ite	eq
+ 261 0008 0020     		moveq	r0, #0
+ 262 000a 0120     		movne	r0, #1
+ 263 000c 7047     		bx	lr
+ 264              	.L46:
+ 265 000e 00BF     		.align	2
+ 266              	.L45:
+ 267 0010 00280040 		.word	1073752064
+ 269              		.section	.text.RTC_ClearFlag,"ax",%progbits
+ 270              		.align	1
+ 271              		.global	RTC_ClearFlag
+ 272              		.thumb
+ 273              		.thumb_func
+ 275              	RTC_ClearFlag:
+ 276              		@ args = 0, pretend = 0, frame = 0
+ 277              		@ frame_needed = 0, uses_anonymous_args = 0
+ 278              		@ link register save eliminated.
+ 279 0000 034B     		ldr	r3, .L48
+ 280 0002 9A88     		ldrh	r2, [r3, #4]
+ 281 0004 92B2     		uxth	r2, r2
+ 282 0006 22EA0000 		bic	r0, r2, r0
+ 283 000a 9880     		strh	r0, [r3, #4]	@ movhi
+ 284 000c 7047     		bx	lr
+ 285              	.L49:
+ 286 000e 00BF     		.align	2
+ 287              	.L48:
+ 288 0010 00280040 		.word	1073752064
+ 290              		.section	.text.RTC_GetITStatus,"ax",%progbits
+ 291              		.align	1
+ 292              		.global	RTC_GetITStatus
+ 293              		.thumb
+ 294              		.thumb_func
+ 296              	RTC_GetITStatus:
+ 297              		@ args = 0, pretend = 0, frame = 0
+ 298              		@ frame_needed = 0, uses_anonymous_args = 0
+ 299              		@ link register save eliminated.
+ 300 0000 074B     		ldr	r3, .L53
+ 301 0002 9A88     		ldrh	r2, [r3, #4]
+ 302 0004 1B88     		ldrh	r3, [r3, #0]
+ 303 0006 92B2     		uxth	r2, r2
+ 304 0008 0340     		ands	r3, r0, r3
+ 305 000a 06D0     		beq	.L52
+ 306 000c 1040     		ands	r0, r0, r2
+ 307 000e 10F0FF0F 		tst	r0, #255
+ 308 0012 0CBF     		ite	eq
+ 309 0014 0020     		moveq	r0, #0
+ 310 0016 0120     		movne	r0, #1
+ 311 0018 7047     		bx	lr
+ 312              	.L52:
+ 313 001a 1846     		mov	r0, r3
+ 314 001c 7047     		bx	lr
+ 315              	.L54:
+ 316 001e 00BF     		.align	2
+ 317              	.L53:
+ 318 0020 00280040 		.word	1073752064
+ 320              		.section	.text.RTC_ClearITPendingBit,"ax",%progbits
+ 321              		.align	1
+ 322              		.global	RTC_ClearITPendingBit
+ 323              		.thumb
+ 324              		.thumb_func
+ 326              	RTC_ClearITPendingBit:
+ 327              		@ args = 0, pretend = 0, frame = 0
+ 328              		@ frame_needed = 0, uses_anonymous_args = 0
+ 329              		@ link register save eliminated.
+ 330 0000 034B     		ldr	r3, .L56
+ 331 0002 9A88     		ldrh	r2, [r3, #4]
+ 332 0004 92B2     		uxth	r2, r2
+ 333 0006 22EA0000 		bic	r0, r2, r0
+ 334 000a 9880     		strh	r0, [r3, #4]	@ movhi
+ 335 000c 7047     		bx	lr
+ 336              	.L57:
+ 337 000e 00BF     		.align	2
+ 338              	.L56:
+ 339 0010 00280040 		.word	1073752064
+ 341              		.ident	"GCC: (Sourcery CodeBench Lite 2013.05-23) 4.7.3"
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f10x_rtc.c
+     /tmp/ccpVeV9c.s:16     .text.RTC_ITConfig:00000000 $t
+     /tmp/ccpVeV9c.s:21     .text.RTC_ITConfig:00000000 RTC_ITConfig
+     /tmp/ccpVeV9c.s:39     .text.RTC_ITConfig:00000014 $d
+     /tmp/ccpVeV9c.s:42     .text.RTC_EnterConfigMode:00000000 $t
+     /tmp/ccpVeV9c.s:47     .text.RTC_EnterConfigMode:00000000 RTC_EnterConfigMode
+     /tmp/ccpVeV9c.s:60     .text.RTC_EnterConfigMode:00000010 $d
+     /tmp/ccpVeV9c.s:63     .text.RTC_ExitConfigMode:00000000 $t
+     /tmp/ccpVeV9c.s:68     .text.RTC_ExitConfigMode:00000000 RTC_ExitConfigMode
+     /tmp/ccpVeV9c.s:82     .text.RTC_ExitConfigMode:00000010 $d
+     /tmp/ccpVeV9c.s:85     .text.RTC_GetCounter:00000000 $t
+     /tmp/ccpVeV9c.s:90     .text.RTC_GetCounter:00000000 RTC_GetCounter
+     /tmp/ccpVeV9c.s:103    .text.RTC_GetCounter:00000010 $d
+     /tmp/ccpVeV9c.s:106    .text.RTC_SetCounter:00000000 $t
+     /tmp/ccpVeV9c.s:111    .text.RTC_SetCounter:00000000 RTC_SetCounter
+     /tmp/ccpVeV9c.s:126    .text.RTC_SetCounter:00000018 $d
+     /tmp/ccpVeV9c.s:129    .text.RTC_SetPrescaler:00000000 $t
+     /tmp/ccpVeV9c.s:134    .text.RTC_SetPrescaler:00000000 RTC_SetPrescaler
+     /tmp/ccpVeV9c.s:149    .text.RTC_SetPrescaler:0000001c $d
+     /tmp/ccpVeV9c.s:152    .text.RTC_SetAlarm:00000000 $t
+     /tmp/ccpVeV9c.s:157    .text.RTC_SetAlarm:00000000 RTC_SetAlarm
+     /tmp/ccpVeV9c.s:172    .text.RTC_SetAlarm:00000018 $d
+     /tmp/ccpVeV9c.s:175    .text.RTC_GetDivider:00000000 $t
+     /tmp/ccpVeV9c.s:180    .text.RTC_GetDivider:00000000 RTC_GetDivider
+     /tmp/ccpVeV9c.s:194    .text.RTC_GetDivider:00000014 $d
+     /tmp/ccpVeV9c.s:197    .text.RTC_WaitForLastTask:00000000 $t
+     /tmp/ccpVeV9c.s:202    .text.RTC_WaitForLastTask:00000000 RTC_WaitForLastTask
+     /tmp/ccpVeV9c.s:217    .text.RTC_WaitForLastTask:00000010 $d
+     /tmp/ccpVeV9c.s:220    .text.RTC_WaitForSynchro:00000000 $t
+     /tmp/ccpVeV9c.s:225    .text.RTC_WaitForSynchro:00000000 RTC_WaitForSynchro
+     /tmp/ccpVeV9c.s:245    .text.RTC_WaitForSynchro:0000001c $d
+     /tmp/ccpVeV9c.s:248    .text.RTC_GetFlagStatus:00000000 $t
+     /tmp/ccpVeV9c.s:253    .text.RTC_GetFlagStatus:00000000 RTC_GetFlagStatus
+     /tmp/ccpVeV9c.s:267    .text.RTC_GetFlagStatus:00000010 $d
+     /tmp/ccpVeV9c.s:270    .text.RTC_ClearFlag:00000000 $t
+     /tmp/ccpVeV9c.s:275    .text.RTC_ClearFlag:00000000 RTC_ClearFlag
+     /tmp/ccpVeV9c.s:288    .text.RTC_ClearFlag:00000010 $d
+     /tmp/ccpVeV9c.s:291    .text.RTC_GetITStatus:00000000 $t
+     /tmp/ccpVeV9c.s:296    .text.RTC_GetITStatus:00000000 RTC_GetITStatus
+     /tmp/ccpVeV9c.s:318    .text.RTC_GetITStatus:00000020 $d
+     /tmp/ccpVeV9c.s:321    .text.RTC_ClearITPendingBit:00000000 $t
+     /tmp/ccpVeV9c.s:326    .text.RTC_ClearITPendingBit:00000000 RTC_ClearITPendingBit
+     /tmp/ccpVeV9c.s:339    .text.RTC_ClearITPendingBit:00000010 $d
+
+NO UNDEFINED SYMBOLS

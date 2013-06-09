@@ -1,0 +1,191 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"stm32f10x_wwdg.c"
+  15              		.section	.text.WWDG_DeInit,"ax",%progbits
+  16              		.align	1
+  17              		.global	WWDG_DeInit
+  18              		.thumb
+  19              		.thumb_func
+  21              	WWDG_DeInit:
+  22              		@ args = 0, pretend = 0, frame = 0
+  23              		@ frame_needed = 0, uses_anonymous_args = 0
+  24 0000 0121     		movs	r1, #1
+  25 0002 08B5     		push	{r3, lr}
+  26 0004 4FF40060 		mov	r0, #2048
+  27 0008 FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+  28 000c 4FF40060 		mov	r0, #2048
+  29 0010 0021     		movs	r1, #0
+  30 0012 BDE80840 		pop	{r3, lr}
+  31 0016 FFF7FEBF 		b	RCC_APB1PeriphResetCmd
+  33              		.section	.text.WWDG_SetPrescaler,"ax",%progbits
+  34              		.align	1
+  35              		.global	WWDG_SetPrescaler
+  36              		.thumb
+  37              		.thumb_func
+  39              	WWDG_SetPrescaler:
+  40              		@ args = 0, pretend = 0, frame = 0
+  41              		@ frame_needed = 0, uses_anonymous_args = 0
+  42              		@ link register save eliminated.
+  43 0000 034B     		ldr	r3, .L3
+  44 0002 5A68     		ldr	r2, [r3, #4]
+  45 0004 22F4C072 		bic	r2, r2, #384
+  46 0008 1043     		orrs	r0, r0, r2
+  47 000a 5860     		str	r0, [r3, #4]
+  48 000c 7047     		bx	lr
+  49              	.L4:
+  50 000e 00BF     		.align	2
+  51              	.L3:
+  52 0010 002C0040 		.word	1073753088
+  54              		.section	.text.WWDG_SetWindowValue,"ax",%progbits
+  55              		.align	1
+  56              		.global	WWDG_SetWindowValue
+  57              		.thumb
+  58              		.thumb_func
+  60              	WWDG_SetWindowValue:
+  61              		@ args = 0, pretend = 0, frame = 8
+  62              		@ frame_needed = 0, uses_anonymous_args = 0
+  63              		@ link register save eliminated.
+  64 0000 82B0     		sub	sp, sp, #8
+  65 0002 0023     		movs	r3, #0
+  66 0004 0193     		str	r3, [sp, #4]
+  67 0006 074B     		ldr	r3, .L6
+  68 0008 00F07F00 		and	r0, r0, #127
+  69 000c 5A68     		ldr	r2, [r3, #4]
+  70 000e 22F07F02 		bic	r2, r2, #127
+  71 0012 0192     		str	r2, [sp, #4]
+  72 0014 019A     		ldr	r2, [sp, #4]
+  73 0016 0243     		orrs	r2, r2, r0
+  74 0018 0192     		str	r2, [sp, #4]
+  75 001a 019A     		ldr	r2, [sp, #4]
+  76 001c 5A60     		str	r2, [r3, #4]
+  77 001e 02B0     		add	sp, sp, #8
+  78 0020 7047     		bx	lr
+  79              	.L7:
+  80 0022 00BF     		.align	2
+  81              	.L6:
+  82 0024 002C0040 		.word	1073753088
+  84              		.section	.text.WWDG_EnableIT,"ax",%progbits
+  85              		.align	1
+  86              		.global	WWDG_EnableIT
+  87              		.thumb
+  88              		.thumb_func
+  90              	WWDG_EnableIT:
+  91              		@ args = 0, pretend = 0, frame = 0
+  92              		@ frame_needed = 0, uses_anonymous_args = 0
+  93              		@ link register save eliminated.
+  94 0000 014B     		ldr	r3, .L9
+  95 0002 0122     		movs	r2, #1
+  96 0004 1A60     		str	r2, [r3, #0]
+  97 0006 7047     		bx	lr
+  98              	.L10:
+  99              		.align	2
+ 100              	.L9:
+ 101 0008 A4800542 		.word	1107656868
+ 103              		.section	.text.WWDG_SetCounter,"ax",%progbits
+ 104              		.align	1
+ 105              		.global	WWDG_SetCounter
+ 106              		.thumb
+ 107              		.thumb_func
+ 109              	WWDG_SetCounter:
+ 110              		@ args = 0, pretend = 0, frame = 0
+ 111              		@ frame_needed = 0, uses_anonymous_args = 0
+ 112              		@ link register save eliminated.
+ 113 0000 024B     		ldr	r3, .L12
+ 114 0002 00F07F00 		and	r0, r0, #127
+ 115 0006 1860     		str	r0, [r3, #0]
+ 116 0008 7047     		bx	lr
+ 117              	.L13:
+ 118 000a 00BF     		.align	2
+ 119              	.L12:
+ 120 000c 002C0040 		.word	1073753088
+ 122              		.section	.text.WWDG_Enable,"ax",%progbits
+ 123              		.align	1
+ 124              		.global	WWDG_Enable
+ 125              		.thumb
+ 126              		.thumb_func
+ 128              	WWDG_Enable:
+ 129              		@ args = 0, pretend = 0, frame = 0
+ 130              		@ frame_needed = 0, uses_anonymous_args = 0
+ 131              		@ link register save eliminated.
+ 132 0000 024B     		ldr	r3, .L15
+ 133 0002 40F08000 		orr	r0, r0, #128
+ 134 0006 1860     		str	r0, [r3, #0]
+ 135 0008 7047     		bx	lr
+ 136              	.L16:
+ 137 000a 00BF     		.align	2
+ 138              	.L15:
+ 139 000c 002C0040 		.word	1073753088
+ 141              		.section	.text.WWDG_GetFlagStatus,"ax",%progbits
+ 142              		.align	1
+ 143              		.global	WWDG_GetFlagStatus
+ 144              		.thumb
+ 145              		.thumb_func
+ 147              	WWDG_GetFlagStatus:
+ 148              		@ args = 0, pretend = 0, frame = 0
+ 149              		@ frame_needed = 0, uses_anonymous_args = 0
+ 150              		@ link register save eliminated.
+ 151 0000 014B     		ldr	r3, .L18
+ 152 0002 9868     		ldr	r0, [r3, #8]
+ 153 0004 C0B2     		uxtb	r0, r0
+ 154 0006 7047     		bx	lr
+ 155              	.L19:
+ 156              		.align	2
+ 157              	.L18:
+ 158 0008 002C0040 		.word	1073753088
+ 160              		.section	.text.WWDG_ClearFlag,"ax",%progbits
+ 161              		.align	1
+ 162              		.global	WWDG_ClearFlag
+ 163              		.thumb
+ 164              		.thumb_func
+ 166              	WWDG_ClearFlag:
+ 167              		@ args = 0, pretend = 0, frame = 0
+ 168              		@ frame_needed = 0, uses_anonymous_args = 0
+ 169              		@ link register save eliminated.
+ 170 0000 014B     		ldr	r3, .L21
+ 171 0002 0022     		movs	r2, #0
+ 172 0004 9A60     		str	r2, [r3, #8]
+ 173 0006 7047     		bx	lr
+ 174              	.L22:
+ 175              		.align	2
+ 176              	.L21:
+ 177 0008 002C0040 		.word	1073753088
+ 179              		.ident	"GCC: (Sourcery CodeBench Lite 2013.05-23) 4.7.3"
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f10x_wwdg.c
+     /tmp/ccNf9doJ.s:16     .text.WWDG_DeInit:00000000 $t
+     /tmp/ccNf9doJ.s:21     .text.WWDG_DeInit:00000000 WWDG_DeInit
+     /tmp/ccNf9doJ.s:34     .text.WWDG_SetPrescaler:00000000 $t
+     /tmp/ccNf9doJ.s:39     .text.WWDG_SetPrescaler:00000000 WWDG_SetPrescaler
+     /tmp/ccNf9doJ.s:52     .text.WWDG_SetPrescaler:00000010 $d
+     /tmp/ccNf9doJ.s:55     .text.WWDG_SetWindowValue:00000000 $t
+     /tmp/ccNf9doJ.s:60     .text.WWDG_SetWindowValue:00000000 WWDG_SetWindowValue
+     /tmp/ccNf9doJ.s:82     .text.WWDG_SetWindowValue:00000024 $d
+     /tmp/ccNf9doJ.s:85     .text.WWDG_EnableIT:00000000 $t
+     /tmp/ccNf9doJ.s:90     .text.WWDG_EnableIT:00000000 WWDG_EnableIT
+     /tmp/ccNf9doJ.s:101    .text.WWDG_EnableIT:00000008 $d
+     /tmp/ccNf9doJ.s:104    .text.WWDG_SetCounter:00000000 $t
+     /tmp/ccNf9doJ.s:109    .text.WWDG_SetCounter:00000000 WWDG_SetCounter
+     /tmp/ccNf9doJ.s:120    .text.WWDG_SetCounter:0000000c $d
+     /tmp/ccNf9doJ.s:123    .text.WWDG_Enable:00000000 $t
+     /tmp/ccNf9doJ.s:128    .text.WWDG_Enable:00000000 WWDG_Enable
+     /tmp/ccNf9doJ.s:139    .text.WWDG_Enable:0000000c $d
+     /tmp/ccNf9doJ.s:142    .text.WWDG_GetFlagStatus:00000000 $t
+     /tmp/ccNf9doJ.s:147    .text.WWDG_GetFlagStatus:00000000 WWDG_GetFlagStatus
+     /tmp/ccNf9doJ.s:158    .text.WWDG_GetFlagStatus:00000008 $d
+     /tmp/ccNf9doJ.s:161    .text.WWDG_ClearFlag:00000000 $t
+     /tmp/ccNf9doJ.s:166    .text.WWDG_ClearFlag:00000000 WWDG_ClearFlag
+     /tmp/ccNf9doJ.s:177    .text.WWDG_ClearFlag:00000008 $d
+
+UNDEFINED SYMBOLS
+RCC_APB1PeriphResetCmd

@@ -1,0 +1,129 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"main.c"
+  15              		.section	.text.delay,"ax",%progbits
+  16              		.align	1
+  17              		.global	delay
+  18              		.thumb
+  19              		.thumb_func
+  21              	delay:
+  22              		@ args = 0, pretend = 0, frame = 8
+  23              		@ frame_needed = 0, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 82B0     		sub	sp, sp, #8
+  26 0002 0190     		str	r0, [sp, #4]
+  27              	.L2:
+  28 0004 019B     		ldr	r3, [sp, #4]
+  29 0006 5A1E     		subs	r2, r3, #1
+  30 0008 0192     		str	r2, [sp, #4]
+  31 000a 002B     		cmp	r3, #0
+  32 000c FAD1     		bne	.L2
+  33 000e 02B0     		add	sp, sp, #8
+  34 0010 7047     		bx	lr
+  36              		.section	.text.startup.main,"ax",%progbits
+  37              		.align	1
+  38              		.global	main
+  39              		.thumb
+  40              		.thumb_func
+  42              	main:
+  43              		@ Volatile: function does not return.
+  44              		@ args = 0, pretend = 0, frame = 0
+  45              		@ frame_needed = 0, uses_anonymous_args = 0
+  46 0000 08B5     		push	{r3, lr}
+  47 0002 0820     		movs	r0, #8
+  48 0004 0121     		movs	r1, #1
+  49 0006 FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+  50 000a 2C49     		ldr	r1, .L6
+  51 000c 41F60343 		movw	r3, #7171
+  52 0010 0B80     		strh	r3, [r1, #0]	@ movhi
+  53 0012 0323     		movs	r3, #3
+  54 0014 8B70     		strb	r3, [r1, #2]
+  55 0016 2A48     		ldr	r0, .L6+4
+  56 0018 1423     		movs	r3, #20
+  57 001a CB70     		strb	r3, [r1, #3]
+  58 001c FFF7FEFF 		bl	GPIO_Init
+  59              	.L5:
+  60 0020 0121     		movs	r1, #1
+  61 0022 2748     		ldr	r0, .L6+4
+  62 0024 FFF7FEFF 		bl	GPIO_ResetBits
+  63 0028 2648     		ldr	r0, .L6+8
+  64 002a FFF7FEFF 		bl	delay
+  65 002e 0121     		movs	r1, #1
+  66 0030 2348     		ldr	r0, .L6+4
+  67 0032 FFF7FEFF 		bl	GPIO_SetBits
+  68 0036 2348     		ldr	r0, .L6+8
+  69 0038 FFF7FEFF 		bl	delay
+  70 003c 0221     		movs	r1, #2
+  71 003e 2048     		ldr	r0, .L6+4
+  72 0040 FFF7FEFF 		bl	GPIO_ResetBits
+  73 0044 1F48     		ldr	r0, .L6+8
+  74 0046 FFF7FEFF 		bl	delay
+  75 004a 0221     		movs	r1, #2
+  76 004c 1C48     		ldr	r0, .L6+4
+  77 004e FFF7FEFF 		bl	GPIO_SetBits
+  78 0052 1C48     		ldr	r0, .L6+8
+  79 0054 FFF7FEFF 		bl	delay
+  80 0058 4FF48061 		mov	r1, #1024
+  81 005c 1848     		ldr	r0, .L6+4
+  82 005e FFF7FEFF 		bl	GPIO_ResetBits
+  83 0062 1848     		ldr	r0, .L6+8
+  84 0064 FFF7FEFF 		bl	delay
+  85 0068 4FF48061 		mov	r1, #1024
+  86 006c 1448     		ldr	r0, .L6+4
+  87 006e FFF7FEFF 		bl	GPIO_SetBits
+  88 0072 1448     		ldr	r0, .L6+8
+  89 0074 FFF7FEFF 		bl	delay
+  90 0078 4FF40061 		mov	r1, #2048
+  91 007c 1048     		ldr	r0, .L6+4
+  92 007e FFF7FEFF 		bl	GPIO_ResetBits
+  93 0082 1048     		ldr	r0, .L6+8
+  94 0084 FFF7FEFF 		bl	delay
+  95 0088 4FF40061 		mov	r1, #2048
+  96 008c 0C48     		ldr	r0, .L6+4
+  97 008e FFF7FEFF 		bl	GPIO_SetBits
+  98 0092 0C48     		ldr	r0, .L6+8
+  99 0094 FFF7FEFF 		bl	delay
+ 100 0098 4FF48051 		mov	r1, #4096
+ 101 009c 0848     		ldr	r0, .L6+4
+ 102 009e FFF7FEFF 		bl	GPIO_ResetBits
+ 103 00a2 0848     		ldr	r0, .L6+8
+ 104 00a4 FFF7FEFF 		bl	delay
+ 105 00a8 0548     		ldr	r0, .L6+4
+ 106 00aa 4FF48051 		mov	r1, #4096
+ 107 00ae FFF7FEFF 		bl	GPIO_SetBits
+ 108 00b2 0448     		ldr	r0, .L6+8
+ 109 00b4 FFF7FEFF 		bl	delay
+ 110 00b8 B2E7     		b	.L5
+ 111              	.L7:
+ 112 00ba 00BF     		.align	2
+ 113              	.L6:
+ 114 00bc 00000000 		.word	GPIO_InitStructure
+ 115 00c0 000C0140 		.word	1073810432
+ 116 00c4 FFFF0600 		.word	458751
+ 118              		.comm	GPIO_InitStructure,4,2
+ 119              		.ident	"GCC: (Sourcery CodeBench Lite 2013.05-23) 4.7.3"
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+     /tmp/ccWl72wk.s:16     .text.delay:00000000 $t
+     /tmp/ccWl72wk.s:21     .text.delay:00000000 delay
+     /tmp/ccWl72wk.s:37     .text.startup.main:00000000 $t
+     /tmp/ccWl72wk.s:42     .text.startup.main:00000000 main
+     /tmp/ccWl72wk.s:114    .text.startup.main:000000bc $d
+                            *COM*:00000004 GPIO_InitStructure
+
+UNDEFINED SYMBOLS
+RCC_APB2PeriphClockCmd
+GPIO_Init
+GPIO_ResetBits
+GPIO_SetBits

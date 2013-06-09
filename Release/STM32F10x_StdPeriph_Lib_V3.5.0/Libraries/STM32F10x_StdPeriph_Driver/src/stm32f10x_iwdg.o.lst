@@ -1,0 +1,139 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"stm32f10x_iwdg.c"
+  15              		.section	.text.IWDG_WriteAccessCmd,"ax",%progbits
+  16              		.align	1
+  17              		.global	IWDG_WriteAccessCmd
+  18              		.thumb
+  19              		.thumb_func
+  21              	IWDG_WriteAccessCmd:
+  22              		@ args = 0, pretend = 0, frame = 0
+  23              		@ frame_needed = 0, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 014B     		ldr	r3, .L2
+  26 0002 1860     		str	r0, [r3, #0]
+  27 0004 7047     		bx	lr
+  28              	.L3:
+  29 0006 00BF     		.align	2
+  30              	.L2:
+  31 0008 00300040 		.word	1073754112
+  33              		.section	.text.IWDG_SetPrescaler,"ax",%progbits
+  34              		.align	1
+  35              		.global	IWDG_SetPrescaler
+  36              		.thumb
+  37              		.thumb_func
+  39              	IWDG_SetPrescaler:
+  40              		@ args = 0, pretend = 0, frame = 0
+  41              		@ frame_needed = 0, uses_anonymous_args = 0
+  42              		@ link register save eliminated.
+  43 0000 014B     		ldr	r3, .L5
+  44 0002 5860     		str	r0, [r3, #4]
+  45 0004 7047     		bx	lr
+  46              	.L6:
+  47 0006 00BF     		.align	2
+  48              	.L5:
+  49 0008 00300040 		.word	1073754112
+  51              		.section	.text.IWDG_SetReload,"ax",%progbits
+  52              		.align	1
+  53              		.global	IWDG_SetReload
+  54              		.thumb
+  55              		.thumb_func
+  57              	IWDG_SetReload:
+  58              		@ args = 0, pretend = 0, frame = 0
+  59              		@ frame_needed = 0, uses_anonymous_args = 0
+  60              		@ link register save eliminated.
+  61 0000 014B     		ldr	r3, .L8
+  62 0002 9860     		str	r0, [r3, #8]
+  63 0004 7047     		bx	lr
+  64              	.L9:
+  65 0006 00BF     		.align	2
+  66              	.L8:
+  67 0008 00300040 		.word	1073754112
+  69              		.section	.text.IWDG_ReloadCounter,"ax",%progbits
+  70              		.align	1
+  71              		.global	IWDG_ReloadCounter
+  72              		.thumb
+  73              		.thumb_func
+  75              	IWDG_ReloadCounter:
+  76              		@ args = 0, pretend = 0, frame = 0
+  77              		@ frame_needed = 0, uses_anonymous_args = 0
+  78              		@ link register save eliminated.
+  79 0000 024B     		ldr	r3, .L11
+  80 0002 4AF6AA22 		movw	r2, #43690
+  81 0006 1A60     		str	r2, [r3, #0]
+  82 0008 7047     		bx	lr
+  83              	.L12:
+  84 000a 00BF     		.align	2
+  85              	.L11:
+  86 000c 00300040 		.word	1073754112
+  88              		.section	.text.IWDG_Enable,"ax",%progbits
+  89              		.align	1
+  90              		.global	IWDG_Enable
+  91              		.thumb
+  92              		.thumb_func
+  94              	IWDG_Enable:
+  95              		@ args = 0, pretend = 0, frame = 0
+  96              		@ frame_needed = 0, uses_anonymous_args = 0
+  97              		@ link register save eliminated.
+  98 0000 024B     		ldr	r3, .L14
+  99 0002 4CF6CC42 		movw	r2, #52428
+ 100 0006 1A60     		str	r2, [r3, #0]
+ 101 0008 7047     		bx	lr
+ 102              	.L15:
+ 103 000a 00BF     		.align	2
+ 104              	.L14:
+ 105 000c 00300040 		.word	1073754112
+ 107              		.section	.text.IWDG_GetFlagStatus,"ax",%progbits
+ 108              		.align	1
+ 109              		.global	IWDG_GetFlagStatus
+ 110              		.thumb
+ 111              		.thumb_func
+ 113              	IWDG_GetFlagStatus:
+ 114              		@ args = 0, pretend = 0, frame = 0
+ 115              		@ frame_needed = 0, uses_anonymous_args = 0
+ 116              		@ link register save eliminated.
+ 117 0000 034B     		ldr	r3, .L17
+ 118 0002 DB68     		ldr	r3, [r3, #12]
+ 119 0004 1842     		tst	r0, r3
+ 120 0006 0CBF     		ite	eq
+ 121 0008 0020     		moveq	r0, #0
+ 122 000a 0120     		movne	r0, #1
+ 123 000c 7047     		bx	lr
+ 124              	.L18:
+ 125 000e 00BF     		.align	2
+ 126              	.L17:
+ 127 0010 00300040 		.word	1073754112
+ 129              		.ident	"GCC: (Sourcery CodeBench Lite 2013.05-23) 4.7.3"
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f10x_iwdg.c
+     /tmp/cc8JTfAW.s:16     .text.IWDG_WriteAccessCmd:00000000 $t
+     /tmp/cc8JTfAW.s:21     .text.IWDG_WriteAccessCmd:00000000 IWDG_WriteAccessCmd
+     /tmp/cc8JTfAW.s:31     .text.IWDG_WriteAccessCmd:00000008 $d
+     /tmp/cc8JTfAW.s:34     .text.IWDG_SetPrescaler:00000000 $t
+     /tmp/cc8JTfAW.s:39     .text.IWDG_SetPrescaler:00000000 IWDG_SetPrescaler
+     /tmp/cc8JTfAW.s:49     .text.IWDG_SetPrescaler:00000008 $d
+     /tmp/cc8JTfAW.s:52     .text.IWDG_SetReload:00000000 $t
+     /tmp/cc8JTfAW.s:57     .text.IWDG_SetReload:00000000 IWDG_SetReload
+     /tmp/cc8JTfAW.s:67     .text.IWDG_SetReload:00000008 $d
+     /tmp/cc8JTfAW.s:70     .text.IWDG_ReloadCounter:00000000 $t
+     /tmp/cc8JTfAW.s:75     .text.IWDG_ReloadCounter:00000000 IWDG_ReloadCounter
+     /tmp/cc8JTfAW.s:86     .text.IWDG_ReloadCounter:0000000c $d
+     /tmp/cc8JTfAW.s:89     .text.IWDG_Enable:00000000 $t
+     /tmp/cc8JTfAW.s:94     .text.IWDG_Enable:00000000 IWDG_Enable
+     /tmp/cc8JTfAW.s:105    .text.IWDG_Enable:0000000c $d
+     /tmp/cc8JTfAW.s:108    .text.IWDG_GetFlagStatus:00000000 $t
+     /tmp/cc8JTfAW.s:113    .text.IWDG_GetFlagStatus:00000000 IWDG_GetFlagStatus
+     /tmp/cc8JTfAW.s:127    .text.IWDG_GetFlagStatus:00000010 $d
+
+NO UNDEFINED SYMBOLS

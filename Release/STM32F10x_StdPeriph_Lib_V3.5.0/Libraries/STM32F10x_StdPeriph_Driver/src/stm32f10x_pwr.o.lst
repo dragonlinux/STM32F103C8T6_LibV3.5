@@ -1,0 +1,237 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"stm32f10x_pwr.c"
+  15              		.section	.text.PWR_DeInit,"ax",%progbits
+  16              		.align	1
+  17              		.global	PWR_DeInit
+  18              		.thumb
+  19              		.thumb_func
+  21              	PWR_DeInit:
+  22              		@ args = 0, pretend = 0, frame = 0
+  23              		@ frame_needed = 0, uses_anonymous_args = 0
+  24 0000 0121     		movs	r1, #1
+  25 0002 08B5     		push	{r3, lr}
+  26 0004 4FF08050 		mov	r0, #268435456
+  27 0008 FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+  28 000c 4FF08050 		mov	r0, #268435456
+  29 0010 0021     		movs	r1, #0
+  30 0012 BDE80840 		pop	{r3, lr}
+  31 0016 FFF7FEBF 		b	RCC_APB1PeriphResetCmd
+  33              		.section	.text.PWR_BackupAccessCmd,"ax",%progbits
+  34              		.align	1
+  35              		.global	PWR_BackupAccessCmd
+  36              		.thumb
+  37              		.thumb_func
+  39              	PWR_BackupAccessCmd:
+  40              		@ args = 0, pretend = 0, frame = 0
+  41              		@ frame_needed = 0, uses_anonymous_args = 0
+  42              		@ link register save eliminated.
+  43 0000 014B     		ldr	r3, .L3
+  44 0002 1860     		str	r0, [r3, #0]
+  45 0004 7047     		bx	lr
+  46              	.L4:
+  47 0006 00BF     		.align	2
+  48              	.L3:
+  49 0008 20000E42 		.word	1108213792
+  51              		.section	.text.PWR_PVDCmd,"ax",%progbits
+  52              		.align	1
+  53              		.global	PWR_PVDCmd
+  54              		.thumb
+  55              		.thumb_func
+  57              	PWR_PVDCmd:
+  58              		@ args = 0, pretend = 0, frame = 0
+  59              		@ frame_needed = 0, uses_anonymous_args = 0
+  60              		@ link register save eliminated.
+  61 0000 014B     		ldr	r3, .L6
+  62 0002 1860     		str	r0, [r3, #0]
+  63 0004 7047     		bx	lr
+  64              	.L7:
+  65 0006 00BF     		.align	2
+  66              	.L6:
+  67 0008 10000E42 		.word	1108213776
+  69              		.section	.text.PWR_PVDLevelConfig,"ax",%progbits
+  70              		.align	1
+  71              		.global	PWR_PVDLevelConfig
+  72              		.thumb
+  73              		.thumb_func
+  75              	PWR_PVDLevelConfig:
+  76              		@ args = 0, pretend = 0, frame = 0
+  77              		@ frame_needed = 0, uses_anonymous_args = 0
+  78              		@ link register save eliminated.
+  79 0000 034B     		ldr	r3, .L9
+  80 0002 1A68     		ldr	r2, [r3, #0]
+  81 0004 22F0E002 		bic	r2, r2, #224
+  82 0008 1043     		orrs	r0, r0, r2
+  83 000a 1860     		str	r0, [r3, #0]
+  84 000c 7047     		bx	lr
+  85              	.L10:
+  86 000e 00BF     		.align	2
+  87              	.L9:
+  88 0010 00700040 		.word	1073770496
+  90              		.section	.text.PWR_WakeUpPinCmd,"ax",%progbits
+  91              		.align	1
+  92              		.global	PWR_WakeUpPinCmd
+  93              		.thumb
+  94              		.thumb_func
+  96              	PWR_WakeUpPinCmd:
+  97              		@ args = 0, pretend = 0, frame = 0
+  98              		@ frame_needed = 0, uses_anonymous_args = 0
+  99              		@ link register save eliminated.
+ 100 0000 014B     		ldr	r3, .L12
+ 101 0002 1860     		str	r0, [r3, #0]
+ 102 0004 7047     		bx	lr
+ 103              	.L13:
+ 104 0006 00BF     		.align	2
+ 105              	.L12:
+ 106 0008 A0000E42 		.word	1108213920
+ 108              		.section	.text.PWR_EnterSTOPMode,"ax",%progbits
+ 109              		.align	1
+ 110              		.global	PWR_EnterSTOPMode
+ 111              		.thumb
+ 112              		.thumb_func
+ 114              	PWR_EnterSTOPMode:
+ 115              		@ args = 0, pretend = 0, frame = 0
+ 116              		@ frame_needed = 0, uses_anonymous_args = 0
+ 117              		@ link register save eliminated.
+ 118 0000 0A4B     		ldr	r3, .L17
+ 119 0002 0129     		cmp	r1, #1
+ 120 0004 1A68     		ldr	r2, [r3, #0]
+ 121 0006 22F00302 		bic	r2, r2, #3
+ 122 000a 40EA0200 		orr	r0, r0, r2
+ 123 000e 1860     		str	r0, [r3, #0]
+ 124 0010 074B     		ldr	r3, .L17+4
+ 125 0012 1A69     		ldr	r2, [r3, #16]
+ 126 0014 42F00402 		orr	r2, r2, #4
+ 127 0018 1A61     		str	r2, [r3, #16]
+ 128 001a 01D1     		bne	.L15
+ 129              	@ 1211 "/home/dragon/workspace/STM32F103C8T6_LibV3.5/STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS
+ 130 001c 30BF     		wfi
+ 131              	@ 0 "" 2
+ 132              		.thumb
+ 133 001e 00E0     		b	.L16
+ 134              	.L15:
+ 135              	@ 1212 "/home/dragon/workspace/STM32F103C8T6_LibV3.5/STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS
+ 136 0020 20BF     		wfe
+ 137              	@ 0 "" 2
+ 138              		.thumb
+ 139              	.L16:
+ 140 0022 1A69     		ldr	r2, [r3, #16]
+ 141 0024 22F00402 		bic	r2, r2, #4
+ 142 0028 1A61     		str	r2, [r3, #16]
+ 143 002a 7047     		bx	lr
+ 144              	.L18:
+ 145              		.align	2
+ 146              	.L17:
+ 147 002c 00700040 		.word	1073770496
+ 148 0030 00ED00E0 		.word	-536810240
+ 150              		.section	.text.PWR_EnterSTANDBYMode,"ax",%progbits
+ 151              		.align	1
+ 152              		.global	PWR_EnterSTANDBYMode
+ 153              		.thumb
+ 154              		.thumb_func
+ 156              	PWR_EnterSTANDBYMode:
+ 157              		@ args = 0, pretend = 0, frame = 0
+ 158              		@ frame_needed = 0, uses_anonymous_args = 0
+ 159              		@ link register save eliminated.
+ 160 0000 074B     		ldr	r3, .L20
+ 161 0002 1A68     		ldr	r2, [r3, #0]
+ 162 0004 42F00402 		orr	r2, r2, #4
+ 163 0008 1A60     		str	r2, [r3, #0]
+ 164 000a 1A68     		ldr	r2, [r3, #0]
+ 165 000c 42F00202 		orr	r2, r2, #2
+ 166 0010 1A60     		str	r2, [r3, #0]
+ 167 0012 044B     		ldr	r3, .L20+4
+ 168 0014 1A69     		ldr	r2, [r3, #16]
+ 169 0016 42F00402 		orr	r2, r2, #4
+ 170 001a 1A61     		str	r2, [r3, #16]
+ 171              	@ 1211 "/home/dragon/workspace/STM32F103C8T6_LibV3.5/STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS
+ 172 001c 30BF     		wfi
+ 173              	@ 0 "" 2
+ 174              		.thumb
+ 175 001e 7047     		bx	lr
+ 176              	.L21:
+ 177              		.align	2
+ 178              	.L20:
+ 179 0020 00700040 		.word	1073770496
+ 180 0024 00ED00E0 		.word	-536810240
+ 182              		.section	.text.PWR_GetFlagStatus,"ax",%progbits
+ 183              		.align	1
+ 184              		.global	PWR_GetFlagStatus
+ 185              		.thumb
+ 186              		.thumb_func
+ 188              	PWR_GetFlagStatus:
+ 189              		@ args = 0, pretend = 0, frame = 0
+ 190              		@ frame_needed = 0, uses_anonymous_args = 0
+ 191              		@ link register save eliminated.
+ 192 0000 034B     		ldr	r3, .L23
+ 193 0002 5B68     		ldr	r3, [r3, #4]
+ 194 0004 1842     		tst	r0, r3
+ 195 0006 0CBF     		ite	eq
+ 196 0008 0020     		moveq	r0, #0
+ 197 000a 0120     		movne	r0, #1
+ 198 000c 7047     		bx	lr
+ 199              	.L24:
+ 200 000e 00BF     		.align	2
+ 201              	.L23:
+ 202 0010 00700040 		.word	1073770496
+ 204              		.section	.text.PWR_ClearFlag,"ax",%progbits
+ 205              		.align	1
+ 206              		.global	PWR_ClearFlag
+ 207              		.thumb
+ 208              		.thumb_func
+ 210              	PWR_ClearFlag:
+ 211              		@ args = 0, pretend = 0, frame = 0
+ 212              		@ frame_needed = 0, uses_anonymous_args = 0
+ 213              		@ link register save eliminated.
+ 214 0000 024B     		ldr	r3, .L26
+ 215 0002 1A68     		ldr	r2, [r3, #0]
+ 216 0004 42EA8000 		orr	r0, r2, r0, lsl #2
+ 217 0008 1860     		str	r0, [r3, #0]
+ 218 000a 7047     		bx	lr
+ 219              	.L27:
+ 220              		.align	2
+ 221              	.L26:
+ 222 000c 00700040 		.word	1073770496
+ 224              		.ident	"GCC: (Sourcery CodeBench Lite 2013.05-23) 4.7.3"
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f10x_pwr.c
+     /tmp/cclOwbGX.s:16     .text.PWR_DeInit:00000000 $t
+     /tmp/cclOwbGX.s:21     .text.PWR_DeInit:00000000 PWR_DeInit
+     /tmp/cclOwbGX.s:34     .text.PWR_BackupAccessCmd:00000000 $t
+     /tmp/cclOwbGX.s:39     .text.PWR_BackupAccessCmd:00000000 PWR_BackupAccessCmd
+     /tmp/cclOwbGX.s:49     .text.PWR_BackupAccessCmd:00000008 $d
+     /tmp/cclOwbGX.s:52     .text.PWR_PVDCmd:00000000 $t
+     /tmp/cclOwbGX.s:57     .text.PWR_PVDCmd:00000000 PWR_PVDCmd
+     /tmp/cclOwbGX.s:67     .text.PWR_PVDCmd:00000008 $d
+     /tmp/cclOwbGX.s:70     .text.PWR_PVDLevelConfig:00000000 $t
+     /tmp/cclOwbGX.s:75     .text.PWR_PVDLevelConfig:00000000 PWR_PVDLevelConfig
+     /tmp/cclOwbGX.s:88     .text.PWR_PVDLevelConfig:00000010 $d
+     /tmp/cclOwbGX.s:91     .text.PWR_WakeUpPinCmd:00000000 $t
+     /tmp/cclOwbGX.s:96     .text.PWR_WakeUpPinCmd:00000000 PWR_WakeUpPinCmd
+     /tmp/cclOwbGX.s:106    .text.PWR_WakeUpPinCmd:00000008 $d
+     /tmp/cclOwbGX.s:109    .text.PWR_EnterSTOPMode:00000000 $t
+     /tmp/cclOwbGX.s:114    .text.PWR_EnterSTOPMode:00000000 PWR_EnterSTOPMode
+     /tmp/cclOwbGX.s:147    .text.PWR_EnterSTOPMode:0000002c $d
+     /tmp/cclOwbGX.s:151    .text.PWR_EnterSTANDBYMode:00000000 $t
+     /tmp/cclOwbGX.s:156    .text.PWR_EnterSTANDBYMode:00000000 PWR_EnterSTANDBYMode
+     /tmp/cclOwbGX.s:179    .text.PWR_EnterSTANDBYMode:00000020 $d
+     /tmp/cclOwbGX.s:183    .text.PWR_GetFlagStatus:00000000 $t
+     /tmp/cclOwbGX.s:188    .text.PWR_GetFlagStatus:00000000 PWR_GetFlagStatus
+     /tmp/cclOwbGX.s:202    .text.PWR_GetFlagStatus:00000010 $d
+     /tmp/cclOwbGX.s:205    .text.PWR_ClearFlag:00000000 $t
+     /tmp/cclOwbGX.s:210    .text.PWR_ClearFlag:00000000 PWR_ClearFlag
+     /tmp/cclOwbGX.s:222    .text.PWR_ClearFlag:0000000c $d
+
+UNDEFINED SYMBOLS
+RCC_APB1PeriphResetCmd

@@ -1,0 +1,381 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"core_cm3.c"
+  15              		.section	.text.__get_PSP,"ax",%progbits
+  16              		.align	1
+  17              		.global	__get_PSP
+  18              		.thumb
+  19              		.thumb_func
+  21              	__get_PSP:
+  22              		@ Naked Function: prologue and epilogue provided by programmer.
+  23              		@ args = 0, pretend = 0, frame = 0
+  24              		@ frame_needed = 0, uses_anonymous_args = 0
+  25              	@ 442 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+  26 0000 EFF30980 		MRS r0, psp
+  27 0004 0046     		MOV r0, r0 
+  28 0006 7047     		BX  lr     
+  29              		
+  30              	@ 0 "" 2
+  31              		.thumb
+  33              		.section	.text.__set_PSP,"ax",%progbits
+  34              		.align	1
+  35              		.global	__set_PSP
+  36              		.thumb
+  37              		.thumb_func
+  39              	__set_PSP:
+  40              		@ Naked Function: prologue and epilogue provided by programmer.
+  41              		@ args = 0, pretend = 0, frame = 0
+  42              		@ frame_needed = 0, uses_anonymous_args = 0
+  43              	@ 459 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+  44 0000 80F30988 		MSR psp, r0
+  45 0004 7047     		BX  lr     
+  46              		
+  47              	@ 0 "" 2
+  48              		.thumb
+  50              		.section	.text.__get_MSP,"ax",%progbits
+  51              		.align	1
+  52              		.global	__get_MSP
+  53              		.thumb
+  54              		.thumb_func
+  56              	__get_MSP:
+  57              		@ Naked Function: prologue and epilogue provided by programmer.
+  58              		@ args = 0, pretend = 0, frame = 0
+  59              		@ frame_needed = 0, uses_anonymous_args = 0
+  60              	@ 476 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+  61 0000 EFF30880 		MRS r0, msp
+  62 0004 0046     		MOV r0, r0 
+  63 0006 7047     		BX  lr     
+  64              		
+  65              	@ 0 "" 2
+  66              		.thumb
+  68              		.section	.text.__set_MSP,"ax",%progbits
+  69              		.align	1
+  70              		.global	__set_MSP
+  71              		.thumb
+  72              		.thumb_func
+  74              	__set_MSP:
+  75              		@ Naked Function: prologue and epilogue provided by programmer.
+  76              		@ args = 0, pretend = 0, frame = 0
+  77              		@ frame_needed = 0, uses_anonymous_args = 0
+  78              	@ 493 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+  79 0000 80F30888 		MSR msp, r0
+  80 0004 7047     		BX  lr     
+  81              		
+  82              	@ 0 "" 2
+  83              		.thumb
+  85              		.section	.text.__get_BASEPRI,"ax",%progbits
+  86              		.align	1
+  87              		.global	__get_BASEPRI
+  88              		.thumb
+  89              		.thumb_func
+  91              	__get_BASEPRI:
+  92              		@ args = 0, pretend = 0, frame = 0
+  93              		@ frame_needed = 0, uses_anonymous_args = 0
+  94              		@ link register save eliminated.
+  95              	@ 508 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+  96 0000 EFF31280 		MRS r0, basepri_max
+  97              	@ 0 "" 2
+  98              		.thumb
+  99 0004 7047     		bx	lr
+ 101              		.section	.text.__set_BASEPRI,"ax",%progbits
+ 102              		.align	1
+ 103              		.global	__set_BASEPRI
+ 104              		.thumb
+ 105              		.thumb_func
+ 107              	__set_BASEPRI:
+ 108              		@ args = 0, pretend = 0, frame = 0
+ 109              		@ frame_needed = 0, uses_anonymous_args = 0
+ 110              		@ link register save eliminated.
+ 111              	@ 521 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 112 0000 80F31188 		MSR basepri, r0
+ 113              	@ 0 "" 2
+ 114              		.thumb
+ 115 0004 7047     		bx	lr
+ 117              		.section	.text.__get_PRIMASK,"ax",%progbits
+ 118              		.align	1
+ 119              		.global	__get_PRIMASK
+ 120              		.thumb
+ 121              		.thumb_func
+ 123              	__get_PRIMASK:
+ 124              		@ args = 0, pretend = 0, frame = 0
+ 125              		@ frame_needed = 0, uses_anonymous_args = 0
+ 126              		@ link register save eliminated.
+ 127              	@ 535 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 128 0000 EFF31080 		MRS r0, primask
+ 129              	@ 0 "" 2
+ 130              		.thumb
+ 131 0004 7047     		bx	lr
+ 133              		.section	.text.__set_PRIMASK,"ax",%progbits
+ 134              		.align	1
+ 135              		.global	__set_PRIMASK
+ 136              		.thumb
+ 137              		.thumb_func
+ 139              	__set_PRIMASK:
+ 140              		@ args = 0, pretend = 0, frame = 0
+ 141              		@ frame_needed = 0, uses_anonymous_args = 0
+ 142              		@ link register save eliminated.
+ 143              	@ 548 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 144 0000 80F31088 		MSR primask, r0
+ 145              	@ 0 "" 2
+ 146              		.thumb
+ 147 0004 7047     		bx	lr
+ 149              		.section	.text.__get_FAULTMASK,"ax",%progbits
+ 150              		.align	1
+ 151              		.global	__get_FAULTMASK
+ 152              		.thumb
+ 153              		.thumb_func
+ 155              	__get_FAULTMASK:
+ 156              		@ args = 0, pretend = 0, frame = 0
+ 157              		@ frame_needed = 0, uses_anonymous_args = 0
+ 158              		@ link register save eliminated.
+ 159              	@ 562 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 160 0000 EFF31380 		MRS r0, faultmask
+ 161              	@ 0 "" 2
+ 162              		.thumb
+ 163 0004 7047     		bx	lr
+ 165              		.section	.text.__set_FAULTMASK,"ax",%progbits
+ 166              		.align	1
+ 167              		.global	__set_FAULTMASK
+ 168              		.thumb
+ 169              		.thumb_func
+ 171              	__set_FAULTMASK:
+ 172              		@ args = 0, pretend = 0, frame = 0
+ 173              		@ frame_needed = 0, uses_anonymous_args = 0
+ 174              		@ link register save eliminated.
+ 175              	@ 575 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 176 0000 80F31388 		MSR faultmask, r0
+ 177              	@ 0 "" 2
+ 178              		.thumb
+ 179 0004 7047     		bx	lr
+ 181              		.section	.text.__get_CONTROL,"ax",%progbits
+ 182              		.align	1
+ 183              		.global	__get_CONTROL
+ 184              		.thumb
+ 185              		.thumb_func
+ 187              	__get_CONTROL:
+ 188              		@ args = 0, pretend = 0, frame = 0
+ 189              		@ frame_needed = 0, uses_anonymous_args = 0
+ 190              		@ link register save eliminated.
+ 191              	@ 589 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 192 0000 EFF31480 		MRS r0, control
+ 193              	@ 0 "" 2
+ 194              		.thumb
+ 195 0004 7047     		bx	lr
+ 197              		.section	.text.__set_CONTROL,"ax",%progbits
+ 198              		.align	1
+ 199              		.global	__set_CONTROL
+ 200              		.thumb
+ 201              		.thumb_func
+ 203              	__set_CONTROL:
+ 204              		@ args = 0, pretend = 0, frame = 0
+ 205              		@ frame_needed = 0, uses_anonymous_args = 0
+ 206              		@ link register save eliminated.
+ 207              	@ 602 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 208 0000 80F31488 		MSR control, r0
+ 209              	@ 0 "" 2
+ 210              		.thumb
+ 211 0004 7047     		bx	lr
+ 213              		.section	.text.__REV,"ax",%progbits
+ 214              		.align	1
+ 215              		.global	__REV
+ 216              		.thumb
+ 217              		.thumb_func
+ 219              	__REV:
+ 220              		@ args = 0, pretend = 0, frame = 0
+ 221              		@ frame_needed = 0, uses_anonymous_args = 0
+ 222              		@ link register save eliminated.
+ 223              	@ 617 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 224 0000 00BA     		rev r0, r0
+ 225              	@ 0 "" 2
+ 226              		.thumb
+ 227 0002 7047     		bx	lr
+ 229              		.section	.text.__REV16,"ax",%progbits
+ 230              		.align	1
+ 231              		.global	__REV16
+ 232              		.thumb
+ 233              		.thumb_func
+ 235              	__REV16:
+ 236              		@ args = 0, pretend = 0, frame = 0
+ 237              		@ frame_needed = 0, uses_anonymous_args = 0
+ 238              		@ link register save eliminated.
+ 239              	@ 633 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 240 0000 40BA     		rev16 r0, r0
+ 241              	@ 0 "" 2
+ 242              		.thumb
+ 243 0002 7047     		bx	lr
+ 245              		.section	.text.__REVSH,"ax",%progbits
+ 246              		.align	1
+ 247              		.global	__REVSH
+ 248              		.thumb
+ 249              		.thumb_func
+ 251              	__REVSH:
+ 252              		@ args = 0, pretend = 0, frame = 0
+ 253              		@ frame_needed = 0, uses_anonymous_args = 0
+ 254              		@ link register save eliminated.
+ 255              	@ 649 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 256 0000 C0BA     		revsh r0, r0
+ 257              	@ 0 "" 2
+ 258              		.thumb
+ 259 0002 7047     		bx	lr
+ 261              		.section	.text.__RBIT,"ax",%progbits
+ 262              		.align	1
+ 263              		.global	__RBIT
+ 264              		.thumb
+ 265              		.thumb_func
+ 267              	__RBIT:
+ 268              		@ args = 0, pretend = 0, frame = 0
+ 269              		@ frame_needed = 0, uses_anonymous_args = 0
+ 270              		@ link register save eliminated.
+ 271              	@ 665 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 272 0000 90FAA0F0 		rbit r0, r0
+ 273              	@ 0 "" 2
+ 274              		.thumb
+ 275 0004 7047     		bx	lr
+ 277              		.section	.text.__LDREXB,"ax",%progbits
+ 278              		.align	1
+ 279              		.global	__LDREXB
+ 280              		.thumb
+ 281              		.thumb_func
+ 283              	__LDREXB:
+ 284              		@ args = 0, pretend = 0, frame = 0
+ 285              		@ frame_needed = 0, uses_anonymous_args = 0
+ 286              		@ link register save eliminated.
+ 287              	@ 681 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 288 0000 D0E84F0F 		ldrexb r0, [r0]
+ 289              	@ 0 "" 2
+ 290              		.thumb
+ 291 0004 C0B2     		uxtb	r0, r0
+ 292 0006 7047     		bx	lr
+ 294              		.section	.text.__LDREXH,"ax",%progbits
+ 295              		.align	1
+ 296              		.global	__LDREXH
+ 297              		.thumb
+ 298              		.thumb_func
+ 300              	__LDREXH:
+ 301              		@ args = 0, pretend = 0, frame = 0
+ 302              		@ frame_needed = 0, uses_anonymous_args = 0
+ 303              		@ link register save eliminated.
+ 304              	@ 697 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 305 0000 D0E85F0F 		ldrexh r0, [r0]
+ 306              	@ 0 "" 2
+ 307              		.thumb
+ 308 0004 80B2     		uxth	r0, r0
+ 309 0006 7047     		bx	lr
+ 311              		.section	.text.__LDREXW,"ax",%progbits
+ 312              		.align	1
+ 313              		.global	__LDREXW
+ 314              		.thumb
+ 315              		.thumb_func
+ 317              	__LDREXW:
+ 318              		@ args = 0, pretend = 0, frame = 0
+ 319              		@ frame_needed = 0, uses_anonymous_args = 0
+ 320              		@ link register save eliminated.
+ 321              	@ 713 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 322 0000 50E8000F 		ldrex r0, [r0]
+ 323              	@ 0 "" 2
+ 324              		.thumb
+ 325 0004 7047     		bx	lr
+ 327              		.section	.text.__STREXB,"ax",%progbits
+ 328              		.align	1
+ 329              		.global	__STREXB
+ 330              		.thumb
+ 331              		.thumb_func
+ 333              	__STREXB:
+ 334              		@ args = 0, pretend = 0, frame = 0
+ 335              		@ frame_needed = 0, uses_anonymous_args = 0
+ 336              		@ link register save eliminated.
+ 337              	@ 740 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 338 0000 C1E8430F 		strexb r3, r0, [r1]
+ 339              	@ 0 "" 2
+ 340              		.thumb
+ 341 0004 1846     		mov	r0, r3
+ 342 0006 7047     		bx	lr
+ 344              		.section	.text.__STREXH,"ax",%progbits
+ 345              		.align	1
+ 346              		.global	__STREXH
+ 347              		.thumb
+ 348              		.thumb_func
+ 350              	__STREXH:
+ 351              		@ args = 0, pretend = 0, frame = 0
+ 352              		@ frame_needed = 0, uses_anonymous_args = 0
+ 353              		@ link register save eliminated.
+ 354              	@ 762 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 355 0000 C1E8530F 		strexh r3, r0, [r1]
+ 356              	@ 0 "" 2
+ 357              		.thumb
+ 358 0004 1846     		mov	r0, r3
+ 359 0006 7047     		bx	lr
+ 361              		.section	.text.__STREXW,"ax",%progbits
+ 362              		.align	1
+ 363              		.global	__STREXW
+ 364              		.thumb
+ 365              		.thumb_func
+ 367              	__STREXW:
+ 368              		@ args = 0, pretend = 0, frame = 0
+ 369              		@ frame_needed = 0, uses_anonymous_args = 0
+ 370              		@ link register save eliminated.
+ 371              	@ 780 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 372 0000 41E80000 		strex r0, r0, [r1]
+ 373              	@ 0 "" 2
+ 374              		.thumb
+ 375 0004 7047     		bx	lr
+ 377              		.ident	"GCC: (Sourcery CodeBench Lite 2013.05-23) 4.7.3"
+DEFINED SYMBOLS
+                            *ABS*:00000000 core_cm3.c
+     /tmp/cc57m9aP.s:16     .text.__get_PSP:00000000 $t
+     /tmp/cc57m9aP.s:21     .text.__get_PSP:00000000 __get_PSP
+     /tmp/cc57m9aP.s:34     .text.__set_PSP:00000000 $t
+     /tmp/cc57m9aP.s:39     .text.__set_PSP:00000000 __set_PSP
+     /tmp/cc57m9aP.s:51     .text.__get_MSP:00000000 $t
+     /tmp/cc57m9aP.s:56     .text.__get_MSP:00000000 __get_MSP
+     /tmp/cc57m9aP.s:69     .text.__set_MSP:00000000 $t
+     /tmp/cc57m9aP.s:74     .text.__set_MSP:00000000 __set_MSP
+     /tmp/cc57m9aP.s:86     .text.__get_BASEPRI:00000000 $t
+     /tmp/cc57m9aP.s:91     .text.__get_BASEPRI:00000000 __get_BASEPRI
+     /tmp/cc57m9aP.s:102    .text.__set_BASEPRI:00000000 $t
+     /tmp/cc57m9aP.s:107    .text.__set_BASEPRI:00000000 __set_BASEPRI
+     /tmp/cc57m9aP.s:118    .text.__get_PRIMASK:00000000 $t
+     /tmp/cc57m9aP.s:123    .text.__get_PRIMASK:00000000 __get_PRIMASK
+     /tmp/cc57m9aP.s:134    .text.__set_PRIMASK:00000000 $t
+     /tmp/cc57m9aP.s:139    .text.__set_PRIMASK:00000000 __set_PRIMASK
+     /tmp/cc57m9aP.s:150    .text.__get_FAULTMASK:00000000 $t
+     /tmp/cc57m9aP.s:155    .text.__get_FAULTMASK:00000000 __get_FAULTMASK
+     /tmp/cc57m9aP.s:166    .text.__set_FAULTMASK:00000000 $t
+     /tmp/cc57m9aP.s:171    .text.__set_FAULTMASK:00000000 __set_FAULTMASK
+     /tmp/cc57m9aP.s:182    .text.__get_CONTROL:00000000 $t
+     /tmp/cc57m9aP.s:187    .text.__get_CONTROL:00000000 __get_CONTROL
+     /tmp/cc57m9aP.s:198    .text.__set_CONTROL:00000000 $t
+     /tmp/cc57m9aP.s:203    .text.__set_CONTROL:00000000 __set_CONTROL
+     /tmp/cc57m9aP.s:214    .text.__REV:00000000 $t
+     /tmp/cc57m9aP.s:219    .text.__REV:00000000 __REV
+     /tmp/cc57m9aP.s:230    .text.__REV16:00000000 $t
+     /tmp/cc57m9aP.s:235    .text.__REV16:00000000 __REV16
+     /tmp/cc57m9aP.s:246    .text.__REVSH:00000000 $t
+     /tmp/cc57m9aP.s:251    .text.__REVSH:00000000 __REVSH
+     /tmp/cc57m9aP.s:262    .text.__RBIT:00000000 $t
+     /tmp/cc57m9aP.s:267    .text.__RBIT:00000000 __RBIT
+     /tmp/cc57m9aP.s:278    .text.__LDREXB:00000000 $t
+     /tmp/cc57m9aP.s:283    .text.__LDREXB:00000000 __LDREXB
+     /tmp/cc57m9aP.s:295    .text.__LDREXH:00000000 $t
+     /tmp/cc57m9aP.s:300    .text.__LDREXH:00000000 __LDREXH
+     /tmp/cc57m9aP.s:312    .text.__LDREXW:00000000 $t
+     /tmp/cc57m9aP.s:317    .text.__LDREXW:00000000 __LDREXW
+     /tmp/cc57m9aP.s:328    .text.__STREXB:00000000 $t
+     /tmp/cc57m9aP.s:333    .text.__STREXB:00000000 __STREXB
+     /tmp/cc57m9aP.s:345    .text.__STREXH:00000000 $t
+     /tmp/cc57m9aP.s:350    .text.__STREXH:00000000 __STREXH
+     /tmp/cc57m9aP.s:362    .text.__STREXW:00000000 $t
+     /tmp/cc57m9aP.s:367    .text.__STREXW:00000000 __STREXW
+
+NO UNDEFINED SYMBOLS

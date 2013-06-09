@@ -1,0 +1,1330 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"newlibSerialNeedToUse.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.global	__env
+  19              		.section	.bss.__env,"aw",%nobits
+  20              		.align	2
+  23              	__env:
+  24 0000 00000000 		.space	4
+  25              		.global	environ
+  26              		.section	.data.environ,"aw",%progbits
+  27              		.align	2
+  30              	environ:
+  31 0000 00000000 		.word	__env
+  32              		.section	.rodata
+  33              		.align	2
+  34              	.LC0:
+  35 0000 65786974 		.ascii	"exit\000"
+  35      00
+  36              		.section	.text._exit,"ax",%progbits
+  37              		.align	2
+  38              		.global	_exit
+  39              		.thumb
+  40              		.thumb_func
+  42              	_exit:
+  43              	.LFB29:
+  44              		.file 1 "../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c"
+   1:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** /*
+   2:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  * newlib_stubs.c
+   3:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  *
+   4:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  *  Created on: 2 Nov 2010
+   5:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  *      Author: nanoage.co.uk
+   6:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  *
+   7:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  * source: https://sites.google.com/site/stm32discovery/
+   8:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  * 	open-source-development-with-the-stm32-discovery/
+   9:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  * 	getting-newlib-to-work-with-stm32-and-code-sourcery-lite-eabi
+  10:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  *
+  11:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  */
+  12:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #include <errno.h>
+  13:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #include <sys/stat.h>
+  14:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #include <sys/times.h>
+  15:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #include <sys/unistd.h>
+  16:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #include "stm32f10x_usart.h"
+  17:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+  18:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #ifndef STDOUT_USART
+  19:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #define STDOUT_USART 1
+  20:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #endif
+  21:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+  22:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #ifndef STDERR_USART
+  23:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #define STDERR_USART 2
+  24:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #endif
+  25:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+  26:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #ifndef STDIN_USART
+  27:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #define STDIN_USART 2
+  28:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #endif
+  29:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+  30:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #undef errno
+  31:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** extern int errno;
+  32:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+  33:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** /*
+  34:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  environ
+  35:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  A pointer to a list of environment variables and their values.
+  36:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  For a minimal environment, this empty list is adequate:
+  37:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  */
+  38:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** char *__env[1] =
+  39:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** { 0 };
+  40:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** char **environ = __env;
+  41:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+  42:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** int _write(int file, char *ptr, int len);
+  43:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+  44:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** void _exit(int status)
+  45:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** {
+  45              		.loc 1 45 0
+  46              		.cfi_startproc
+  47              		@ args = 0, pretend = 0, frame = 8
+  48              		@ frame_needed = 1, uses_anonymous_args = 0
+  49 0000 80B5     		push	{r7, lr}
+  50              	.LCFI0:
+  51              		.cfi_def_cfa_offset 8
+  52              		.cfi_offset 7, -8
+  53              		.cfi_offset 14, -4
+  54 0002 82B0     		sub	sp, sp, #8
+  55              	.LCFI1:
+  56              		.cfi_def_cfa_offset 16
+  57 0004 00AF     		add	r7, sp, #0
+  58              	.LCFI2:
+  59              		.cfi_def_cfa_register 7
+  60 0006 7860     		str	r0, [r7, #4]
+  46:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	_write(1, "exit", 4);
+  61              		.loc 1 46 0
+  62 0008 4FF00100 		mov	r0, #1
+  63 000c 0249     		ldr	r1, .L3
+  64 000e 4FF00402 		mov	r2, #4
+  65 0012 FFF7FEFF 		bl	_write
+  66              	.L2:
+  47:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	while (1)
+  48:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	{
+  49:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 		;
+  50:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	}
+  67              		.loc 1 50 0 discriminator 1
+  68 0016 FEE7     		b	.L2
+  69              	.L4:
+  70              		.align	2
+  71              	.L3:
+  72 0018 00000000 		.word	.LC0
+  73              		.cfi_endproc
+  74              	.LFE29:
+  76              		.section	.text._close,"ax",%progbits
+  77              		.align	2
+  78              		.global	_close
+  79              		.thumb
+  80              		.thumb_func
+  82              	_close:
+  83              	.LFB30:
+  51:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** }
+  52:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+  53:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** int _close(int file)
+  54:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** {
+  84              		.loc 1 54 0
+  85              		.cfi_startproc
+  86              		@ args = 0, pretend = 0, frame = 8
+  87              		@ frame_needed = 1, uses_anonymous_args = 0
+  88              		@ link register save eliminated.
+  89 0000 80B4     		push	{r7}
+  90              	.LCFI3:
+  91              		.cfi_def_cfa_offset 4
+  92              		.cfi_offset 7, -4
+  93 0002 83B0     		sub	sp, sp, #12
+  94              	.LCFI4:
+  95              		.cfi_def_cfa_offset 16
+  96 0004 00AF     		add	r7, sp, #0
+  97              	.LCFI5:
+  98              		.cfi_def_cfa_register 7
+  99 0006 7860     		str	r0, [r7, #4]
+  55:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	return -1;
+ 100              		.loc 1 55 0
+ 101 0008 4FF0FF33 		mov	r3, #-1
+  56:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** }
+ 102              		.loc 1 56 0
+ 103 000c 1846     		mov	r0, r3
+ 104 000e 07F10C07 		add	r7, r7, #12
+ 105 0012 BD46     		mov	sp, r7
+ 106 0014 80BC     		pop	{r7}
+ 107 0016 7047     		bx	lr
+ 108              		.cfi_endproc
+ 109              	.LFE30:
+ 111              		.section	.text._execve,"ax",%progbits
+ 112              		.align	2
+ 113              		.global	_execve
+ 114              		.thumb
+ 115              		.thumb_func
+ 117              	_execve:
+ 118              	.LFB31:
+  57:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** /*
+  58:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  execve
+  59:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  Transfer control to a new process. Minimal implementation (for a system without processes):
+  60:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  */
+  61:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** int _execve(char *name, char **argv, char **env)
+  62:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** {
+ 119              		.loc 1 62 0
+ 120              		.cfi_startproc
+ 121              		@ args = 0, pretend = 0, frame = 16
+ 122              		@ frame_needed = 1, uses_anonymous_args = 0
+ 123              		@ link register save eliminated.
+ 124 0000 80B4     		push	{r7}
+ 125              	.LCFI6:
+ 126              		.cfi_def_cfa_offset 4
+ 127              		.cfi_offset 7, -4
+ 128 0002 85B0     		sub	sp, sp, #20
+ 129              	.LCFI7:
+ 130              		.cfi_def_cfa_offset 24
+ 131 0004 00AF     		add	r7, sp, #0
+ 132              	.LCFI8:
+ 133              		.cfi_def_cfa_register 7
+ 134 0006 F860     		str	r0, [r7, #12]
+ 135 0008 B960     		str	r1, [r7, #8]
+ 136 000a 7A60     		str	r2, [r7, #4]
+  63:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	errno = ENOMEM;
+ 137              		.loc 1 63 0
+ 138 000c 054B     		ldr	r3, .L9
+ 139 000e 4FF00C02 		mov	r2, #12
+ 140 0012 1A60     		str	r2, [r3, #0]
+  64:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	return -1;
+ 141              		.loc 1 64 0
+ 142 0014 4FF0FF33 		mov	r3, #-1
+  65:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** }
+ 143              		.loc 1 65 0
+ 144 0018 1846     		mov	r0, r3
+ 145 001a 07F11407 		add	r7, r7, #20
+ 146 001e BD46     		mov	sp, r7
+ 147 0020 80BC     		pop	{r7}
+ 148 0022 7047     		bx	lr
+ 149              	.L10:
+ 150              		.align	2
+ 151              	.L9:
+ 152 0024 00000000 		.word	errno
+ 153              		.cfi_endproc
+ 154              	.LFE31:
+ 156              		.section	.text._fork,"ax",%progbits
+ 157              		.align	2
+ 158              		.global	_fork
+ 159              		.thumb
+ 160              		.thumb_func
+ 162              	_fork:
+ 163              	.LFB32:
+  66:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** /*
+  67:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  fork
+  68:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  Create a new process. Minimal implementation (for a system without processes):
+  69:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  */
+  70:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+  71:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** int _fork()
+  72:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** {
+ 164              		.loc 1 72 0
+ 165              		.cfi_startproc
+ 166              		@ args = 0, pretend = 0, frame = 0
+ 167              		@ frame_needed = 1, uses_anonymous_args = 0
+ 168              		@ link register save eliminated.
+ 169 0000 80B4     		push	{r7}
+ 170              	.LCFI9:
+ 171              		.cfi_def_cfa_offset 4
+ 172              		.cfi_offset 7, -4
+ 173 0002 00AF     		add	r7, sp, #0
+ 174              	.LCFI10:
+ 175              		.cfi_def_cfa_register 7
+  73:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	errno = EAGAIN;
+ 176              		.loc 1 73 0
+ 177 0004 044B     		ldr	r3, .L13
+ 178 0006 4FF00B02 		mov	r2, #11
+ 179 000a 1A60     		str	r2, [r3, #0]
+  74:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	return -1;
+ 180              		.loc 1 74 0
+ 181 000c 4FF0FF33 		mov	r3, #-1
+  75:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** }
+ 182              		.loc 1 75 0
+ 183 0010 1846     		mov	r0, r3
+ 184 0012 BD46     		mov	sp, r7
+ 185 0014 80BC     		pop	{r7}
+ 186 0016 7047     		bx	lr
+ 187              	.L14:
+ 188              		.align	2
+ 189              	.L13:
+ 190 0018 00000000 		.word	errno
+ 191              		.cfi_endproc
+ 192              	.LFE32:
+ 194              		.section	.text._fstat,"ax",%progbits
+ 195              		.align	2
+ 196              		.global	_fstat
+ 197              		.thumb
+ 198              		.thumb_func
+ 200              	_fstat:
+ 201              	.LFB33:
+  76:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** /*
+  77:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  fstat
+  78:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  Status of an open file. For consistency with other minimal implementations in these examples,
+  79:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  all files are regarded as character special devices.
+  80:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  The `sys/stat.h' header file required is distributed in the `include' subdirectory for this C libr
+  81:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  */
+  82:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** int _fstat(int file, struct stat *st)
+  83:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** {
+ 202              		.loc 1 83 0
+ 203              		.cfi_startproc
+ 204              		@ args = 0, pretend = 0, frame = 8
+ 205              		@ frame_needed = 1, uses_anonymous_args = 0
+ 206              		@ link register save eliminated.
+ 207 0000 80B4     		push	{r7}
+ 208              	.LCFI11:
+ 209              		.cfi_def_cfa_offset 4
+ 210              		.cfi_offset 7, -4
+ 211 0002 83B0     		sub	sp, sp, #12
+ 212              	.LCFI12:
+ 213              		.cfi_def_cfa_offset 16
+ 214 0004 00AF     		add	r7, sp, #0
+ 215              	.LCFI13:
+ 216              		.cfi_def_cfa_register 7
+ 217 0006 7860     		str	r0, [r7, #4]
+ 218 0008 3960     		str	r1, [r7, #0]
+  84:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	st->st_mode = S_IFCHR;
+ 219              		.loc 1 84 0
+ 220 000a 3B68     		ldr	r3, [r7, #0]
+ 221 000c 4FF40052 		mov	r2, #8192
+ 222 0010 5A60     		str	r2, [r3, #4]
+  85:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	return 0;
+ 223              		.loc 1 85 0
+ 224 0012 4FF00003 		mov	r3, #0
+  86:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** }
+ 225              		.loc 1 86 0
+ 226 0016 1846     		mov	r0, r3
+ 227 0018 07F10C07 		add	r7, r7, #12
+ 228 001c BD46     		mov	sp, r7
+ 229 001e 80BC     		pop	{r7}
+ 230 0020 7047     		bx	lr
+ 231              		.cfi_endproc
+ 232              	.LFE33:
+ 234 0022 00BF     		.section	.text._getpid,"ax",%progbits
+ 235              		.align	2
+ 236              		.global	_getpid
+ 237              		.thumb
+ 238              		.thumb_func
+ 240              	_getpid:
+ 241              	.LFB34:
+  87:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+  88:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** /*
+  89:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  getpid
+  90:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  Process-ID; this is sometimes used to generate strings unlikely to conflict with other processes. 
+  91:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  */
+  92:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+  93:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** int _getpid()
+  94:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** {
+ 242              		.loc 1 94 0
+ 243              		.cfi_startproc
+ 244              		@ args = 0, pretend = 0, frame = 0
+ 245              		@ frame_needed = 1, uses_anonymous_args = 0
+ 246              		@ link register save eliminated.
+ 247 0000 80B4     		push	{r7}
+ 248              	.LCFI14:
+ 249              		.cfi_def_cfa_offset 4
+ 250              		.cfi_offset 7, -4
+ 251 0002 00AF     		add	r7, sp, #0
+ 252              	.LCFI15:
+ 253              		.cfi_def_cfa_register 7
+  95:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	return 1;
+ 254              		.loc 1 95 0
+ 255 0004 4FF00103 		mov	r3, #1
+  96:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** }
+ 256              		.loc 1 96 0
+ 257 0008 1846     		mov	r0, r3
+ 258 000a BD46     		mov	sp, r7
+ 259 000c 80BC     		pop	{r7}
+ 260 000e 7047     		bx	lr
+ 261              		.cfi_endproc
+ 262              	.LFE34:
+ 264              		.section	.text._isatty,"ax",%progbits
+ 265              		.align	2
+ 266              		.global	_isatty
+ 267              		.thumb
+ 268              		.thumb_func
+ 270              	_isatty:
+ 271              	.LFB35:
+  97:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+  98:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** /*
+  99:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  isatty
+ 100:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  Query whether output stream is a terminal. For consistency with the other minimal implementations,
+ 101:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  */
+ 102:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** int _isatty(int file)
+ 103:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** {
+ 272              		.loc 1 103 0
+ 273              		.cfi_startproc
+ 274              		@ args = 0, pretend = 0, frame = 8
+ 275              		@ frame_needed = 1, uses_anonymous_args = 0
+ 276              		@ link register save eliminated.
+ 277 0000 80B4     		push	{r7}
+ 278              	.LCFI16:
+ 279              		.cfi_def_cfa_offset 4
+ 280              		.cfi_offset 7, -4
+ 281 0002 83B0     		sub	sp, sp, #12
+ 282              	.LCFI17:
+ 283              		.cfi_def_cfa_offset 16
+ 284 0004 00AF     		add	r7, sp, #0
+ 285              	.LCFI18:
+ 286              		.cfi_def_cfa_register 7
+ 287 0006 7860     		str	r0, [r7, #4]
+ 104:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	switch (file)
+ 288              		.loc 1 104 0
+ 289 0008 7B68     		ldr	r3, [r7, #4]
+ 290 000a 03F10003 		add	r3, r3, #0
+ 291 000e 022B     		cmp	r3, #2
+ 292 0010 02D8     		bhi	.L20
+ 105:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	{
+ 106:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	case STDOUT_FILENO:
+ 107:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	case STDERR_FILENO:
+ 108:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	case STDIN_FILENO:
+ 109:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 		return 1;
+ 293              		.loc 1 109 0
+ 294 0012 4FF00103 		mov	r3, #1
+ 295 0016 05E0     		b	.L22
+ 296              	.L20:
+ 110:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	default:
+ 111:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 		//errno = ENOTTY;
+ 112:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 		errno = EBADF;
+ 297              		.loc 1 112 0
+ 298 0018 054B     		ldr	r3, .L23
+ 299 001a 4FF00902 		mov	r2, #9
+ 300 001e 1A60     		str	r2, [r3, #0]
+ 113:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 		return 0;
+ 301              		.loc 1 113 0
+ 302 0020 4FF00003 		mov	r3, #0
+ 303              	.L22:
+ 114:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	}
+ 115:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** }
+ 304              		.loc 1 115 0
+ 305 0024 1846     		mov	r0, r3
+ 306 0026 07F10C07 		add	r7, r7, #12
+ 307 002a BD46     		mov	sp, r7
+ 308 002c 80BC     		pop	{r7}
+ 309 002e 7047     		bx	lr
+ 310              	.L24:
+ 311              		.align	2
+ 312              	.L23:
+ 313 0030 00000000 		.word	errno
+ 314              		.cfi_endproc
+ 315              	.LFE35:
+ 317              		.section	.text._kill,"ax",%progbits
+ 318              		.align	2
+ 319              		.global	_kill
+ 320              		.thumb
+ 321              		.thumb_func
+ 323              	_kill:
+ 324              	.LFB36:
+ 116:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+ 117:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** /*
+ 118:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  kill
+ 119:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  Send a signal. Minimal implementation:
+ 120:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  */
+ 121:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** int _kill(int pid, int sig)
+ 122:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** {
+ 325              		.loc 1 122 0
+ 326              		.cfi_startproc
+ 327              		@ args = 0, pretend = 0, frame = 8
+ 328              		@ frame_needed = 1, uses_anonymous_args = 0
+ 329              		@ link register save eliminated.
+ 330 0000 80B4     		push	{r7}
+ 331              	.LCFI19:
+ 332              		.cfi_def_cfa_offset 4
+ 333              		.cfi_offset 7, -4
+ 334 0002 83B0     		sub	sp, sp, #12
+ 335              	.LCFI20:
+ 336              		.cfi_def_cfa_offset 16
+ 337 0004 00AF     		add	r7, sp, #0
+ 338              	.LCFI21:
+ 339              		.cfi_def_cfa_register 7
+ 340 0006 7860     		str	r0, [r7, #4]
+ 341 0008 3960     		str	r1, [r7, #0]
+ 123:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	errno = EINVAL;
+ 342              		.loc 1 123 0
+ 343 000a 064B     		ldr	r3, .L27
+ 344 000c 4FF01602 		mov	r2, #22
+ 345 0010 1A60     		str	r2, [r3, #0]
+ 124:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	return (-1);
+ 346              		.loc 1 124 0
+ 347 0012 4FF0FF33 		mov	r3, #-1
+ 125:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** }
+ 348              		.loc 1 125 0
+ 349 0016 1846     		mov	r0, r3
+ 350 0018 07F10C07 		add	r7, r7, #12
+ 351 001c BD46     		mov	sp, r7
+ 352 001e 80BC     		pop	{r7}
+ 353 0020 7047     		bx	lr
+ 354              	.L28:
+ 355 0022 00BF     		.align	2
+ 356              	.L27:
+ 357 0024 00000000 		.word	errno
+ 358              		.cfi_endproc
+ 359              	.LFE36:
+ 361              		.section	.text._link,"ax",%progbits
+ 362              		.align	2
+ 363              		.global	_link
+ 364              		.thumb
+ 365              		.thumb_func
+ 367              	_link:
+ 368              	.LFB37:
+ 126:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+ 127:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** /*
+ 128:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  link
+ 129:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  Establish a new name for an existing file. Minimal implementation:
+ 130:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  */
+ 131:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+ 132:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** int _link(char *old, char *new)
+ 133:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** {
+ 369              		.loc 1 133 0
+ 370              		.cfi_startproc
+ 371              		@ args = 0, pretend = 0, frame = 8
+ 372              		@ frame_needed = 1, uses_anonymous_args = 0
+ 373              		@ link register save eliminated.
+ 374 0000 80B4     		push	{r7}
+ 375              	.LCFI22:
+ 376              		.cfi_def_cfa_offset 4
+ 377              		.cfi_offset 7, -4
+ 378 0002 83B0     		sub	sp, sp, #12
+ 379              	.LCFI23:
+ 380              		.cfi_def_cfa_offset 16
+ 381 0004 00AF     		add	r7, sp, #0
+ 382              	.LCFI24:
+ 383              		.cfi_def_cfa_register 7
+ 384 0006 7860     		str	r0, [r7, #4]
+ 385 0008 3960     		str	r1, [r7, #0]
+ 134:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	errno = EMLINK;
+ 386              		.loc 1 134 0
+ 387 000a 064B     		ldr	r3, .L31
+ 388 000c 4FF01F02 		mov	r2, #31
+ 389 0010 1A60     		str	r2, [r3, #0]
+ 135:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	return -1;
+ 390              		.loc 1 135 0
+ 391 0012 4FF0FF33 		mov	r3, #-1
+ 136:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** }
+ 392              		.loc 1 136 0
+ 393 0016 1846     		mov	r0, r3
+ 394 0018 07F10C07 		add	r7, r7, #12
+ 395 001c BD46     		mov	sp, r7
+ 396 001e 80BC     		pop	{r7}
+ 397 0020 7047     		bx	lr
+ 398              	.L32:
+ 399 0022 00BF     		.align	2
+ 400              	.L31:
+ 401 0024 00000000 		.word	errno
+ 402              		.cfi_endproc
+ 403              	.LFE37:
+ 405              		.section	.text._lseek,"ax",%progbits
+ 406              		.align	2
+ 407              		.global	_lseek
+ 408              		.thumb
+ 409              		.thumb_func
+ 411              	_lseek:
+ 412              	.LFB38:
+ 137:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+ 138:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** /*
+ 139:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  lseek
+ 140:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  Set position in a file. Minimal implementation:
+ 141:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  */
+ 142:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** int _lseek(int file, int ptr, int dir)
+ 143:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** {
+ 413              		.loc 1 143 0
+ 414              		.cfi_startproc
+ 415              		@ args = 0, pretend = 0, frame = 16
+ 416              		@ frame_needed = 1, uses_anonymous_args = 0
+ 417              		@ link register save eliminated.
+ 418 0000 80B4     		push	{r7}
+ 419              	.LCFI25:
+ 420              		.cfi_def_cfa_offset 4
+ 421              		.cfi_offset 7, -4
+ 422 0002 85B0     		sub	sp, sp, #20
+ 423              	.LCFI26:
+ 424              		.cfi_def_cfa_offset 24
+ 425 0004 00AF     		add	r7, sp, #0
+ 426              	.LCFI27:
+ 427              		.cfi_def_cfa_register 7
+ 428 0006 F860     		str	r0, [r7, #12]
+ 429 0008 B960     		str	r1, [r7, #8]
+ 430 000a 7A60     		str	r2, [r7, #4]
+ 144:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	return 0;
+ 431              		.loc 1 144 0
+ 432 000c 4FF00003 		mov	r3, #0
+ 145:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** }
+ 433              		.loc 1 145 0
+ 434 0010 1846     		mov	r0, r3
+ 435 0012 07F11407 		add	r7, r7, #20
+ 436 0016 BD46     		mov	sp, r7
+ 437 0018 80BC     		pop	{r7}
+ 438 001a 7047     		bx	lr
+ 439              		.cfi_endproc
+ 440              	.LFE38:
+ 442              		.section	.rodata
+ 443 0005 000000   		.align	2
+ 444              	.LC1:
+ 445 0008 48656170 		.ascii	"Heap and stack collision\012\000"
+ 445      20616E64 
+ 445      20737461 
+ 445      636B2063 
+ 445      6F6C6C69 
+ 446 0022 0000     		.section	.text._sbrk,"ax",%progbits
+ 447              		.align	2
+ 448              		.global	_sbrk
+ 449              		.thumb
+ 450              		.thumb_func
+ 452              	_sbrk:
+ 453              	.LFB39:
+ 146:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+ 147:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** /*
+ 148:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  sbrk
+ 149:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  Increase program data space.
+ 150:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  Malloc and related functions depend on this
+ 151:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  */
+ 152:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** caddr_t _sbrk(int incr)
+ 153:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** {
+ 454              		.loc 1 153 0
+ 455              		.cfi_startproc
+ 456              		@ args = 0, pretend = 0, frame = 16
+ 457              		@ frame_needed = 1, uses_anonymous_args = 0
+ 458 0000 80B5     		push	{r7, lr}
+ 459              	.LCFI28:
+ 460              		.cfi_def_cfa_offset 8
+ 461              		.cfi_offset 7, -8
+ 462              		.cfi_offset 14, -4
+ 463 0002 84B0     		sub	sp, sp, #16
+ 464              	.LCFI29:
+ 465              		.cfi_def_cfa_offset 24
+ 466 0004 00AF     		add	r7, sp, #0
+ 467              	.LCFI30:
+ 468              		.cfi_def_cfa_register 7
+ 469 0006 7860     		str	r0, [r7, #4]
+ 154:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+ 155:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	extern char _ebss; // Defined by the linker
+ 156:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	static char *heap_end;
+ 157:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	char *prev_heap_end;
+ 158:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+ 159:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	if (heap_end == 0)
+ 470              		.loc 1 159 0
+ 471 0008 174B     		ldr	r3, .L39
+ 472 000a 1B68     		ldr	r3, [r3, #0]
+ 473 000c 002B     		cmp	r3, #0
+ 474 000e 02D1     		bne	.L36
+ 160:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	{
+ 161:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 		heap_end = &_ebss;
+ 475              		.loc 1 161 0
+ 476 0010 154B     		ldr	r3, .L39
+ 477 0012 164A     		ldr	r2, .L39+4
+ 478 0014 1A60     		str	r2, [r3, #0]
+ 479              	.L36:
+ 162:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	}
+ 163:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	prev_heap_end = heap_end;
+ 480              		.loc 1 163 0
+ 481 0016 144B     		ldr	r3, .L39
+ 482 0018 1B68     		ldr	r3, [r3, #0]
+ 483 001a FB60     		str	r3, [r7, #12]
+ 164:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+ 165:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	char * stack = (char*) __get_MSP();
+ 484              		.loc 1 165 0
+ 485 001c FFF7FEFF 		bl	__get_MSP
+ 486 0020 0346     		mov	r3, r0
+ 487 0022 BB60     		str	r3, [r7, #8]
+ 166:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	if (heap_end + incr > stack)
+ 488              		.loc 1 166 0
+ 489 0024 104B     		ldr	r3, .L39
+ 490 0026 1A68     		ldr	r2, [r3, #0]
+ 491 0028 7B68     		ldr	r3, [r7, #4]
+ 492 002a D218     		adds	r2, r2, r3
+ 493 002c BB68     		ldr	r3, [r7, #8]
+ 494 002e 9A42     		cmp	r2, r3
+ 495 0030 0DD9     		bls	.L37
+ 167:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	{
+ 168:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 		_write(STDERR_FILENO, "Heap and stack collision\n", 25);
+ 496              		.loc 1 168 0
+ 497 0032 4FF00200 		mov	r0, #2
+ 498 0036 0E49     		ldr	r1, .L39+8
+ 499 0038 4FF01902 		mov	r2, #25
+ 500 003c FFF7FEFF 		bl	_write
+ 169:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 		errno = ENOMEM;
+ 501              		.loc 1 169 0
+ 502 0040 0C4B     		ldr	r3, .L39+12
+ 503 0042 4FF00C02 		mov	r2, #12
+ 504 0046 1A60     		str	r2, [r3, #0]
+ 170:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 		return (caddr_t) -1;
+ 505              		.loc 1 170 0
+ 506 0048 4FF0FF33 		mov	r3, #-1
+ 507 004c 06E0     		b	.L38
+ 508              	.L37:
+ 171:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 		//abort ();
+ 172:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	}
+ 173:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+ 174:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	heap_end += incr;
+ 509              		.loc 1 174 0
+ 510 004e 064B     		ldr	r3, .L39
+ 511 0050 1A68     		ldr	r2, [r3, #0]
+ 512 0052 7B68     		ldr	r3, [r7, #4]
+ 513 0054 D218     		adds	r2, r2, r3
+ 514 0056 044B     		ldr	r3, .L39
+ 515 0058 1A60     		str	r2, [r3, #0]
+ 175:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	return (caddr_t) prev_heap_end;
+ 516              		.loc 1 175 0
+ 517 005a FB68     		ldr	r3, [r7, #12]
+ 518              	.L38:
+ 176:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+ 177:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** }
+ 519              		.loc 1 177 0
+ 520 005c 1846     		mov	r0, r3
+ 521 005e 07F11007 		add	r7, r7, #16
+ 522 0062 BD46     		mov	sp, r7
+ 523 0064 80BD     		pop	{r7, pc}
+ 524              	.L40:
+ 525 0066 00BF     		.align	2
+ 526              	.L39:
+ 527 0068 00000000 		.word	heap_end.6975
+ 528 006c 00000000 		.word	_ebss
+ 529 0070 08000000 		.word	.LC1
+ 530 0074 00000000 		.word	errno
+ 531              		.cfi_endproc
+ 532              	.LFE39:
+ 534              		.section	.text._read,"ax",%progbits
+ 535              		.align	2
+ 536              		.global	_read
+ 537              		.thumb
+ 538              		.thumb_func
+ 540              	_read:
+ 541              	.LFB40:
+ 178:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+ 179:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** /*
+ 180:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  read
+ 181:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  Read a character to a file. `libc' subroutines will use this system routine for input from all fil
+ 182:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  Returns -1 on error or blocks until the number of characters have been read.
+ 183:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  */
+ 184:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+ 185:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** int _read(int file, char *ptr, int len)
+ 186:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** {
+ 542              		.loc 1 186 0
+ 543              		.cfi_startproc
+ 544              		@ args = 0, pretend = 0, frame = 32
+ 545              		@ frame_needed = 1, uses_anonymous_args = 0
+ 546              		@ link register save eliminated.
+ 547 0000 80B4     		push	{r7}
+ 548              	.LCFI31:
+ 549              		.cfi_def_cfa_offset 4
+ 550              		.cfi_offset 7, -4
+ 551 0002 89B0     		sub	sp, sp, #36
+ 552              	.LCFI32:
+ 553              		.cfi_def_cfa_offset 40
+ 554 0004 00AF     		add	r7, sp, #0
+ 555              	.LCFI33:
+ 556              		.cfi_def_cfa_register 7
+ 557 0006 F860     		str	r0, [r7, #12]
+ 558 0008 B960     		str	r1, [r7, #8]
+ 559 000a 7A60     		str	r2, [r7, #4]
+ 187:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	int n;
+ 188:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	int num = 0;
+ 560              		.loc 1 188 0
+ 561 000c 4FF00003 		mov	r3, #0
+ 562 0010 BB61     		str	r3, [r7, #24]
+ 189:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	switch (file)
+ 563              		.loc 1 189 0
+ 564 0012 FB68     		ldr	r3, [r7, #12]
+ 565 0014 002B     		cmp	r3, #0
+ 566 0016 23D1     		bne	.L49
+ 567              	.L43:
+ 190:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	{
+ 191:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	case STDIN_FILENO:
+ 192:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 		for (n = 0; n < len; n++)
+ 568              		.loc 1 192 0
+ 569 0018 4FF00003 		mov	r3, #0
+ 570 001c FB61     		str	r3, [r7, #28]
+ 571 001e 1AE0     		b	.L44
+ 572              	.L51:
+ 573              	.LBB2:
+ 193:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 		{
+ 194:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #if   STDIN_USART == 1
+ 195:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 			while ((USART1->SR & USART_FLAG_RXNE) == (uint16_t) RESET);
+ 196:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 			char c = (char)(USART1->DR & (uint16_t)0x01FF);
+ 197:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #elif STDIN_USART == 2
+ 198:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 			while ((USART2 ->SR & USART_FLAG_RXNE )== (uint16_t) RESET);
+ 574              		.loc 1 198 0
+ 575 0020 00BF     		nop
+ 576              	.L45:
+ 577              		.loc 1 198 0 is_stmt 0 discriminator 1
+ 578 0022 164B     		ldr	r3, .L52
+ 579 0024 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 580 0026 9BB2     		uxth	r3, r3
+ 581 0028 03F02003 		and	r3, r3, #32
+ 582 002c 002B     		cmp	r3, #0
+ 583 002e F8D0     		beq	.L45
+ 199:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 			char c = (char) (USART2->DR & (uint16_t) 0x01FF);
+ 584              		.loc 1 199 0 is_stmt 1
+ 585 0030 124B     		ldr	r3, .L52
+ 586 0032 9B88     		ldrh	r3, [r3, #4]	@ movhi
+ 587 0034 9BB2     		uxth	r3, r3
+ 588 0036 FB75     		strb	r3, [r7, #23]
+ 200:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #elif STDIN_USART == 3
+ 201:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 					while ((USART3->SR & USART_FLAG_RXNE) == (uint16_t) RESET);
+ 202:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 					char c = (char)(USART3->DR & (uint16_t)0x01FF);
+ 203:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #endif
+ 204:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 					*ptr++ = c;
+ 589              		.loc 1 204 0
+ 590 0038 BB68     		ldr	r3, [r7, #8]
+ 591 003a FA7D     		ldrb	r2, [r7, #23]
+ 592 003c 1A70     		strb	r2, [r3, #0]
+ 593 003e BB68     		ldr	r3, [r7, #8]
+ 594 0040 03F10103 		add	r3, r3, #1
+ 595 0044 BB60     		str	r3, [r7, #8]
+ 205:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 					num++;
+ 596              		.loc 1 205 0
+ 597 0046 BB69     		ldr	r3, [r7, #24]
+ 598 0048 03F10103 		add	r3, r3, #1
+ 599 004c BB61     		str	r3, [r7, #24]
+ 600              	.LBE2:
+ 192:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 		for (n = 0; n < len; n++)
+ 601              		.loc 1 192 0
+ 602 004e FB69     		ldr	r3, [r7, #28]
+ 603 0050 03F10103 		add	r3, r3, #1
+ 604 0054 FB61     		str	r3, [r7, #28]
+ 605              	.L44:
+ 192:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 		for (n = 0; n < len; n++)
+ 606              		.loc 1 192 0 is_stmt 0 discriminator 1
+ 607 0056 FA69     		ldr	r2, [r7, #28]
+ 608 0058 7B68     		ldr	r3, [r7, #4]
+ 609 005a 9A42     		cmp	r2, r3
+ 610 005c E0DB     		blt	.L51
+ 206:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 				}
+ 207:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 				break;
+ 611              		.loc 1 207 0 is_stmt 1
+ 612 005e 06E0     		b	.L50
+ 613              	.L49:
+ 208:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 				default:
+ 209:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 				errno = EBADF;
+ 614              		.loc 1 209 0
+ 615 0060 074B     		ldr	r3, .L52+4
+ 616 0062 4FF00902 		mov	r2, #9
+ 617 0066 1A60     		str	r2, [r3, #0]
+ 210:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 				return -1;
+ 618              		.loc 1 210 0
+ 619 0068 4FF0FF33 		mov	r3, #-1
+ 620 006c 00E0     		b	.L48
+ 621              	.L50:
+ 211:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 			}
+ 212:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	return num;
+ 622              		.loc 1 212 0
+ 623 006e BB69     		ldr	r3, [r7, #24]
+ 624              	.L48:
+ 213:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** }
+ 625              		.loc 1 213 0
+ 626 0070 1846     		mov	r0, r3
+ 627 0072 07F12407 		add	r7, r7, #36
+ 628 0076 BD46     		mov	sp, r7
+ 629 0078 80BC     		pop	{r7}
+ 630 007a 7047     		bx	lr
+ 631              	.L53:
+ 632              		.align	2
+ 633              	.L52:
+ 634 007c 00440040 		.word	1073759232
+ 635 0080 00000000 		.word	errno
+ 636              		.cfi_endproc
+ 637              	.LFE40:
+ 639              		.section	.text._stat,"ax",%progbits
+ 640              		.align	2
+ 641              		.global	_stat
+ 642              		.thumb
+ 643              		.thumb_func
+ 645              	_stat:
+ 646              	.LFB41:
+ 214:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+ 215:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** /*
+ 216:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  stat
+ 217:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  Status of a file (by name). Minimal implementation:
+ 218:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  int    _EXFUN(stat,( const char *__path, struct stat *__sbuf ));
+ 219:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  */
+ 220:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+ 221:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** int _stat(const char *filepath, struct stat *st)
+ 222:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** {
+ 647              		.loc 1 222 0
+ 648              		.cfi_startproc
+ 649              		@ args = 0, pretend = 0, frame = 8
+ 650              		@ frame_needed = 1, uses_anonymous_args = 0
+ 651              		@ link register save eliminated.
+ 652 0000 80B4     		push	{r7}
+ 653              	.LCFI34:
+ 654              		.cfi_def_cfa_offset 4
+ 655              		.cfi_offset 7, -4
+ 656 0002 83B0     		sub	sp, sp, #12
+ 657              	.LCFI35:
+ 658              		.cfi_def_cfa_offset 16
+ 659 0004 00AF     		add	r7, sp, #0
+ 660              	.LCFI36:
+ 661              		.cfi_def_cfa_register 7
+ 662 0006 7860     		str	r0, [r7, #4]
+ 663 0008 3960     		str	r1, [r7, #0]
+ 223:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	st->st_mode = S_IFCHR;
+ 664              		.loc 1 223 0
+ 665 000a 3B68     		ldr	r3, [r7, #0]
+ 666 000c 4FF40052 		mov	r2, #8192
+ 667 0010 5A60     		str	r2, [r3, #4]
+ 224:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	return 0;
+ 668              		.loc 1 224 0
+ 669 0012 4FF00003 		mov	r3, #0
+ 225:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** }
+ 670              		.loc 1 225 0
+ 671 0016 1846     		mov	r0, r3
+ 672 0018 07F10C07 		add	r7, r7, #12
+ 673 001c BD46     		mov	sp, r7
+ 674 001e 80BC     		pop	{r7}
+ 675 0020 7047     		bx	lr
+ 676              		.cfi_endproc
+ 677              	.LFE41:
+ 679 0022 00BF     		.section	.text._times,"ax",%progbits
+ 680              		.align	2
+ 681              		.global	_times
+ 682              		.thumb
+ 683              		.thumb_func
+ 685              	_times:
+ 686              	.LFB42:
+ 226:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+ 227:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** /*
+ 228:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  times
+ 229:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  Timing information for current process. Minimal implementation:
+ 230:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  */
+ 231:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+ 232:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** clock_t _times(struct tms *buf)
+ 233:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** {
+ 687              		.loc 1 233 0
+ 688              		.cfi_startproc
+ 689              		@ args = 0, pretend = 0, frame = 8
+ 690              		@ frame_needed = 1, uses_anonymous_args = 0
+ 691              		@ link register save eliminated.
+ 692 0000 80B4     		push	{r7}
+ 693              	.LCFI37:
+ 694              		.cfi_def_cfa_offset 4
+ 695              		.cfi_offset 7, -4
+ 696 0002 83B0     		sub	sp, sp, #12
+ 697              	.LCFI38:
+ 698              		.cfi_def_cfa_offset 16
+ 699 0004 00AF     		add	r7, sp, #0
+ 700              	.LCFI39:
+ 701              		.cfi_def_cfa_register 7
+ 702 0006 7860     		str	r0, [r7, #4]
+ 234:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	return -1;
+ 703              		.loc 1 234 0
+ 704 0008 4FF0FF33 		mov	r3, #-1
+ 235:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** }
+ 705              		.loc 1 235 0
+ 706 000c 1846     		mov	r0, r3
+ 707 000e 07F10C07 		add	r7, r7, #12
+ 708 0012 BD46     		mov	sp, r7
+ 709 0014 80BC     		pop	{r7}
+ 710 0016 7047     		bx	lr
+ 711              		.cfi_endproc
+ 712              	.LFE42:
+ 714              		.section	.text._unlink,"ax",%progbits
+ 715              		.align	2
+ 716              		.global	_unlink
+ 717              		.thumb
+ 718              		.thumb_func
+ 720              	_unlink:
+ 721              	.LFB43:
+ 236:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+ 237:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** /*
+ 238:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  unlink
+ 239:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  Remove a file's directory entry. Minimal implementation:
+ 240:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  */
+ 241:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** int _unlink(char *name)
+ 242:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** {
+ 722              		.loc 1 242 0
+ 723              		.cfi_startproc
+ 724              		@ args = 0, pretend = 0, frame = 8
+ 725              		@ frame_needed = 1, uses_anonymous_args = 0
+ 726              		@ link register save eliminated.
+ 727 0000 80B4     		push	{r7}
+ 728              	.LCFI40:
+ 729              		.cfi_def_cfa_offset 4
+ 730              		.cfi_offset 7, -4
+ 731 0002 83B0     		sub	sp, sp, #12
+ 732              	.LCFI41:
+ 733              		.cfi_def_cfa_offset 16
+ 734 0004 00AF     		add	r7, sp, #0
+ 735              	.LCFI42:
+ 736              		.cfi_def_cfa_register 7
+ 737 0006 7860     		str	r0, [r7, #4]
+ 243:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	errno = ENOENT;
+ 738              		.loc 1 243 0
+ 739 0008 054B     		ldr	r3, .L60
+ 740 000a 4FF00202 		mov	r2, #2
+ 741 000e 1A60     		str	r2, [r3, #0]
+ 244:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	return -1;
+ 742              		.loc 1 244 0
+ 743 0010 4FF0FF33 		mov	r3, #-1
+ 245:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** }
+ 744              		.loc 1 245 0
+ 745 0014 1846     		mov	r0, r3
+ 746 0016 07F10C07 		add	r7, r7, #12
+ 747 001a BD46     		mov	sp, r7
+ 748 001c 80BC     		pop	{r7}
+ 749 001e 7047     		bx	lr
+ 750              	.L61:
+ 751              		.align	2
+ 752              	.L60:
+ 753 0020 00000000 		.word	errno
+ 754              		.cfi_endproc
+ 755              	.LFE43:
+ 757              		.section	.text._wait,"ax",%progbits
+ 758              		.align	2
+ 759              		.global	_wait
+ 760              		.thumb
+ 761              		.thumb_func
+ 763              	_wait:
+ 764              	.LFB44:
+ 246:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+ 247:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** /*
+ 248:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  wait
+ 249:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  Wait for a child process. Minimal implementation:
+ 250:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  */
+ 251:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** int _wait(int *status)
+ 252:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** {
+ 765              		.loc 1 252 0
+ 766              		.cfi_startproc
+ 767              		@ args = 0, pretend = 0, frame = 8
+ 768              		@ frame_needed = 1, uses_anonymous_args = 0
+ 769              		@ link register save eliminated.
+ 770 0000 80B4     		push	{r7}
+ 771              	.LCFI43:
+ 772              		.cfi_def_cfa_offset 4
+ 773              		.cfi_offset 7, -4
+ 774 0002 83B0     		sub	sp, sp, #12
+ 775              	.LCFI44:
+ 776              		.cfi_def_cfa_offset 16
+ 777 0004 00AF     		add	r7, sp, #0
+ 778              	.LCFI45:
+ 779              		.cfi_def_cfa_register 7
+ 780 0006 7860     		str	r0, [r7, #4]
+ 253:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	errno = ECHILD;
+ 781              		.loc 1 253 0
+ 782 0008 054B     		ldr	r3, .L64
+ 783 000a 4FF00A02 		mov	r2, #10
+ 784 000e 1A60     		str	r2, [r3, #0]
+ 254:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	return -1;
+ 785              		.loc 1 254 0
+ 786 0010 4FF0FF33 		mov	r3, #-1
+ 255:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** }
+ 787              		.loc 1 255 0
+ 788 0014 1846     		mov	r0, r3
+ 789 0016 07F10C07 		add	r7, r7, #12
+ 790 001a BD46     		mov	sp, r7
+ 791 001c 80BC     		pop	{r7}
+ 792 001e 7047     		bx	lr
+ 793              	.L65:
+ 794              		.align	2
+ 795              	.L64:
+ 796 0020 00000000 		.word	errno
+ 797              		.cfi_endproc
+ 798              	.LFE44:
+ 800              		.section	.text._write,"ax",%progbits
+ 801              		.align	2
+ 802              		.global	_write
+ 803              		.thumb
+ 804              		.thumb_func
+ 806              	_write:
+ 807              	.LFB45:
+ 256:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 
+ 257:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** /*
+ 258:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  write
+ 259:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  Write a character to a file. `libc' subroutines will use this system routine for output to all fil
+ 260:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  Returns -1 on error or number of bytes sent
+ 261:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c ****  */
+ 262:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** int _write(int file, char *ptr, int len)
+ 263:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** {
+ 808              		.loc 1 263 0
+ 809              		.cfi_startproc
+ 810              		@ args = 0, pretend = 0, frame = 24
+ 811              		@ frame_needed = 1, uses_anonymous_args = 0
+ 812              		@ link register save eliminated.
+ 813 0000 80B4     		push	{r7}
+ 814              	.LCFI46:
+ 815              		.cfi_def_cfa_offset 4
+ 816              		.cfi_offset 7, -4
+ 817 0002 87B0     		sub	sp, sp, #28
+ 818              	.LCFI47:
+ 819              		.cfi_def_cfa_offset 32
+ 820 0004 00AF     		add	r7, sp, #0
+ 821              	.LCFI48:
+ 822              		.cfi_def_cfa_register 7
+ 823 0006 F860     		str	r0, [r7, #12]
+ 824 0008 B960     		str	r1, [r7, #8]
+ 825 000a 7A60     		str	r2, [r7, #4]
+ 264:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	int n;
+ 265:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	switch (file)
+ 826              		.loc 1 265 0
+ 827 000c FB68     		ldr	r3, [r7, #12]
+ 828 000e 012B     		cmp	r3, #1
+ 829 0010 02D0     		beq	.L68
+ 830 0012 022B     		cmp	r3, #2
+ 831 0014 1DD0     		beq	.L69
+ 832 0016 39E0     		b	.L78
+ 833              	.L68:
+ 266:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	{
+ 267:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	case STDOUT_FILENO: /*stdout*/
+ 268:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 		for (n = 0; n < len; n++)
+ 834              		.loc 1 268 0
+ 835 0018 4FF00003 		mov	r3, #0
+ 836 001c 7B61     		str	r3, [r7, #20]
+ 837 001e 13E0     		b	.L70
+ 838              	.L79:
+ 269:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 		{
+ 270:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #if STDOUT_USART == 1
+ 271:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 			while ((USART1 ->SR & USART_FLAG_TC )== (uint16_t) RESET);
+ 839              		.loc 1 271 0
+ 840 0020 00BF     		nop
+ 841              	.L71:
+ 842              		.loc 1 271 0 is_stmt 0 discriminator 1
+ 843 0022 214B     		ldr	r3, .L81
+ 844 0024 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 845 0026 9BB2     		uxth	r3, r3
+ 846 0028 03F04003 		and	r3, r3, #64
+ 847 002c 002B     		cmp	r3, #0
+ 848 002e F8D0     		beq	.L71
+ 272:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 			USART1->DR = (*ptr++ & (uint16_t)0x01FF);
+ 849              		.loc 1 272 0 is_stmt 1
+ 850 0030 1D4B     		ldr	r3, .L81
+ 851 0032 BA68     		ldr	r2, [r7, #8]
+ 852 0034 1278     		ldrb	r2, [r2, #0]	@ zero_extendqisi2
+ 853 0036 9A80     		strh	r2, [r3, #4]	@ movhi
+ 854 0038 BB68     		ldr	r3, [r7, #8]
+ 855 003a 03F10103 		add	r3, r3, #1
+ 856 003e BB60     		str	r3, [r7, #8]
+ 268:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 		for (n = 0; n < len; n++)
+ 857              		.loc 1 268 0
+ 858 0040 7B69     		ldr	r3, [r7, #20]
+ 859 0042 03F10103 		add	r3, r3, #1
+ 860 0046 7B61     		str	r3, [r7, #20]
+ 861              	.L70:
+ 268:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 		for (n = 0; n < len; n++)
+ 862              		.loc 1 268 0 is_stmt 0 discriminator 1
+ 863 0048 7A69     		ldr	r2, [r7, #20]
+ 864 004a 7B68     		ldr	r3, [r7, #4]
+ 865 004c 9A42     		cmp	r2, r3
+ 866 004e E7DB     		blt	.L79
+ 273:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #elif  STDOUT_USART == 2
+ 274:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 					while ((USART2 ->SR & USART_FLAG_TC )== (uint16_t) RESET);
+ 275:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 					USART2->DR = (*ptr++ & (uint16_t) 0x01FF);
+ 276:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #elif  STDOUT_USART == 3
+ 277:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 					while ((USART3->SR & USART_FLAG_TC) == (uint16_t) RESET);
+ 278:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 					USART3->DR = (*ptr++ & (uint16_t)0x01FF);
+ 279:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #endif
+ 280:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 				}
+ 281:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 				break;
+ 867              		.loc 1 281 0 is_stmt 1
+ 868 0050 23E0     		b	.L73
+ 869              	.L69:
+ 282:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 				case STDERR_FILENO: /* stderr */
+ 283:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 				for (n = 0; n < len; n++)
+ 870              		.loc 1 283 0
+ 871 0052 4FF00003 		mov	r3, #0
+ 872 0056 7B61     		str	r3, [r7, #20]
+ 873 0058 13E0     		b	.L74
+ 874              	.L80:
+ 284:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 				{
+ 285:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #if STDERR_USART == 1
+ 286:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 					while ((USART1->SR & USART_FLAG_TC) == (uint16_t) RESET);
+ 287:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 					USART1->DR = (*ptr++ & (uint16_t)0x01FF);
+ 288:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #elif  STDERR_USART == 2
+ 289:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 					while ((USART2->SR & USART_FLAG_TC) == (uint16_t) RESET);
+ 875              		.loc 1 289 0
+ 876 005a 00BF     		nop
+ 877              	.L75:
+ 878              		.loc 1 289 0 is_stmt 0 discriminator 1
+ 879 005c 134B     		ldr	r3, .L81+4
+ 880 005e 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 881 0060 9BB2     		uxth	r3, r3
+ 882 0062 03F04003 		and	r3, r3, #64
+ 883 0066 002B     		cmp	r3, #0
+ 884 0068 F8D0     		beq	.L75
+ 290:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 					USART2->DR = (*ptr++ & (uint16_t) 0x01FF);
+ 885              		.loc 1 290 0 is_stmt 1
+ 886 006a 104B     		ldr	r3, .L81+4
+ 887 006c BA68     		ldr	r2, [r7, #8]
+ 888 006e 1278     		ldrb	r2, [r2, #0]	@ zero_extendqisi2
+ 889 0070 9A80     		strh	r2, [r3, #4]	@ movhi
+ 890 0072 BB68     		ldr	r3, [r7, #8]
+ 891 0074 03F10103 		add	r3, r3, #1
+ 892 0078 BB60     		str	r3, [r7, #8]
+ 283:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 				for (n = 0; n < len; n++)
+ 893              		.loc 1 283 0
+ 894 007a 7B69     		ldr	r3, [r7, #20]
+ 895 007c 03F10103 		add	r3, r3, #1
+ 896 0080 7B61     		str	r3, [r7, #20]
+ 897              	.L74:
+ 283:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 				for (n = 0; n < len; n++)
+ 898              		.loc 1 283 0 is_stmt 0 discriminator 1
+ 899 0082 7A69     		ldr	r2, [r7, #20]
+ 900 0084 7B68     		ldr	r3, [r7, #4]
+ 901 0086 9A42     		cmp	r2, r3
+ 902 0088 E7DB     		blt	.L80
+ 291:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #elif  STDERR_USART == 3
+ 292:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 					while ((USART3->SR & USART_FLAG_TC) == (uint16_t) RESET);
+ 293:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 					USART3->DR = (*ptr++ & (uint16_t)0x01FF);
+ 294:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** #endif
+ 295:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 				}
+ 296:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 				break;
+ 903              		.loc 1 296 0 is_stmt 1
+ 904 008a 06E0     		b	.L73
+ 905              	.L78:
+ 297:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 				default:
+ 298:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 				errno = EBADF;
+ 906              		.loc 1 298 0
+ 907 008c 084B     		ldr	r3, .L81+8
+ 908 008e 4FF00902 		mov	r2, #9
+ 909 0092 1A60     		str	r2, [r3, #0]
+ 299:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 				return -1;
+ 910              		.loc 1 299 0
+ 911 0094 4FF0FF33 		mov	r3, #-1
+ 912 0098 00E0     		b	.L77
+ 913              	.L73:
+ 300:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 			}
+ 301:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** 	return len;
+ 914              		.loc 1 301 0
+ 915 009a 7B68     		ldr	r3, [r7, #4]
+ 916              	.L77:
+ 302:../STM32F10x_StdPeriph_Lib_V3.5.0/newlibSerialNeedToUse.c **** }
+ 917              		.loc 1 302 0
+ 918 009c 1846     		mov	r0, r3
+ 919 009e 07F11C07 		add	r7, r7, #28
+ 920 00a2 BD46     		mov	sp, r7
+ 921 00a4 80BC     		pop	{r7}
+ 922 00a6 7047     		bx	lr
+ 923              	.L82:
+ 924              		.align	2
+ 925              	.L81:
+ 926 00a8 00380140 		.word	1073821696
+ 927 00ac 00440040 		.word	1073759232
+ 928 00b0 00000000 		.word	errno
+ 929              		.cfi_endproc
+ 930              	.LFE45:
+ 932              		.section	.bss.heap_end.6975,"aw",%nobits
+ 933              		.align	2
+ 936              	heap_end.6975:
+ 937 0000 00000000 		.space	4
+ 938              		.text
+ 939              	.Letext0:
+ 940              		.file 2 "/home/dragon/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-ea
+ 941              		.file 3 "/home/dragon/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-ea
+ 942              		.file 4 "/home/dragon/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-ea
+ 943              		.file 5 "/home/dragon/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-ea
+ 944              		.file 6 "/home/dragon/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-ea
+ 945              		.file 7 "/home/dragon/workspace/STM32F103C8T6_LibV3.5/STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMS
+ 946              		.file 8 "/home/dragon/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-ea
+ 947              		.file 9 "/home/dragon/workspace/STM32F103C8T6_LibV3.5/STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMS
+DEFINED SYMBOLS
+                            *ABS*:00000000 newlibSerialNeedToUse.c
+     /tmp/ccJOx4Hq.s:23     .bss.__env:00000000 __env
+     /tmp/ccJOx4Hq.s:20     .bss.__env:00000000 $d
+     /tmp/ccJOx4Hq.s:30     .data.environ:00000000 environ
+     /tmp/ccJOx4Hq.s:27     .data.environ:00000000 $d
+     /tmp/ccJOx4Hq.s:33     .rodata:00000000 $d
+     /tmp/ccJOx4Hq.s:37     .text._exit:00000000 $t
+     /tmp/ccJOx4Hq.s:42     .text._exit:00000000 _exit
+     /tmp/ccJOx4Hq.s:806    .text._write:00000000 _write
+     /tmp/ccJOx4Hq.s:72     .text._exit:00000018 $d
+     /tmp/ccJOx4Hq.s:77     .text._close:00000000 $t
+     /tmp/ccJOx4Hq.s:82     .text._close:00000000 _close
+     /tmp/ccJOx4Hq.s:112    .text._execve:00000000 $t
+     /tmp/ccJOx4Hq.s:117    .text._execve:00000000 _execve
+     /tmp/ccJOx4Hq.s:152    .text._execve:00000024 $d
+     /tmp/ccJOx4Hq.s:157    .text._fork:00000000 $t
+     /tmp/ccJOx4Hq.s:162    .text._fork:00000000 _fork
+     /tmp/ccJOx4Hq.s:190    .text._fork:00000018 $d
+     /tmp/ccJOx4Hq.s:195    .text._fstat:00000000 $t
+     /tmp/ccJOx4Hq.s:200    .text._fstat:00000000 _fstat
+     /tmp/ccJOx4Hq.s:235    .text._getpid:00000000 $t
+     /tmp/ccJOx4Hq.s:240    .text._getpid:00000000 _getpid
+     /tmp/ccJOx4Hq.s:265    .text._isatty:00000000 $t
+     /tmp/ccJOx4Hq.s:270    .text._isatty:00000000 _isatty
+     /tmp/ccJOx4Hq.s:313    .text._isatty:00000030 $d
+     /tmp/ccJOx4Hq.s:318    .text._kill:00000000 $t
+     /tmp/ccJOx4Hq.s:323    .text._kill:00000000 _kill
+     /tmp/ccJOx4Hq.s:357    .text._kill:00000024 $d
+     /tmp/ccJOx4Hq.s:362    .text._link:00000000 $t
+     /tmp/ccJOx4Hq.s:367    .text._link:00000000 _link
+     /tmp/ccJOx4Hq.s:401    .text._link:00000024 $d
+     /tmp/ccJOx4Hq.s:406    .text._lseek:00000000 $t
+     /tmp/ccJOx4Hq.s:411    .text._lseek:00000000 _lseek
+     /tmp/ccJOx4Hq.s:447    .text._sbrk:00000000 $t
+     /tmp/ccJOx4Hq.s:452    .text._sbrk:00000000 _sbrk
+     /tmp/ccJOx4Hq.s:527    .text._sbrk:00000068 $d
+     /tmp/ccJOx4Hq.s:936    .bss.heap_end.6975:00000000 heap_end.6975
+     /tmp/ccJOx4Hq.s:535    .text._read:00000000 $t
+     /tmp/ccJOx4Hq.s:540    .text._read:00000000 _read
+     /tmp/ccJOx4Hq.s:634    .text._read:0000007c $d
+     /tmp/ccJOx4Hq.s:640    .text._stat:00000000 $t
+     /tmp/ccJOx4Hq.s:645    .text._stat:00000000 _stat
+     /tmp/ccJOx4Hq.s:680    .text._times:00000000 $t
+     /tmp/ccJOx4Hq.s:685    .text._times:00000000 _times
+     /tmp/ccJOx4Hq.s:715    .text._unlink:00000000 $t
+     /tmp/ccJOx4Hq.s:720    .text._unlink:00000000 _unlink
+     /tmp/ccJOx4Hq.s:753    .text._unlink:00000020 $d
+     /tmp/ccJOx4Hq.s:758    .text._wait:00000000 $t
+     /tmp/ccJOx4Hq.s:763    .text._wait:00000000 _wait
+     /tmp/ccJOx4Hq.s:796    .text._wait:00000020 $d
+     /tmp/ccJOx4Hq.s:801    .text._write:00000000 $t
+     /tmp/ccJOx4Hq.s:926    .text._write:000000a8 $d
+     /tmp/ccJOx4Hq.s:933    .bss.heap_end.6975:00000000 $d
+                     .debug_frame:00000010 $d
+                           .group:00000000 wm4.1.3f1c4c3ecf94fe9b5c343fe975e01068
+                           .group:00000000 wm4.errno.h.2.5b3f581717bc0b96d84329979b470db5
+                           .group:00000000 wm4.newlib.h.8.e1d498e57c12962fc6d7be5061a6981a
+                           .group:00000000 wm4.config.h.148.52fe83653334d06815a0c57b59a3e584
+                           .group:00000000 wm4._ansi.h.23.95dee4059009fe3ab635a191bb73dc66
+                           .group:00000000 wm4._default_types.h.6.1dbd2e581fd590860c7c17f21d147e91
+                           .group:00000000 wm4.lock.h.2.9bc98482741e5e2a9450b12934a684ea
+                           .group:00000000 wm4.stddef.h.349.31f4c5baff3fa2689010b32028da9c47
+                           .group:00000000 wm4.reent.h.16.58b23a9f0faf0e7f2dfe7e2d33154afd
+                           .group:00000000 wm4.errno.h.23.e6e3cc72370a91a7030d8a47d7436b36
+                           .group:00000000 wm4.time.h.2.9857e62ad6ac99431e29d58067232314
+                           .group:00000000 wm4.time.h.33.7f5d132454e7bf35c22009dbda1491ee
+                           .group:00000000 wm4.stddef.h.187.9e651b6b8b16e149c1353259404973ea
+                           .group:00000000 wm4.types.h.23.0d949686bbcadd1621462d4fa1f884f9
+                           .group:00000000 wm4.stddef.h.40.cf962ebbec441b3ac67502735f0765db
+                           .group:00000000 wm4.types.h.2.e9cec8c90ab35f77d9f499e06ae02400
+                           .group:00000000 wm4.types.h.80.f2bfdfeee9f340633702c07fad9b5e01
+                           .group:00000000 wm4.time.h.137.eff5fc643331f01e7222ffccc2dd38e2
+                           .group:00000000 wm4.stat.h.69.169a67369ef31f6ea38a12bc9ba4e5dd
+                           .group:00000000 wm4.unistd.h.2.6ce1b91c4223f6078c1b210c7538c1d2
+                           .group:00000000 wm4.stddef.h.161.e50ff8a9d5d1abbc15641da28ac571bf
+                           .group:00000000 wm4.unistd.h.251.605bc560cdc6c3b07b599bb71ac4e425
+                           .group:00000000 wm4.stm32f10x.h.51.b859cb68ed44ee02c916b41cb8c68f1c
+                           .group:00000000 wm4.core_cm3.h.25.d35e9a9b04ec4aaebae9bf79fff061f9
+                           .group:00000000 wm4.stdint.h.10.90b695f550ca6cc3fb08fa83baf01e05
+                           .group:00000000 wm4.core_cm3.h.113.b286929a54d33b4c8909a7132437b244
+                           .group:00000000 wm4.stm32f10x.h.522.9a9f642c8c562acb4a63ad5d933b7c01
+                           .group:00000000 wm4.stm32f10x_adc.h.83.4d35a50d598070ecea6f33bcef02c922
+                           .group:00000000 wm4.stm32f10x_bkp.h.25.4622919f1e30efdad5eb44e12edd5513
+                           .group:00000000 wm4.stm32f10x_can.h.25.48aab46fcce6d08400bf960b028e4698
+                           .group:00000000 wm4.stm32f10x_cec.h.25.8f03450e7bbb704d96e7bc73ec0f66a7
+                           .group:00000000 wm4.stm32f10x_dac.h.25.6e7f2924f39c60c10815105b99b8b446
+                           .group:00000000 wm4.stm32f10x_dbgmcu.h.25.d3351200fc7f9c8615d1ae81d40db08a
+                           .group:00000000 wm4.stm32f10x_dma.h.25.94e36204daa98cae5dcc70a10a9694d5
+                           .group:00000000 wm4.stm32f10x_exti.h.25.b9064155c5c006b5154b39788c79001a
+                           .group:00000000 wm4.stm32f10x_flash.h.25.4be61fcb02863962a1e006449d310650
+                           .group:00000000 wm4.stm32f10x_fsmc.h.25.bca154da2699cdb6024c0c6c4fc5aa89
+                           .group:00000000 wm4.stm32f10x_gpio.h.25.80c981af0e637567395034c576cfb3ce
+                           .group:00000000 wm4.stm32f10x_i2c.h.25.7b6cbaea24c6f25f538f8516d1814cb2
+                           .group:00000000 wm4.stm32f10x_iwdg.h.25.da9374ab9856795610487f312ccf3122
+                           .group:00000000 wm4.stm32f10x_pwr.h.25.37ef75009f751ef5fe27910e0bf00a62
+                           .group:00000000 wm4.stm32f10x_rcc.h.25.968bcf08d813e68e57c280a4da69fa5a
+                           .group:00000000 wm4.stm32f10x_rtc.h.25.361142606ba98ddcd10369f321f6e636
+                           .group:00000000 wm4.stm32f10x_sdio.h.25.1fb5280a7690ef99070096bf8c866b3a
+                           .group:00000000 wm4.stm32f10x_spi.h.25.68b3d5ccfcf895f9fe505ce20c0c300f
+                           .group:00000000 wm4.stm32f10x_tim.h.25.21c6ec062f1e74898cb96a57da276fec
+                           .group:00000000 wm4.stm32f10x_wwdg.h.25.dde12201d86b5aa9ecaafb5eccdc6549
+                           .group:00000000 wm4.misc.h.25.068e106f368fa5369a681ef57c106f4b
+                           .group:00000000 wm4.stm32f10x.h.8304.f7d8ad90959e99679b3257267c3aadfe
+                           .group:00000000 wm4.stm32f10x_usart.h.107.8846ccd7e61ab380957a621cc3460139
+
+UNDEFINED SYMBOLS
+errno
+__get_MSP
+_ebss

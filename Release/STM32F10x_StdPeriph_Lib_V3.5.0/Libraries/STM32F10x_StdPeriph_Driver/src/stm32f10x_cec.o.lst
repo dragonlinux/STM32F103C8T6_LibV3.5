@@ -1,0 +1,333 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"stm32f10x_cec.c"
+  15              		.section	.text.CEC_DeInit,"ax",%progbits
+  16              		.align	1
+  17              		.global	CEC_DeInit
+  18              		.thumb
+  19              		.thumb_func
+  21              	CEC_DeInit:
+  22              		@ args = 0, pretend = 0, frame = 0
+  23              		@ frame_needed = 0, uses_anonymous_args = 0
+  24 0000 0121     		movs	r1, #1
+  25 0002 08B5     		push	{r3, lr}
+  26 0004 4FF08040 		mov	r0, #1073741824
+  27 0008 FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+  28 000c 4FF08040 		mov	r0, #1073741824
+  29 0010 0021     		movs	r1, #0
+  30 0012 BDE80840 		pop	{r3, lr}
+  31 0016 FFF7FEBF 		b	RCC_APB1PeriphResetCmd
+  33              		.section	.text.CEC_Init,"ax",%progbits
+  34              		.align	1
+  35              		.global	CEC_Init
+  36              		.thumb
+  37              		.thumb_func
+  39              	CEC_Init:
+  40              		@ args = 0, pretend = 0, frame = 0
+  41              		@ frame_needed = 0, uses_anonymous_args = 0
+  42 0000 054B     		ldr	r3, .L3
+  43 0002 10B5     		push	{r4, lr}
+  44 0004 1968     		ldr	r1, [r3, #0]
+  45 0006 4488     		ldrh	r4, [r0, #2]
+  46 0008 0288     		ldrh	r2, [r0, #0]
+  47 000a 01F0F301 		and	r1, r1, #243
+  48 000e 2243     		orrs	r2, r2, r4
+  49 0010 0A43     		orrs	r2, r2, r1
+  50 0012 92B2     		uxth	r2, r2
+  51 0014 1A60     		str	r2, [r3, #0]
+  52 0016 10BD     		pop	{r4, pc}
+  53              	.L4:
+  54              		.align	2
+  55              	.L3:
+  56 0018 00780040 		.word	1073772544
+  58              		.section	.text.CEC_Cmd,"ax",%progbits
+  59              		.align	1
+  60              		.global	CEC_Cmd
+  61              		.thumb
+  62              		.thumb_func
+  64              	CEC_Cmd:
+  65              		@ args = 0, pretend = 0, frame = 0
+  66              		@ frame_needed = 0, uses_anonymous_args = 0
+  67              		@ link register save eliminated.
+  68 0000 034B     		ldr	r3, .L10
+  69 0002 1860     		str	r0, [r3, #0]
+  70 0004 18B9     		cbnz	r0, .L5
+  71 0006 034A     		ldr	r2, .L10+4
+  72              	.L8:
+  73 0008 1368     		ldr	r3, [r2, #0]
+  74 000a DB07     		lsls	r3, r3, #31
+  75 000c FCD4     		bmi	.L8
+  76              	.L5:
+  77 000e 7047     		bx	lr
+  78              	.L11:
+  79              		.align	2
+  80              	.L10:
+  81 0010 00000F42 		.word	1108279296
+  82 0014 00780040 		.word	1073772544
+  84              		.section	.text.CEC_ITConfig,"ax",%progbits
+  85              		.align	1
+  86              		.global	CEC_ITConfig
+  87              		.thumb
+  88              		.thumb_func
+  90              	CEC_ITConfig:
+  91              		@ args = 0, pretend = 0, frame = 0
+  92              		@ frame_needed = 0, uses_anonymous_args = 0
+  93              		@ link register save eliminated.
+  94 0000 014B     		ldr	r3, .L13
+  95 0002 1860     		str	r0, [r3, #0]
+  96 0004 7047     		bx	lr
+  97              	.L14:
+  98 0006 00BF     		.align	2
+  99              	.L13:
+ 100 0008 04000F42 		.word	1108279300
+ 102              		.section	.text.CEC_OwnAddressConfig,"ax",%progbits
+ 103              		.align	1
+ 104              		.global	CEC_OwnAddressConfig
+ 105              		.thumb
+ 106              		.thumb_func
+ 108              	CEC_OwnAddressConfig:
+ 109              		@ args = 0, pretend = 0, frame = 0
+ 110              		@ frame_needed = 0, uses_anonymous_args = 0
+ 111              		@ link register save eliminated.
+ 112 0000 014B     		ldr	r3, .L16
+ 113 0002 5860     		str	r0, [r3, #4]
+ 114 0004 7047     		bx	lr
+ 115              	.L17:
+ 116 0006 00BF     		.align	2
+ 117              	.L16:
+ 118 0008 00780040 		.word	1073772544
+ 120              		.section	.text.CEC_SetPrescaler,"ax",%progbits
+ 121              		.align	1
+ 122              		.global	CEC_SetPrescaler
+ 123              		.thumb
+ 124              		.thumb_func
+ 126              	CEC_SetPrescaler:
+ 127              		@ args = 0, pretend = 0, frame = 0
+ 128              		@ frame_needed = 0, uses_anonymous_args = 0
+ 129              		@ link register save eliminated.
+ 130 0000 014B     		ldr	r3, .L19
+ 131 0002 9860     		str	r0, [r3, #8]
+ 132 0004 7047     		bx	lr
+ 133              	.L20:
+ 134 0006 00BF     		.align	2
+ 135              	.L19:
+ 136 0008 00780040 		.word	1073772544
+ 138              		.section	.text.CEC_SendDataByte,"ax",%progbits
+ 139              		.align	1
+ 140              		.global	CEC_SendDataByte
+ 141              		.thumb
+ 142              		.thumb_func
+ 144              	CEC_SendDataByte:
+ 145              		@ args = 0, pretend = 0, frame = 0
+ 146              		@ frame_needed = 0, uses_anonymous_args = 0
+ 147              		@ link register save eliminated.
+ 148 0000 014B     		ldr	r3, .L22
+ 149 0002 5861     		str	r0, [r3, #20]
+ 150 0004 7047     		bx	lr
+ 151              	.L23:
+ 152 0006 00BF     		.align	2
+ 153              	.L22:
+ 154 0008 00780040 		.word	1073772544
+ 156              		.section	.text.CEC_ReceiveDataByte,"ax",%progbits
+ 157              		.align	1
+ 158              		.global	CEC_ReceiveDataByte
+ 159              		.thumb
+ 160              		.thumb_func
+ 162              	CEC_ReceiveDataByte:
+ 163              		@ args = 0, pretend = 0, frame = 0
+ 164              		@ frame_needed = 0, uses_anonymous_args = 0
+ 165              		@ link register save eliminated.
+ 166 0000 014B     		ldr	r3, .L25
+ 167 0002 9869     		ldr	r0, [r3, #24]
+ 168 0004 C0B2     		uxtb	r0, r0
+ 169 0006 7047     		bx	lr
+ 170              	.L26:
+ 171              		.align	2
+ 172              	.L25:
+ 173 0008 00780040 		.word	1073772544
+ 175              		.section	.text.CEC_StartOfMessage,"ax",%progbits
+ 176              		.align	1
+ 177              		.global	CEC_StartOfMessage
+ 178              		.thumb
+ 179              		.thumb_func
+ 181              	CEC_StartOfMessage:
+ 182              		@ args = 0, pretend = 0, frame = 0
+ 183              		@ frame_needed = 0, uses_anonymous_args = 0
+ 184              		@ link register save eliminated.
+ 185 0000 014B     		ldr	r3, .L28
+ 186 0002 0122     		movs	r2, #1
+ 187 0004 1A60     		str	r2, [r3, #0]
+ 188 0006 7047     		bx	lr
+ 189              	.L29:
+ 190              		.align	2
+ 191              	.L28:
+ 192 0008 00020F42 		.word	1108279808
+ 194              		.section	.text.CEC_EndOfMessageCmd,"ax",%progbits
+ 195              		.align	1
+ 196              		.global	CEC_EndOfMessageCmd
+ 197              		.thumb
+ 198              		.thumb_func
+ 200              	CEC_EndOfMessageCmd:
+ 201              		@ args = 0, pretend = 0, frame = 0
+ 202              		@ frame_needed = 0, uses_anonymous_args = 0
+ 203              		@ link register save eliminated.
+ 204 0000 014B     		ldr	r3, .L31
+ 205 0002 1860     		str	r0, [r3, #0]
+ 206 0004 7047     		bx	lr
+ 207              	.L32:
+ 208 0006 00BF     		.align	2
+ 209              	.L31:
+ 210 0008 04020F42 		.word	1108279812
+ 212              		.section	.text.CEC_GetFlagStatus,"ax",%progbits
+ 213              		.align	1
+ 214              		.global	CEC_GetFlagStatus
+ 215              		.thumb
+ 216              		.thumb_func
+ 218              	CEC_GetFlagStatus:
+ 219              		@ args = 0, pretend = 0, frame = 0
+ 220              		@ frame_needed = 0, uses_anonymous_args = 0
+ 221              		@ link register save eliminated.
+ 222 0000 20F07F43 		bic	r3, r0, #-16777216
+ 223 0004 000F     		lsrs	r0, r0, #28
+ 224 0006 02D0     		beq	.L35
+ 225 0008 1B0C     		lsrs	r3, r3, #16
+ 226 000a 044A     		ldr	r2, .L36
+ 227 000c 00E0     		b	.L34
+ 228              	.L35:
+ 229 000e 044A     		ldr	r2, .L36+4
+ 230              	.L34:
+ 231 0010 1268     		ldr	r2, [r2, #0]
+ 232 0012 1A42     		tst	r2, r3
+ 233 0014 0CBF     		ite	eq
+ 234 0016 0020     		moveq	r0, #0
+ 235 0018 0120     		movne	r0, #1
+ 236 001a 7047     		bx	lr
+ 237              	.L37:
+ 238              		.align	2
+ 239              	.L36:
+ 240 001c 0C780040 		.word	1073772556
+ 241 0020 10780040 		.word	1073772560
+ 243              		.section	.text.CEC_ClearFlag,"ax",%progbits
+ 244              		.align	1
+ 245              		.global	CEC_ClearFlag
+ 246              		.thumb
+ 247              		.thumb_func
+ 249              	CEC_ClearFlag:
+ 250              		@ args = 0, pretend = 0, frame = 0
+ 251              		@ frame_needed = 0, uses_anonymous_args = 0
+ 252              		@ link register save eliminated.
+ 253 0000 054B     		ldr	r3, .L39
+ 254 0002 C043     		mvns	r0, r0
+ 255 0004 1969     		ldr	r1, [r3, #16]
+ 256 0006 20F00300 		bic	r0, r0, #3
+ 257 000a 1A69     		ldr	r2, [r3, #16]
+ 258 000c 01F00201 		and	r1, r1, #2
+ 259 0010 0143     		orrs	r1, r1, r0
+ 260 0012 0A40     		ands	r2, r2, r1
+ 261 0014 1A61     		str	r2, [r3, #16]
+ 262 0016 7047     		bx	lr
+ 263              	.L40:
+ 264              		.align	2
+ 265              	.L39:
+ 266 0018 00780040 		.word	1073772544
+ 268              		.section	.text.CEC_GetITStatus,"ax",%progbits
+ 269              		.align	1
+ 270              		.global	CEC_GetITStatus
+ 271              		.thumb
+ 272              		.thumb_func
+ 274              	CEC_GetITStatus:
+ 275              		@ args = 0, pretend = 0, frame = 0
+ 276              		@ frame_needed = 0, uses_anonymous_args = 0
+ 277              		@ link register save eliminated.
+ 278 0000 034A     		ldr	r2, .L44
+ 279 0002 1168     		ldr	r1, [r2, #0]
+ 280 0004 1369     		ldr	r3, [r2, #16]
+ 281 0006 1840     		ands	r0, r0, r3
+ 282 0008 18BF     		it	ne
+ 283 000a C1F34000 		ubfxne	r0, r1, #1, #1
+ 284 000e 7047     		bx	lr
+ 285              	.L45:
+ 286              		.align	2
+ 287              	.L44:
+ 288 0010 00780040 		.word	1073772544
+ 290              		.section	.text.CEC_ClearITPendingBit,"ax",%progbits
+ 291              		.align	1
+ 292              		.global	CEC_ClearITPendingBit
+ 293              		.thumb
+ 294              		.thumb_func
+ 296              	CEC_ClearITPendingBit:
+ 297              		@ args = 0, pretend = 0, frame = 0
+ 298              		@ frame_needed = 0, uses_anonymous_args = 0
+ 299              		@ link register save eliminated.
+ 300 0000 054B     		ldr	r3, .L47
+ 301 0002 C043     		mvns	r0, r0
+ 302 0004 1969     		ldr	r1, [r3, #16]
+ 303 0006 20F00300 		bic	r0, r0, #3
+ 304 000a 1A69     		ldr	r2, [r3, #16]
+ 305 000c 01F00201 		and	r1, r1, #2
+ 306 0010 0143     		orrs	r1, r1, r0
+ 307 0012 0A40     		ands	r2, r2, r1
+ 308 0014 1A61     		str	r2, [r3, #16]
+ 309 0016 7047     		bx	lr
+ 310              	.L48:
+ 311              		.align	2
+ 312              	.L47:
+ 313 0018 00780040 		.word	1073772544
+ 315              		.ident	"GCC: (Sourcery CodeBench Lite 2013.05-23) 4.7.3"
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f10x_cec.c
+     /tmp/cc7kbME5.s:16     .text.CEC_DeInit:00000000 $t
+     /tmp/cc7kbME5.s:21     .text.CEC_DeInit:00000000 CEC_DeInit
+     /tmp/cc7kbME5.s:34     .text.CEC_Init:00000000 $t
+     /tmp/cc7kbME5.s:39     .text.CEC_Init:00000000 CEC_Init
+     /tmp/cc7kbME5.s:56     .text.CEC_Init:00000018 $d
+     /tmp/cc7kbME5.s:59     .text.CEC_Cmd:00000000 $t
+     /tmp/cc7kbME5.s:64     .text.CEC_Cmd:00000000 CEC_Cmd
+     /tmp/cc7kbME5.s:81     .text.CEC_Cmd:00000010 $d
+     /tmp/cc7kbME5.s:85     .text.CEC_ITConfig:00000000 $t
+     /tmp/cc7kbME5.s:90     .text.CEC_ITConfig:00000000 CEC_ITConfig
+     /tmp/cc7kbME5.s:100    .text.CEC_ITConfig:00000008 $d
+     /tmp/cc7kbME5.s:103    .text.CEC_OwnAddressConfig:00000000 $t
+     /tmp/cc7kbME5.s:108    .text.CEC_OwnAddressConfig:00000000 CEC_OwnAddressConfig
+     /tmp/cc7kbME5.s:118    .text.CEC_OwnAddressConfig:00000008 $d
+     /tmp/cc7kbME5.s:121    .text.CEC_SetPrescaler:00000000 $t
+     /tmp/cc7kbME5.s:126    .text.CEC_SetPrescaler:00000000 CEC_SetPrescaler
+     /tmp/cc7kbME5.s:136    .text.CEC_SetPrescaler:00000008 $d
+     /tmp/cc7kbME5.s:139    .text.CEC_SendDataByte:00000000 $t
+     /tmp/cc7kbME5.s:144    .text.CEC_SendDataByte:00000000 CEC_SendDataByte
+     /tmp/cc7kbME5.s:154    .text.CEC_SendDataByte:00000008 $d
+     /tmp/cc7kbME5.s:157    .text.CEC_ReceiveDataByte:00000000 $t
+     /tmp/cc7kbME5.s:162    .text.CEC_ReceiveDataByte:00000000 CEC_ReceiveDataByte
+     /tmp/cc7kbME5.s:173    .text.CEC_ReceiveDataByte:00000008 $d
+     /tmp/cc7kbME5.s:176    .text.CEC_StartOfMessage:00000000 $t
+     /tmp/cc7kbME5.s:181    .text.CEC_StartOfMessage:00000000 CEC_StartOfMessage
+     /tmp/cc7kbME5.s:192    .text.CEC_StartOfMessage:00000008 $d
+     /tmp/cc7kbME5.s:195    .text.CEC_EndOfMessageCmd:00000000 $t
+     /tmp/cc7kbME5.s:200    .text.CEC_EndOfMessageCmd:00000000 CEC_EndOfMessageCmd
+     /tmp/cc7kbME5.s:210    .text.CEC_EndOfMessageCmd:00000008 $d
+     /tmp/cc7kbME5.s:213    .text.CEC_GetFlagStatus:00000000 $t
+     /tmp/cc7kbME5.s:218    .text.CEC_GetFlagStatus:00000000 CEC_GetFlagStatus
+     /tmp/cc7kbME5.s:240    .text.CEC_GetFlagStatus:0000001c $d
+     /tmp/cc7kbME5.s:244    .text.CEC_ClearFlag:00000000 $t
+     /tmp/cc7kbME5.s:249    .text.CEC_ClearFlag:00000000 CEC_ClearFlag
+     /tmp/cc7kbME5.s:266    .text.CEC_ClearFlag:00000018 $d
+     /tmp/cc7kbME5.s:269    .text.CEC_GetITStatus:00000000 $t
+     /tmp/cc7kbME5.s:274    .text.CEC_GetITStatus:00000000 CEC_GetITStatus
+     /tmp/cc7kbME5.s:288    .text.CEC_GetITStatus:00000010 $d
+     /tmp/cc7kbME5.s:291    .text.CEC_ClearITPendingBit:00000000 $t
+     /tmp/cc7kbME5.s:296    .text.CEC_ClearITPendingBit:00000000 CEC_ClearITPendingBit
+     /tmp/cc7kbME5.s:313    .text.CEC_ClearITPendingBit:00000018 $d
+
+UNDEFINED SYMBOLS
+RCC_APB1PeriphResetCmd

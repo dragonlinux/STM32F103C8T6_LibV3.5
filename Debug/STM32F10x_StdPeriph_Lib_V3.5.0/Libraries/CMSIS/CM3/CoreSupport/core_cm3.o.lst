@@ -1,0 +1,1718 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"core_cm3.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.__get_PSP,"ax",%progbits
+  19              		.align	2
+  20              		.global	__get_PSP
+  21              		.thumb
+  22              		.thumb_func
+  24              	__get_PSP:
+  25              	.LFB0:
+  26              		.file 1 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c"
+   1:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**************************************************************************//**
+   2:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @file     core_cm3.c
+   3:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief    CMSIS Cortex-M3 Core Peripheral Access Layer Source File
+   4:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @version  V1.30
+   5:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @date     30. October 2009
+   6:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+   7:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @note
+   8:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Copyright (C) 2009 ARM Limited. All rights reserved.
+   9:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+  10:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @par
+  11:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * ARM Limited (ARM) is supplying this software for use with Cortex-M 
+  12:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * processor based microcontrollers.  This file can be freely distributed 
+  13:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * within development tools that are supporting such ARM based processors. 
+  14:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+  15:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @par
+  16:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * THIS SOFTWARE IS PROVIDED "AS IS".  NO WARRANTIES, WHETHER EXPRESS, IMPLIED
+  17:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF
+  18:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE.
+  19:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * ARM SHALL NOT, IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR
+  20:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
+  21:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+  22:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  ******************************************************************************/
+  23:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+  24:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #include <stdint.h>
+  25:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+  26:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /* define compiler specific symbols */
+  27:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #if defined ( __CC_ARM   )
+  28:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #define __ASM            __asm                                      /*!< asm keyword for ARM Compil
+  29:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #define __INLINE         __inline                                   /*!< inline keyword for ARM Com
+  30:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+  31:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #elif defined ( __ICCARM__ )
+  32:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #define __ASM           __asm                                       /*!< asm keyword for IAR Compil
+  33:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #define __INLINE        inline                                      /*!< inline keyword for IAR Com
+  34:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+  35:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #elif defined   (  __GNUC__  )
+  36:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #define __ASM            __asm                                      /*!< asm keyword for GNU Compil
+  37:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #define __INLINE         inline                                     /*!< inline keyword for GNU Com
+  38:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+  39:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #elif defined   (  __TASKING__  )
+  40:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #define __ASM            __asm                                      /*!< asm keyword for TASKING Co
+  41:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #define __INLINE         inline                                     /*!< inline keyword for TASKING
+  42:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+  43:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #endif
+  44:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+  45:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /* ###################  Compiler specific Intrinsics  ########################### */
+  46:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+  47:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #if defined ( __CC_ARM   ) /*------------------RealView Compiler -----------------*/
+  48:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /* ARM armcc specific functions */
+  49:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+  50:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+  51:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Return the Process Stack Pointer
+  52:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+  53:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return ProcessStackPointer
+  54:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+  55:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Return the actual process stack pointer
+  56:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+  57:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** __ASM uint32_t __get_PSP(void)
+  58:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+  59:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	mrs r0, psp
+  60:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	bx lr
+  61:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+  62:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+  63:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+  64:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Set the Process Stack Pointer
+  65:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+  66:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  topOfProcStack  Process Stack Pointer
+  67:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+  68:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Assign the value ProcessStackPointer to the MSP 
+  69:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * (process stack pointer) Cortex processor register
+  70:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+  71:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** __ASM void __set_PSP(uint32_t topOfProcStack)
+  72:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+  73:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	msr psp, r0
+  74:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	bx lr
+  75:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+  76:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+  77:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+  78:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Return the Main Stack Pointer
+  79:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+  80:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return Main Stack Pointer
+  81:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+  82:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Return the current value of the MSP (main stack pointer)
+  83:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Cortex processor register
+  84:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+  85:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** __ASM uint32_t __get_MSP(void)
+  86:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+  87:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	mrs r0, msp
+  88:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	bx lr
+  89:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+  90:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+  91:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+  92:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Set the Main Stack Pointer
+  93:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+  94:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  topOfMainStack  Main Stack Pointer
+  95:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+  96:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Assign the value mainStackPointer to the MSP 
+  97:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * (main stack pointer) Cortex processor register
+  98:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+  99:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** __ASM void __set_MSP(uint32_t mainStackPointer)
+ 100:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 101:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	msr msp, r0
+ 102:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	bx lr
+ 103:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 104:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 105:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 106:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Reverse byte order in unsigned short value
+ 107:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 108:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param   value  value to reverse
+ 109:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return         reversed value
+ 110:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 111:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Reverse byte order in unsigned short value
+ 112:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 113:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** __ASM uint32_t __REV16(uint16_t value)
+ 114:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 115:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	rev16 r0, r0
+ 116:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	bx lr
+ 117:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 118:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 119:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 120:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Reverse byte order in signed short value with sign extension to integer
+ 121:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 122:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param   value  value to reverse
+ 123:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return         reversed value
+ 124:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 125:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Reverse byte order in signed short value with sign extension to integer
+ 126:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 127:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** __ASM int32_t __REVSH(int16_t value)
+ 128:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 129:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	revsh r0, r0
+ 130:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	bx lr
+ 131:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 132:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 133:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #if (__ARMCC_VERSION < 400000)
+ 134:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 135:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 136:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Remove the exclusive lock created by ldrex
+ 137:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 138:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Removes the exclusive lock which is created by ldrex.
+ 139:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 140:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** __ASM void __CLREX(void)
+ 141:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 142:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	clrex
+ 143:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 144:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 145:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 146:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Return the Base Priority value
+ 147:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 148:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return BasePriority
+ 149:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 150:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Return the content of the base priority register
+ 151:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 152:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** __ASM uint32_t __get_BASEPRI(void)
+ 153:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 154:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	mrs r0, basepri
+ 155:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	bx lr
+ 156:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 157:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 158:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 159:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Set the Base Priority value
+ 160:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 161:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  basePri  BasePriority
+ 162:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 163:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Set the base priority register
+ 164:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 165:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** __ASM void __set_BASEPRI(uint32_t basePri)
+ 166:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 167:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	msr basepri, r0
+ 168:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	bx lr
+ 169:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 170:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 171:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 172:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Return the Priority Mask value
+ 173:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 174:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return PriMask
+ 175:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 176:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Return state of the priority mask bit from the priority mask register
+ 177:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 178:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** __ASM uint32_t __get_PRIMASK(void)
+ 179:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 180:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	mrs r0, primask
+ 181:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	bx lr
+ 182:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 183:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 184:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 185:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Set the Priority Mask value
+ 186:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 187:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  priMask  PriMask
+ 188:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 189:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Set the priority mask bit in the priority mask register
+ 190:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 191:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** __ASM void __set_PRIMASK(uint32_t priMask)
+ 192:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 193:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	msr primask, r0
+ 194:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	bx lr
+ 195:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 196:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 197:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 198:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Return the Fault Mask value
+ 199:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 200:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return FaultMask
+ 201:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 202:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Return the content of the fault mask register
+ 203:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 204:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** __ASM uint32_t __get_FAULTMASK(void)
+ 205:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 206:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	mrs r0, faultmask
+ 207:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	bx lr
+ 208:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 209:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 210:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 211:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Set the Fault Mask value
+ 212:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 213:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  faultMask  faultMask value
+ 214:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 215:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Set the fault mask register
+ 216:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 217:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** __ASM void __set_FAULTMASK(uint32_t faultMask)
+ 218:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 219:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	msr faultmask, r0
+ 220:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	bx lr
+ 221:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 222:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 223:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 224:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Return the Control Register value
+ 225:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * 
+ 226:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return Control value
+ 227:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 228:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Return the content of the control register
+ 229:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 230:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** __ASM uint32_t __get_CONTROL(void)
+ 231:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 232:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	mrs r0, control
+ 233:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	bx lr
+ 234:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 235:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 236:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 237:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Set the Control Register value
+ 238:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 239:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  control  Control value
+ 240:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 241:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Set the control register
+ 242:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 243:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** __ASM void __set_CONTROL(uint32_t control)
+ 244:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 245:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	msr control, r0
+ 246:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	bx lr
+ 247:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 248:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 249:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #endif /* __ARMCC_VERSION  */ 
+ 250:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 251:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #elif (defined (__ICCARM__)) /*------------------ ICC Compiler -------------------*/
+ 252:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /* IAR iccarm specific functions */
+ 253:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #pragma diag_suppress=Pe940
+ 254:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 255:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 256:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Return the Process Stack Pointer
+ 257:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 258:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return ProcessStackPointer
+ 259:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 260:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Return the actual process stack pointer
+ 261:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 262:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __get_PSP(void)
+ 263:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 264:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("mrs r0, psp");
+ 265:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("bx lr");
+ 266:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 267:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 268:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 269:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Set the Process Stack Pointer
+ 270:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 271:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  topOfProcStack  Process Stack Pointer
+ 272:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 273:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Assign the value ProcessStackPointer to the MSP 
+ 274:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * (process stack pointer) Cortex processor register
+ 275:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 276:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** void __set_PSP(uint32_t topOfProcStack)
+ 277:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 278:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("msr psp, r0");
+ 279:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("bx lr");
+ 280:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 281:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 282:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 283:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Return the Main Stack Pointer
+ 284:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 285:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return Main Stack Pointer
+ 286:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 287:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Return the current value of the MSP (main stack pointer)
+ 288:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Cortex processor register
+ 289:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 290:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __get_MSP(void)
+ 291:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 292:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("mrs r0, msp");
+ 293:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("bx lr");
+ 294:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 295:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 296:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 297:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Set the Main Stack Pointer
+ 298:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 299:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  topOfMainStack  Main Stack Pointer
+ 300:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 301:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Assign the value mainStackPointer to the MSP 
+ 302:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * (main stack pointer) Cortex processor register
+ 303:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 304:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** void __set_MSP(uint32_t topOfMainStack)
+ 305:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 306:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("msr msp, r0");
+ 307:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("bx lr");
+ 308:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 309:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 310:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 311:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Reverse byte order in unsigned short value
+ 312:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 313:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  value  value to reverse
+ 314:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return        reversed value
+ 315:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 316:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Reverse byte order in unsigned short value
+ 317:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 318:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __REV16(uint16_t value)
+ 319:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 320:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("rev16 r0, r0");
+ 321:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("bx lr");
+ 322:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 323:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 324:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 325:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Reverse bit order of value
+ 326:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 327:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  value  value to reverse
+ 328:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return        reversed value
+ 329:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 330:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Reverse bit order of value
+ 331:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 332:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __RBIT(uint32_t value)
+ 333:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 334:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("rbit r0, r0");
+ 335:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("bx lr");
+ 336:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 337:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 338:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 339:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  LDR Exclusive (8 bit)
+ 340:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 341:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  *addr  address pointer
+ 342:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return        value of (*address)
+ 343:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 344:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Exclusive LDR command for 8 bit values)
+ 345:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 346:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint8_t __LDREXB(uint8_t *addr)
+ 347:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 348:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("ldrexb r0, [r0]");
+ 349:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("bx lr");
+ 350:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 351:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 352:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 353:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  LDR Exclusive (16 bit)
+ 354:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 355:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  *addr  address pointer
+ 356:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return        value of (*address)
+ 357:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 358:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Exclusive LDR command for 16 bit values
+ 359:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 360:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint16_t __LDREXH(uint16_t *addr)
+ 361:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 362:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("ldrexh r0, [r0]");
+ 363:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("bx lr");
+ 364:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 365:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 366:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 367:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  LDR Exclusive (32 bit)
+ 368:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 369:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  *addr  address pointer
+ 370:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return        value of (*address)
+ 371:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 372:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Exclusive LDR command for 32 bit values
+ 373:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 374:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __LDREXW(uint32_t *addr)
+ 375:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 376:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("ldrex r0, [r0]");
+ 377:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("bx lr");
+ 378:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 379:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 380:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 381:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  STR Exclusive (8 bit)
+ 382:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 383:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  value  value to store
+ 384:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  *addr  address pointer
+ 385:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return        successful / failed
+ 386:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 387:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Exclusive STR command for 8 bit values
+ 388:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 389:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __STREXB(uint8_t value, uint8_t *addr)
+ 390:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 391:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("strexb r0, r0, [r1]");
+ 392:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("bx lr");
+ 393:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 394:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 395:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 396:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  STR Exclusive (16 bit)
+ 397:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 398:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  value  value to store
+ 399:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  *addr  address pointer
+ 400:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return        successful / failed
+ 401:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 402:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Exclusive STR command for 16 bit values
+ 403:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 404:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __STREXH(uint16_t value, uint16_t *addr)
+ 405:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 406:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("strexh r0, r0, [r1]");
+ 407:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("bx lr");
+ 408:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 409:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 410:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 411:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  STR Exclusive (32 bit)
+ 412:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 413:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  value  value to store
+ 414:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  *addr  address pointer
+ 415:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return        successful / failed
+ 416:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 417:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Exclusive STR command for 32 bit values
+ 418:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 419:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __STREXW(uint32_t value, uint32_t *addr)
+ 420:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 421:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("strex r0, r0, [r1]");
+ 422:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM("bx lr");
+ 423:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 424:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 425:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #pragma diag_default=Pe940
+ 426:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 427:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** #elif (defined (__GNUC__)) /*------------------ GNU Compiler ---------------------*/
+ 428:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /* GNU gcc specific functions */
+ 429:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 430:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 431:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Return the Process Stack Pointer
+ 432:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 433:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return ProcessStackPointer
+ 434:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 435:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Return the actual process stack pointer
+ 436:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 437:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __get_PSP(void) __attribute__( ( naked ) );
+ 438:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __get_PSP(void)
+ 439:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+  27              		.loc 1 439 0
+  28              		.cfi_startproc
+  29              		@ Naked Function: prologue and epilogue provided by programmer.
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 1, uses_anonymous_args = 0
+ 440:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	uint32_t result = 0;
+  32              		.loc 1 440 0
+  33 0000 4FF00004 		mov	r4, #0
+ 441:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 442:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("MRS %0, psp\n\t"
+  34              		.loc 1 442 0
+  35              	@ 442 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+  36 0004 EFF30984 		MRS r4, psp
+  37 0008 2046     		MOV r0, r4 
+  38 000a 7047     		BX  lr     
+  39              		
+  40              	@ 0 "" 2
+ 443:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 			"MOV r0, %0 \n\t"
+ 444:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 			"BX  lr     \n\t" : "=r" (result) );
+ 445:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	return (result);
+  41              		.loc 1 445 0
+  42              		.thumb
+  43 000c 2346     		mov	r3, r4
+ 446:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+  44              		.loc 1 446 0
+  45 000e 1846     		mov	r0, r3
+  46              		.cfi_endproc
+  47              	.LFE0:
+  49              		.section	.text.__set_PSP,"ax",%progbits
+  50              		.align	2
+  51              		.global	__set_PSP
+  52              		.thumb
+  53              		.thumb_func
+  55              	__set_PSP:
+  56              	.LFB1:
+ 447:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 448:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 449:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Set the Process Stack Pointer
+ 450:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 451:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  topOfProcStack  Process Stack Pointer
+ 452:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 453:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Assign the value ProcessStackPointer to the MSP 
+ 454:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * (process stack pointer) Cortex processor register
+ 455:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 456:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** void __set_PSP(uint32_t topOfProcStack) __attribute__( ( naked ) );
+ 457:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** void __set_PSP(uint32_t topOfProcStack)
+ 458:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+  57              		.loc 1 458 0
+  58              		.cfi_startproc
+  59              		@ Naked Function: prologue and epilogue provided by programmer.
+  60              		@ args = 0, pretend = 0, frame = 0
+  61              		@ frame_needed = 1, uses_anonymous_args = 0
+  62 0000 0346     		mov	r3, r0
+ 459:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("MSR psp, %0\n\t"
+  63              		.loc 1 459 0
+  64              	@ 459 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+  65 0002 83F30988 		MSR psp, r3
+  66 0006 7047     		BX  lr     
+  67              		
+  68              	@ 0 "" 2
+ 460:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 			"BX  lr     \n\t" : : "r" (topOfProcStack) );
+ 461:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+  69              		.loc 1 461 0
+  70              		.thumb
+  71              		.cfi_endproc
+  72              	.LFE1:
+  74              		.section	.text.__get_MSP,"ax",%progbits
+  75              		.align	2
+  76              		.global	__get_MSP
+  77              		.thumb
+  78              		.thumb_func
+  80              	__get_MSP:
+  81              	.LFB2:
+ 462:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 463:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 464:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Return the Main Stack Pointer
+ 465:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 466:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return Main Stack Pointer
+ 467:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 468:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Return the current value of the MSP (main stack pointer)
+ 469:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Cortex processor register
+ 470:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 471:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __get_MSP(void) __attribute__( ( naked ) );
+ 472:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __get_MSP(void)
+ 473:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+  82              		.loc 1 473 0
+  83              		.cfi_startproc
+  84              		@ Naked Function: prologue and epilogue provided by programmer.
+  85              		@ args = 0, pretend = 0, frame = 0
+  86              		@ frame_needed = 1, uses_anonymous_args = 0
+ 474:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	uint32_t result = 0;
+  87              		.loc 1 474 0
+  88 0000 4FF00004 		mov	r4, #0
+ 475:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 476:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("MRS %0, msp\n\t"
+  89              		.loc 1 476 0
+  90              	@ 476 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+  91 0004 EFF30884 		MRS r4, msp
+  92 0008 2046     		MOV r0, r4 
+  93 000a 7047     		BX  lr     
+  94              		
+  95              	@ 0 "" 2
+ 477:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 			"MOV r0, %0 \n\t"
+ 478:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 			"BX  lr     \n\t" : "=r" (result) );
+ 479:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	return (result);
+  96              		.loc 1 479 0
+  97              		.thumb
+  98 000c 2346     		mov	r3, r4
+ 480:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+  99              		.loc 1 480 0
+ 100 000e 1846     		mov	r0, r3
+ 101              		.cfi_endproc
+ 102              	.LFE2:
+ 104              		.section	.text.__set_MSP,"ax",%progbits
+ 105              		.align	2
+ 106              		.global	__set_MSP
+ 107              		.thumb
+ 108              		.thumb_func
+ 110              	__set_MSP:
+ 111              	.LFB3:
+ 481:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 482:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 483:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Set the Main Stack Pointer
+ 484:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 485:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  topOfMainStack  Main Stack Pointer
+ 486:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 487:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Assign the value mainStackPointer to the MSP 
+ 488:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * (main stack pointer) Cortex processor register
+ 489:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 490:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** void __set_MSP(uint32_t topOfMainStack) __attribute__( ( naked ) );
+ 491:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** void __set_MSP(uint32_t topOfMainStack)
+ 492:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 112              		.loc 1 492 0
+ 113              		.cfi_startproc
+ 114              		@ Naked Function: prologue and epilogue provided by programmer.
+ 115              		@ args = 0, pretend = 0, frame = 0
+ 116              		@ frame_needed = 1, uses_anonymous_args = 0
+ 117 0000 0346     		mov	r3, r0
+ 493:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("MSR msp, %0\n\t"
+ 118              		.loc 1 493 0
+ 119              	@ 493 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 120 0002 83F30888 		MSR msp, r3
+ 121 0006 7047     		BX  lr     
+ 122              		
+ 123              	@ 0 "" 2
+ 494:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 			"BX  lr     \n\t" : : "r" (topOfMainStack) );
+ 495:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 124              		.loc 1 495 0
+ 125              		.thumb
+ 126              		.cfi_endproc
+ 127              	.LFE3:
+ 129              		.section	.text.__get_BASEPRI,"ax",%progbits
+ 130              		.align	2
+ 131              		.global	__get_BASEPRI
+ 132              		.thumb
+ 133              		.thumb_func
+ 135              	__get_BASEPRI:
+ 136              	.LFB4:
+ 496:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 497:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 498:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Return the Base Priority value
+ 499:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 500:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return BasePriority
+ 501:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 502:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Return the content of the base priority register
+ 503:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 504:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __get_BASEPRI(void)
+ 505:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 137              		.loc 1 505 0
+ 138              		.cfi_startproc
+ 139              		@ args = 0, pretend = 0, frame = 8
+ 140              		@ frame_needed = 1, uses_anonymous_args = 0
+ 141              		@ link register save eliminated.
+ 142 0000 90B4     		push	{r4, r7}
+ 143              	.LCFI0:
+ 144              		.cfi_def_cfa_offset 8
+ 145              		.cfi_offset 4, -8
+ 146              		.cfi_offset 7, -4
+ 147 0002 82B0     		sub	sp, sp, #8
+ 148              	.LCFI1:
+ 149              		.cfi_def_cfa_offset 16
+ 150 0004 00AF     		add	r7, sp, #0
+ 151              	.LCFI2:
+ 152              		.cfi_def_cfa_register 7
+ 506:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	uint32_t result = 0;
+ 153              		.loc 1 506 0
+ 154 0006 4FF00003 		mov	r3, #0
+ 155 000a 7B60     		str	r3, [r7, #4]
+ 507:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 508:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("MRS %0, basepri_max" : "=r" (result) );
+ 156              		.loc 1 508 0
+ 157              	@ 508 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 158 000c EFF31284 		MRS r4, basepri_max
+ 159              	@ 0 "" 2
+ 160              		.thumb
+ 161 0010 7C60     		str	r4, [r7, #4]
+ 509:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	return (result);
+ 162              		.loc 1 509 0
+ 163 0012 7B68     		ldr	r3, [r7, #4]
+ 510:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 164              		.loc 1 510 0
+ 165 0014 1846     		mov	r0, r3
+ 166 0016 07F10807 		add	r7, r7, #8
+ 167 001a BD46     		mov	sp, r7
+ 168 001c 90BC     		pop	{r4, r7}
+ 169 001e 7047     		bx	lr
+ 170              		.cfi_endproc
+ 171              	.LFE4:
+ 173              		.section	.text.__set_BASEPRI,"ax",%progbits
+ 174              		.align	2
+ 175              		.global	__set_BASEPRI
+ 176              		.thumb
+ 177              		.thumb_func
+ 179              	__set_BASEPRI:
+ 180              	.LFB5:
+ 511:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 512:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 513:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Set the Base Priority value
+ 514:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 515:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  basePri  BasePriority
+ 516:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 517:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Set the base priority register
+ 518:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 519:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** void __set_BASEPRI(uint32_t value)
+ 520:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 181              		.loc 1 520 0
+ 182              		.cfi_startproc
+ 183              		@ args = 0, pretend = 0, frame = 8
+ 184              		@ frame_needed = 1, uses_anonymous_args = 0
+ 185              		@ link register save eliminated.
+ 186 0000 80B4     		push	{r7}
+ 187              	.LCFI3:
+ 188              		.cfi_def_cfa_offset 4
+ 189              		.cfi_offset 7, -4
+ 190 0002 83B0     		sub	sp, sp, #12
+ 191              	.LCFI4:
+ 192              		.cfi_def_cfa_offset 16
+ 193 0004 00AF     		add	r7, sp, #0
+ 194              	.LCFI5:
+ 195              		.cfi_def_cfa_register 7
+ 196 0006 7860     		str	r0, [r7, #4]
+ 521:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("MSR basepri, %0" : : "r" (value) );
+ 197              		.loc 1 521 0
+ 198 0008 7B68     		ldr	r3, [r7, #4]
+ 199              	@ 521 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 200 000a 83F31188 		MSR basepri, r3
+ 201              	@ 0 "" 2
+ 522:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 202              		.loc 1 522 0
+ 203              		.thumb
+ 204 000e 07F10C07 		add	r7, r7, #12
+ 205 0012 BD46     		mov	sp, r7
+ 206 0014 80BC     		pop	{r7}
+ 207 0016 7047     		bx	lr
+ 208              		.cfi_endproc
+ 209              	.LFE5:
+ 211              		.section	.text.__get_PRIMASK,"ax",%progbits
+ 212              		.align	2
+ 213              		.global	__get_PRIMASK
+ 214              		.thumb
+ 215              		.thumb_func
+ 217              	__get_PRIMASK:
+ 218              	.LFB6:
+ 523:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 524:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 525:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Return the Priority Mask value
+ 526:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 527:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return PriMask
+ 528:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 529:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Return state of the priority mask bit from the priority mask register
+ 530:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 531:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __get_PRIMASK(void)
+ 532:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 219              		.loc 1 532 0
+ 220              		.cfi_startproc
+ 221              		@ args = 0, pretend = 0, frame = 8
+ 222              		@ frame_needed = 1, uses_anonymous_args = 0
+ 223              		@ link register save eliminated.
+ 224 0000 90B4     		push	{r4, r7}
+ 225              	.LCFI6:
+ 226              		.cfi_def_cfa_offset 8
+ 227              		.cfi_offset 4, -8
+ 228              		.cfi_offset 7, -4
+ 229 0002 82B0     		sub	sp, sp, #8
+ 230              	.LCFI7:
+ 231              		.cfi_def_cfa_offset 16
+ 232 0004 00AF     		add	r7, sp, #0
+ 233              	.LCFI8:
+ 234              		.cfi_def_cfa_register 7
+ 533:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	uint32_t result = 0;
+ 235              		.loc 1 533 0
+ 236 0006 4FF00003 		mov	r3, #0
+ 237 000a 7B60     		str	r3, [r7, #4]
+ 534:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 535:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("MRS %0, primask" : "=r" (result) );
+ 238              		.loc 1 535 0
+ 239              	@ 535 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 240 000c EFF31084 		MRS r4, primask
+ 241              	@ 0 "" 2
+ 242              		.thumb
+ 243 0010 7C60     		str	r4, [r7, #4]
+ 536:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	return (result);
+ 244              		.loc 1 536 0
+ 245 0012 7B68     		ldr	r3, [r7, #4]
+ 537:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 246              		.loc 1 537 0
+ 247 0014 1846     		mov	r0, r3
+ 248 0016 07F10807 		add	r7, r7, #8
+ 249 001a BD46     		mov	sp, r7
+ 250 001c 90BC     		pop	{r4, r7}
+ 251 001e 7047     		bx	lr
+ 252              		.cfi_endproc
+ 253              	.LFE6:
+ 255              		.section	.text.__set_PRIMASK,"ax",%progbits
+ 256              		.align	2
+ 257              		.global	__set_PRIMASK
+ 258              		.thumb
+ 259              		.thumb_func
+ 261              	__set_PRIMASK:
+ 262              	.LFB7:
+ 538:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 539:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 540:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Set the Priority Mask value
+ 541:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 542:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  priMask  PriMask
+ 543:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 544:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Set the priority mask bit in the priority mask register
+ 545:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 546:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** void __set_PRIMASK(uint32_t priMask)
+ 547:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 263              		.loc 1 547 0
+ 264              		.cfi_startproc
+ 265              		@ args = 0, pretend = 0, frame = 8
+ 266              		@ frame_needed = 1, uses_anonymous_args = 0
+ 267              		@ link register save eliminated.
+ 268 0000 80B4     		push	{r7}
+ 269              	.LCFI9:
+ 270              		.cfi_def_cfa_offset 4
+ 271              		.cfi_offset 7, -4
+ 272 0002 83B0     		sub	sp, sp, #12
+ 273              	.LCFI10:
+ 274              		.cfi_def_cfa_offset 16
+ 275 0004 00AF     		add	r7, sp, #0
+ 276              	.LCFI11:
+ 277              		.cfi_def_cfa_register 7
+ 278 0006 7860     		str	r0, [r7, #4]
+ 548:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("MSR primask, %0" : : "r" (priMask) );
+ 279              		.loc 1 548 0
+ 280 0008 7B68     		ldr	r3, [r7, #4]
+ 281              	@ 548 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 282 000a 83F31088 		MSR primask, r3
+ 283              	@ 0 "" 2
+ 549:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 284              		.loc 1 549 0
+ 285              		.thumb
+ 286 000e 07F10C07 		add	r7, r7, #12
+ 287 0012 BD46     		mov	sp, r7
+ 288 0014 80BC     		pop	{r7}
+ 289 0016 7047     		bx	lr
+ 290              		.cfi_endproc
+ 291              	.LFE7:
+ 293              		.section	.text.__get_FAULTMASK,"ax",%progbits
+ 294              		.align	2
+ 295              		.global	__get_FAULTMASK
+ 296              		.thumb
+ 297              		.thumb_func
+ 299              	__get_FAULTMASK:
+ 300              	.LFB8:
+ 550:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 551:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 552:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Return the Fault Mask value
+ 553:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 554:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return FaultMask
+ 555:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 556:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Return the content of the fault mask register
+ 557:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 558:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __get_FAULTMASK(void)
+ 559:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 301              		.loc 1 559 0
+ 302              		.cfi_startproc
+ 303              		@ args = 0, pretend = 0, frame = 8
+ 304              		@ frame_needed = 1, uses_anonymous_args = 0
+ 305              		@ link register save eliminated.
+ 306 0000 90B4     		push	{r4, r7}
+ 307              	.LCFI12:
+ 308              		.cfi_def_cfa_offset 8
+ 309              		.cfi_offset 4, -8
+ 310              		.cfi_offset 7, -4
+ 311 0002 82B0     		sub	sp, sp, #8
+ 312              	.LCFI13:
+ 313              		.cfi_def_cfa_offset 16
+ 314 0004 00AF     		add	r7, sp, #0
+ 315              	.LCFI14:
+ 316              		.cfi_def_cfa_register 7
+ 560:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	uint32_t result = 0;
+ 317              		.loc 1 560 0
+ 318 0006 4FF00003 		mov	r3, #0
+ 319 000a 7B60     		str	r3, [r7, #4]
+ 561:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 562:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("MRS %0, faultmask" : "=r" (result) );
+ 320              		.loc 1 562 0
+ 321              	@ 562 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 322 000c EFF31384 		MRS r4, faultmask
+ 323              	@ 0 "" 2
+ 324              		.thumb
+ 325 0010 7C60     		str	r4, [r7, #4]
+ 563:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	return (result);
+ 326              		.loc 1 563 0
+ 327 0012 7B68     		ldr	r3, [r7, #4]
+ 564:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 328              		.loc 1 564 0
+ 329 0014 1846     		mov	r0, r3
+ 330 0016 07F10807 		add	r7, r7, #8
+ 331 001a BD46     		mov	sp, r7
+ 332 001c 90BC     		pop	{r4, r7}
+ 333 001e 7047     		bx	lr
+ 334              		.cfi_endproc
+ 335              	.LFE8:
+ 337              		.section	.text.__set_FAULTMASK,"ax",%progbits
+ 338              		.align	2
+ 339              		.global	__set_FAULTMASK
+ 340              		.thumb
+ 341              		.thumb_func
+ 343              	__set_FAULTMASK:
+ 344              	.LFB9:
+ 565:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 566:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 567:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Set the Fault Mask value
+ 568:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 569:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  faultMask  faultMask value
+ 570:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 571:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Set the fault mask register
+ 572:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 573:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** void __set_FAULTMASK(uint32_t faultMask)
+ 574:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 345              		.loc 1 574 0
+ 346              		.cfi_startproc
+ 347              		@ args = 0, pretend = 0, frame = 8
+ 348              		@ frame_needed = 1, uses_anonymous_args = 0
+ 349              		@ link register save eliminated.
+ 350 0000 80B4     		push	{r7}
+ 351              	.LCFI15:
+ 352              		.cfi_def_cfa_offset 4
+ 353              		.cfi_offset 7, -4
+ 354 0002 83B0     		sub	sp, sp, #12
+ 355              	.LCFI16:
+ 356              		.cfi_def_cfa_offset 16
+ 357 0004 00AF     		add	r7, sp, #0
+ 358              	.LCFI17:
+ 359              		.cfi_def_cfa_register 7
+ 360 0006 7860     		str	r0, [r7, #4]
+ 575:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("MSR faultmask, %0" : : "r" (faultMask) );
+ 361              		.loc 1 575 0
+ 362 0008 7B68     		ldr	r3, [r7, #4]
+ 363              	@ 575 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 364 000a 83F31388 		MSR faultmask, r3
+ 365              	@ 0 "" 2
+ 576:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 366              		.loc 1 576 0
+ 367              		.thumb
+ 368 000e 07F10C07 		add	r7, r7, #12
+ 369 0012 BD46     		mov	sp, r7
+ 370 0014 80BC     		pop	{r7}
+ 371 0016 7047     		bx	lr
+ 372              		.cfi_endproc
+ 373              	.LFE9:
+ 375              		.section	.text.__get_CONTROL,"ax",%progbits
+ 376              		.align	2
+ 377              		.global	__get_CONTROL
+ 378              		.thumb
+ 379              		.thumb_func
+ 381              	__get_CONTROL:
+ 382              	.LFB10:
+ 577:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 578:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 579:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Return the Control Register value
+ 580:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 581:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *  @return Control value
+ 582:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 583:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Return the content of the control register
+ 584:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 585:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __get_CONTROL(void)
+ 586:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 383              		.loc 1 586 0
+ 384              		.cfi_startproc
+ 385              		@ args = 0, pretend = 0, frame = 8
+ 386              		@ frame_needed = 1, uses_anonymous_args = 0
+ 387              		@ link register save eliminated.
+ 388 0000 90B4     		push	{r4, r7}
+ 389              	.LCFI18:
+ 390              		.cfi_def_cfa_offset 8
+ 391              		.cfi_offset 4, -8
+ 392              		.cfi_offset 7, -4
+ 393 0002 82B0     		sub	sp, sp, #8
+ 394              	.LCFI19:
+ 395              		.cfi_def_cfa_offset 16
+ 396 0004 00AF     		add	r7, sp, #0
+ 397              	.LCFI20:
+ 398              		.cfi_def_cfa_register 7
+ 587:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	uint32_t result = 0;
+ 399              		.loc 1 587 0
+ 400 0006 4FF00003 		mov	r3, #0
+ 401 000a 7B60     		str	r3, [r7, #4]
+ 588:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 589:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("MRS %0, control" : "=r" (result) );
+ 402              		.loc 1 589 0
+ 403              	@ 589 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 404 000c EFF31484 		MRS r4, control
+ 405              	@ 0 "" 2
+ 406              		.thumb
+ 407 0010 7C60     		str	r4, [r7, #4]
+ 590:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	return (result);
+ 408              		.loc 1 590 0
+ 409 0012 7B68     		ldr	r3, [r7, #4]
+ 591:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 410              		.loc 1 591 0
+ 411 0014 1846     		mov	r0, r3
+ 412 0016 07F10807 		add	r7, r7, #8
+ 413 001a BD46     		mov	sp, r7
+ 414 001c 90BC     		pop	{r4, r7}
+ 415 001e 7047     		bx	lr
+ 416              		.cfi_endproc
+ 417              	.LFE10:
+ 419              		.section	.text.__set_CONTROL,"ax",%progbits
+ 420              		.align	2
+ 421              		.global	__set_CONTROL
+ 422              		.thumb
+ 423              		.thumb_func
+ 425              	__set_CONTROL:
+ 426              	.LFB11:
+ 592:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 593:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 594:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Set the Control Register value
+ 595:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 596:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  control  Control value
+ 597:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 598:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Set the control register
+ 599:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 600:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** void __set_CONTROL(uint32_t control)
+ 601:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 427              		.loc 1 601 0
+ 428              		.cfi_startproc
+ 429              		@ args = 0, pretend = 0, frame = 8
+ 430              		@ frame_needed = 1, uses_anonymous_args = 0
+ 431              		@ link register save eliminated.
+ 432 0000 80B4     		push	{r7}
+ 433              	.LCFI21:
+ 434              		.cfi_def_cfa_offset 4
+ 435              		.cfi_offset 7, -4
+ 436 0002 83B0     		sub	sp, sp, #12
+ 437              	.LCFI22:
+ 438              		.cfi_def_cfa_offset 16
+ 439 0004 00AF     		add	r7, sp, #0
+ 440              	.LCFI23:
+ 441              		.cfi_def_cfa_register 7
+ 442 0006 7860     		str	r0, [r7, #4]
+ 602:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("MSR control, %0" : : "r" (control) );
+ 443              		.loc 1 602 0
+ 444 0008 7B68     		ldr	r3, [r7, #4]
+ 445              	@ 602 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 446 000a 83F31488 		MSR control, r3
+ 447              	@ 0 "" 2
+ 603:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 448              		.loc 1 603 0
+ 449              		.thumb
+ 450 000e 07F10C07 		add	r7, r7, #12
+ 451 0012 BD46     		mov	sp, r7
+ 452 0014 80BC     		pop	{r7}
+ 453 0016 7047     		bx	lr
+ 454              		.cfi_endproc
+ 455              	.LFE11:
+ 457              		.section	.text.__REV,"ax",%progbits
+ 458              		.align	2
+ 459              		.global	__REV
+ 460              		.thumb
+ 461              		.thumb_func
+ 463              	__REV:
+ 464              	.LFB12:
+ 604:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 605:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 606:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Reverse byte order in integer value
+ 607:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 608:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  value  value to reverse
+ 609:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return        reversed value
+ 610:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 611:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Reverse byte order in integer value
+ 612:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 613:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __REV(uint32_t value)
+ 614:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 465              		.loc 1 614 0
+ 466              		.cfi_startproc
+ 467              		@ args = 0, pretend = 0, frame = 16
+ 468              		@ frame_needed = 1, uses_anonymous_args = 0
+ 469              		@ link register save eliminated.
+ 470 0000 90B4     		push	{r4, r7}
+ 471              	.LCFI24:
+ 472              		.cfi_def_cfa_offset 8
+ 473              		.cfi_offset 4, -8
+ 474              		.cfi_offset 7, -4
+ 475 0002 84B0     		sub	sp, sp, #16
+ 476              	.LCFI25:
+ 477              		.cfi_def_cfa_offset 24
+ 478 0004 00AF     		add	r7, sp, #0
+ 479              	.LCFI26:
+ 480              		.cfi_def_cfa_register 7
+ 481 0006 7860     		str	r0, [r7, #4]
+ 615:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	uint32_t result = 0;
+ 482              		.loc 1 615 0
+ 483 0008 4FF00003 		mov	r3, #0
+ 484 000c FB60     		str	r3, [r7, #12]
+ 616:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 617:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("rev %0, %1" : "=r" (result) : "r" (value) );
+ 485              		.loc 1 617 0
+ 486 000e 7B68     		ldr	r3, [r7, #4]
+ 487              	@ 617 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 488 0010 1CBA     		rev r4, r3
+ 489              	@ 0 "" 2
+ 490              		.thumb
+ 491 0012 FC60     		str	r4, [r7, #12]
+ 618:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	return (result);
+ 492              		.loc 1 618 0
+ 493 0014 FB68     		ldr	r3, [r7, #12]
+ 619:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 494              		.loc 1 619 0
+ 495 0016 1846     		mov	r0, r3
+ 496 0018 07F11007 		add	r7, r7, #16
+ 497 001c BD46     		mov	sp, r7
+ 498 001e 90BC     		pop	{r4, r7}
+ 499 0020 7047     		bx	lr
+ 500              		.cfi_endproc
+ 501              	.LFE12:
+ 503 0022 00BF     		.section	.text.__REV16,"ax",%progbits
+ 504              		.align	2
+ 505              		.global	__REV16
+ 506              		.thumb
+ 507              		.thumb_func
+ 509              	__REV16:
+ 510              	.LFB13:
+ 620:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 621:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 622:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Reverse byte order in unsigned short value
+ 623:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 624:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  value  value to reverse
+ 625:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return        reversed value
+ 626:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 627:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Reverse byte order in unsigned short value
+ 628:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 629:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __REV16(uint16_t value)
+ 630:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 511              		.loc 1 630 0
+ 512              		.cfi_startproc
+ 513              		@ args = 0, pretend = 0, frame = 16
+ 514              		@ frame_needed = 1, uses_anonymous_args = 0
+ 515              		@ link register save eliminated.
+ 516 0000 90B4     		push	{r4, r7}
+ 517              	.LCFI27:
+ 518              		.cfi_def_cfa_offset 8
+ 519              		.cfi_offset 4, -8
+ 520              		.cfi_offset 7, -4
+ 521 0002 84B0     		sub	sp, sp, #16
+ 522              	.LCFI28:
+ 523              		.cfi_def_cfa_offset 24
+ 524 0004 00AF     		add	r7, sp, #0
+ 525              	.LCFI29:
+ 526              		.cfi_def_cfa_register 7
+ 527 0006 0346     		mov	r3, r0
+ 528 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 631:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	uint32_t result = 0;
+ 529              		.loc 1 631 0
+ 530 000a 4FF00003 		mov	r3, #0
+ 531 000e FB60     		str	r3, [r7, #12]
+ 632:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 633:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("rev16 %0, %1" : "=r" (result) : "r" (value) );
+ 532              		.loc 1 633 0
+ 533 0010 FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 534              	@ 633 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 535 0012 5CBA     		rev16 r4, r3
+ 536              	@ 0 "" 2
+ 537              		.thumb
+ 538 0014 FC60     		str	r4, [r7, #12]
+ 634:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	return (result);
+ 539              		.loc 1 634 0
+ 540 0016 FB68     		ldr	r3, [r7, #12]
+ 635:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 541              		.loc 1 635 0
+ 542 0018 1846     		mov	r0, r3
+ 543 001a 07F11007 		add	r7, r7, #16
+ 544 001e BD46     		mov	sp, r7
+ 545 0020 90BC     		pop	{r4, r7}
+ 546 0022 7047     		bx	lr
+ 547              		.cfi_endproc
+ 548              	.LFE13:
+ 550              		.section	.text.__REVSH,"ax",%progbits
+ 551              		.align	2
+ 552              		.global	__REVSH
+ 553              		.thumb
+ 554              		.thumb_func
+ 556              	__REVSH:
+ 557              	.LFB14:
+ 636:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 637:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 638:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Reverse byte order in signed short value with sign extension to integer
+ 639:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 640:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  value  value to reverse
+ 641:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return        reversed value
+ 642:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 643:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Reverse byte order in signed short value with sign extension to integer
+ 644:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 645:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** int32_t __REVSH(int16_t value)
+ 646:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 558              		.loc 1 646 0
+ 559              		.cfi_startproc
+ 560              		@ args = 0, pretend = 0, frame = 16
+ 561              		@ frame_needed = 1, uses_anonymous_args = 0
+ 562              		@ link register save eliminated.
+ 563 0000 90B4     		push	{r4, r7}
+ 564              	.LCFI30:
+ 565              		.cfi_def_cfa_offset 8
+ 566              		.cfi_offset 4, -8
+ 567              		.cfi_offset 7, -4
+ 568 0002 84B0     		sub	sp, sp, #16
+ 569              	.LCFI31:
+ 570              		.cfi_def_cfa_offset 24
+ 571 0004 00AF     		add	r7, sp, #0
+ 572              	.LCFI32:
+ 573              		.cfi_def_cfa_register 7
+ 574 0006 0346     		mov	r3, r0
+ 575 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 647:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	uint32_t result = 0;
+ 576              		.loc 1 647 0
+ 577 000a 4FF00003 		mov	r3, #0
+ 578 000e FB60     		str	r3, [r7, #12]
+ 648:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 649:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("revsh %0, %1" : "=r" (result) : "r" (value) );
+ 579              		.loc 1 649 0
+ 580 0010 FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 581              	@ 649 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 582 0012 DCBA     		revsh r4, r3
+ 583              	@ 0 "" 2
+ 584              		.thumb
+ 585 0014 FC60     		str	r4, [r7, #12]
+ 650:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	return (result);
+ 586              		.loc 1 650 0
+ 587 0016 FB68     		ldr	r3, [r7, #12]
+ 651:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 588              		.loc 1 651 0
+ 589 0018 1846     		mov	r0, r3
+ 590 001a 07F11007 		add	r7, r7, #16
+ 591 001e BD46     		mov	sp, r7
+ 592 0020 90BC     		pop	{r4, r7}
+ 593 0022 7047     		bx	lr
+ 594              		.cfi_endproc
+ 595              	.LFE14:
+ 597              		.section	.text.__RBIT,"ax",%progbits
+ 598              		.align	2
+ 599              		.global	__RBIT
+ 600              		.thumb
+ 601              		.thumb_func
+ 603              	__RBIT:
+ 604              	.LFB15:
+ 652:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 653:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 654:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  Reverse bit order of value
+ 655:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 656:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  value  value to reverse
+ 657:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return        reversed value
+ 658:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 659:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Reverse bit order of value
+ 660:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 661:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __RBIT(uint32_t value)
+ 662:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 605              		.loc 1 662 0
+ 606              		.cfi_startproc
+ 607              		@ args = 0, pretend = 0, frame = 16
+ 608              		@ frame_needed = 1, uses_anonymous_args = 0
+ 609              		@ link register save eliminated.
+ 610 0000 90B4     		push	{r4, r7}
+ 611              	.LCFI33:
+ 612              		.cfi_def_cfa_offset 8
+ 613              		.cfi_offset 4, -8
+ 614              		.cfi_offset 7, -4
+ 615 0002 84B0     		sub	sp, sp, #16
+ 616              	.LCFI34:
+ 617              		.cfi_def_cfa_offset 24
+ 618 0004 00AF     		add	r7, sp, #0
+ 619              	.LCFI35:
+ 620              		.cfi_def_cfa_register 7
+ 621 0006 7860     		str	r0, [r7, #4]
+ 663:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	uint32_t result = 0;
+ 622              		.loc 1 663 0
+ 623 0008 4FF00003 		mov	r3, #0
+ 624 000c FB60     		str	r3, [r7, #12]
+ 664:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 665:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("rbit %0, %1" : "=r" (result) : "r" (value) );
+ 625              		.loc 1 665 0
+ 626 000e 7B68     		ldr	r3, [r7, #4]
+ 627              	@ 665 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 628 0010 93FAA3F4 		rbit r4, r3
+ 629              	@ 0 "" 2
+ 630              		.thumb
+ 631 0014 FC60     		str	r4, [r7, #12]
+ 666:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	return (result);
+ 632              		.loc 1 666 0
+ 633 0016 FB68     		ldr	r3, [r7, #12]
+ 667:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 634              		.loc 1 667 0
+ 635 0018 1846     		mov	r0, r3
+ 636 001a 07F11007 		add	r7, r7, #16
+ 637 001e BD46     		mov	sp, r7
+ 638 0020 90BC     		pop	{r4, r7}
+ 639 0022 7047     		bx	lr
+ 640              		.cfi_endproc
+ 641              	.LFE15:
+ 643              		.section	.text.__LDREXB,"ax",%progbits
+ 644              		.align	2
+ 645              		.global	__LDREXB
+ 646              		.thumb
+ 647              		.thumb_func
+ 649              	__LDREXB:
+ 650              	.LFB16:
+ 668:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 669:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 670:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  LDR Exclusive (8 bit)
+ 671:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 672:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  *addr  address pointer
+ 673:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return        value of (*address)
+ 674:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 675:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Exclusive LDR command for 8 bit value
+ 676:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 677:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint8_t __LDREXB(uint8_t *addr)
+ 678:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 651              		.loc 1 678 0
+ 652              		.cfi_startproc
+ 653              		@ args = 0, pretend = 0, frame = 16
+ 654              		@ frame_needed = 1, uses_anonymous_args = 0
+ 655              		@ link register save eliminated.
+ 656 0000 90B4     		push	{r4, r7}
+ 657              	.LCFI36:
+ 658              		.cfi_def_cfa_offset 8
+ 659              		.cfi_offset 4, -8
+ 660              		.cfi_offset 7, -4
+ 661 0002 84B0     		sub	sp, sp, #16
+ 662              	.LCFI37:
+ 663              		.cfi_def_cfa_offset 24
+ 664 0004 00AF     		add	r7, sp, #0
+ 665              	.LCFI38:
+ 666              		.cfi_def_cfa_register 7
+ 667 0006 7860     		str	r0, [r7, #4]
+ 679:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	uint8_t result = 0;
+ 668              		.loc 1 679 0
+ 669 0008 4FF00003 		mov	r3, #0
+ 670 000c FB73     		strb	r3, [r7, #15]
+ 680:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 681:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("ldrexb %0, [%1]" : "=r" (result) : "r" (addr) );
+ 671              		.loc 1 681 0
+ 672 000e 7B68     		ldr	r3, [r7, #4]
+ 673              	@ 681 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 674 0010 D3E84F4F 		ldrexb r4, [r3]
+ 675              	@ 0 "" 2
+ 676              		.thumb
+ 677 0014 FC73     		strb	r4, [r7, #15]
+ 682:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	return (result);
+ 678              		.loc 1 682 0
+ 679 0016 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 683:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 680              		.loc 1 683 0
+ 681 0018 1846     		mov	r0, r3
+ 682 001a 07F11007 		add	r7, r7, #16
+ 683 001e BD46     		mov	sp, r7
+ 684 0020 90BC     		pop	{r4, r7}
+ 685 0022 7047     		bx	lr
+ 686              		.cfi_endproc
+ 687              	.LFE16:
+ 689              		.section	.text.__LDREXH,"ax",%progbits
+ 690              		.align	2
+ 691              		.global	__LDREXH
+ 692              		.thumb
+ 693              		.thumb_func
+ 695              	__LDREXH:
+ 696              	.LFB17:
+ 684:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 685:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 686:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  LDR Exclusive (16 bit)
+ 687:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 688:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  *addr  address pointer
+ 689:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return        value of (*address)
+ 690:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 691:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Exclusive LDR command for 16 bit values
+ 692:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 693:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint16_t __LDREXH(uint16_t *addr)
+ 694:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 697              		.loc 1 694 0
+ 698              		.cfi_startproc
+ 699              		@ args = 0, pretend = 0, frame = 16
+ 700              		@ frame_needed = 1, uses_anonymous_args = 0
+ 701              		@ link register save eliminated.
+ 702 0000 90B4     		push	{r4, r7}
+ 703              	.LCFI39:
+ 704              		.cfi_def_cfa_offset 8
+ 705              		.cfi_offset 4, -8
+ 706              		.cfi_offset 7, -4
+ 707 0002 84B0     		sub	sp, sp, #16
+ 708              	.LCFI40:
+ 709              		.cfi_def_cfa_offset 24
+ 710 0004 00AF     		add	r7, sp, #0
+ 711              	.LCFI41:
+ 712              		.cfi_def_cfa_register 7
+ 713 0006 7860     		str	r0, [r7, #4]
+ 695:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	uint16_t result = 0;
+ 714              		.loc 1 695 0
+ 715 0008 4FF00003 		mov	r3, #0
+ 716 000c FB81     		strh	r3, [r7, #14]	@ movhi
+ 696:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 697:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("ldrexh %0, [%1]" : "=r" (result) : "r" (addr) );
+ 717              		.loc 1 697 0
+ 718 000e 7B68     		ldr	r3, [r7, #4]
+ 719              	@ 697 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 720 0010 D3E85F4F 		ldrexh r4, [r3]
+ 721              	@ 0 "" 2
+ 722              		.thumb
+ 723 0014 FC81     		strh	r4, [r7, #14]	@ movhi
+ 698:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	return (result);
+ 724              		.loc 1 698 0
+ 725 0016 FB89     		ldrh	r3, [r7, #14]
+ 699:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 726              		.loc 1 699 0
+ 727 0018 1846     		mov	r0, r3
+ 728 001a 07F11007 		add	r7, r7, #16
+ 729 001e BD46     		mov	sp, r7
+ 730 0020 90BC     		pop	{r4, r7}
+ 731 0022 7047     		bx	lr
+ 732              		.cfi_endproc
+ 733              	.LFE17:
+ 735              		.section	.text.__LDREXW,"ax",%progbits
+ 736              		.align	2
+ 737              		.global	__LDREXW
+ 738              		.thumb
+ 739              		.thumb_func
+ 741              	__LDREXW:
+ 742              	.LFB18:
+ 700:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 701:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 702:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  LDR Exclusive (32 bit)
+ 703:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 704:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  *addr  address pointer
+ 705:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return        value of (*address)
+ 706:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 707:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Exclusive LDR command for 32 bit values
+ 708:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 709:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __LDREXW(uint32_t *addr)
+ 710:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 743              		.loc 1 710 0
+ 744              		.cfi_startproc
+ 745              		@ args = 0, pretend = 0, frame = 16
+ 746              		@ frame_needed = 1, uses_anonymous_args = 0
+ 747              		@ link register save eliminated.
+ 748 0000 90B4     		push	{r4, r7}
+ 749              	.LCFI42:
+ 750              		.cfi_def_cfa_offset 8
+ 751              		.cfi_offset 4, -8
+ 752              		.cfi_offset 7, -4
+ 753 0002 84B0     		sub	sp, sp, #16
+ 754              	.LCFI43:
+ 755              		.cfi_def_cfa_offset 24
+ 756 0004 00AF     		add	r7, sp, #0
+ 757              	.LCFI44:
+ 758              		.cfi_def_cfa_register 7
+ 759 0006 7860     		str	r0, [r7, #4]
+ 711:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	uint32_t result = 0;
+ 760              		.loc 1 711 0
+ 761 0008 4FF00003 		mov	r3, #0
+ 762 000c FB60     		str	r3, [r7, #12]
+ 712:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 713:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("ldrex %0, [%1]" : "=r" (result) : "r" (addr) );
+ 763              		.loc 1 713 0
+ 764 000e 7B68     		ldr	r3, [r7, #4]
+ 765              	@ 713 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 766 0010 53E8004F 		ldrex r4, [r3]
+ 767              	@ 0 "" 2
+ 768              		.thumb
+ 769 0014 FC60     		str	r4, [r7, #12]
+ 714:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	return (result);
+ 770              		.loc 1 714 0
+ 771 0016 FB68     		ldr	r3, [r7, #12]
+ 715:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 772              		.loc 1 715 0
+ 773 0018 1846     		mov	r0, r3
+ 774 001a 07F11007 		add	r7, r7, #16
+ 775 001e BD46     		mov	sp, r7
+ 776 0020 90BC     		pop	{r4, r7}
+ 777 0022 7047     		bx	lr
+ 778              		.cfi_endproc
+ 779              	.LFE18:
+ 781              		.section	.text.__STREXB,"ax",%progbits
+ 782              		.align	2
+ 783              		.global	__STREXB
+ 784              		.thumb
+ 785              		.thumb_func
+ 787              	__STREXB:
+ 788              	.LFB19:
+ 716:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 717:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 718:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  STR Exclusive (8 bit)
+ 719:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 720:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  value  value to store
+ 721:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  *addr  address pointer
+ 722:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return        successful / failed
+ 723:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 724:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Exclusive STR command for 8 bit values
+ 725:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 726:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __STREXB(uint8_t value, uint8_t *addr)
+ 727:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 789              		.loc 1 727 0
+ 790              		.cfi_startproc
+ 791              		@ args = 0, pretend = 0, frame = 16
+ 792              		@ frame_needed = 1, uses_anonymous_args = 0
+ 793              		@ link register save eliminated.
+ 794 0000 90B4     		push	{r4, r7}
+ 795              	.LCFI45:
+ 796              		.cfi_def_cfa_offset 8
+ 797              		.cfi_offset 4, -8
+ 798              		.cfi_offset 7, -4
+ 799 0002 84B0     		sub	sp, sp, #16
+ 800              	.LCFI46:
+ 801              		.cfi_def_cfa_offset 24
+ 802 0004 00AF     		add	r7, sp, #0
+ 803              	.LCFI47:
+ 804              		.cfi_def_cfa_register 7
+ 805 0006 0346     		mov	r3, r0
+ 806 0008 3960     		str	r1, [r7, #0]
+ 807 000a FB71     		strb	r3, [r7, #7]
+ 728:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	uint32_t result = 0;
+ 808              		.loc 1 728 0
+ 809 000c 4FF00003 		mov	r3, #0
+ 810 0010 FB60     		str	r3, [r7, #12]
+ 729:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 730:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** //   __ASM volatile ("strexb %0, %2, [%1]" : "=r" (result) : "r" (addr), "r" (value) );
+ 731:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 732:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	/* modified by lingvo, ‘=r’ ---> =&r
+ 733:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 734:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	 * CMIS invlaid use of inline assembler
+ 735:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 736:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	 * https://answers.launchpad.net/gcc-arm-embedded/+question/217817
+ 737:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 738:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	 * */
+ 739:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 740:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("strexb %0, %2, [%1]" : "=&r" (result) : "r" (addr), "r" (value) );
+ 811              		.loc 1 740 0
+ 812 0012 3B68     		ldr	r3, [r7, #0]
+ 813 0014 FA79     		ldrb	r2, [r7, #7]
+ 814              	@ 740 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 815 0016 C3E8442F 		strexb r4, r2, [r3]
+ 816              	@ 0 "" 2
+ 817              		.thumb
+ 818 001a FC60     		str	r4, [r7, #12]
+ 741:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 742:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	return (result);
+ 819              		.loc 1 742 0
+ 820 001c FB68     		ldr	r3, [r7, #12]
+ 743:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	return (result);
+ 744:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 821              		.loc 1 744 0
+ 822 001e 1846     		mov	r0, r3
+ 823 0020 07F11007 		add	r7, r7, #16
+ 824 0024 BD46     		mov	sp, r7
+ 825 0026 90BC     		pop	{r4, r7}
+ 826 0028 7047     		bx	lr
+ 827              		.cfi_endproc
+ 828              	.LFE19:
+ 830 002a 00BF     		.section	.text.__STREXH,"ax",%progbits
+ 831              		.align	2
+ 832              		.global	__STREXH
+ 833              		.thumb
+ 834              		.thumb_func
+ 836              	__STREXH:
+ 837              	.LFB20:
+ 745:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 746:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 747:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  STR Exclusive (16 bit)
+ 748:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 749:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  value  value to store
+ 750:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  *addr  address pointer
+ 751:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return        successful / failed
+ 752:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 753:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Exclusive STR command for 16 bit values
+ 754:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 755:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __STREXH(uint16_t value, uint16_t *addr)
+ 756:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 838              		.loc 1 756 0
+ 839              		.cfi_startproc
+ 840              		@ args = 0, pretend = 0, frame = 16
+ 841              		@ frame_needed = 1, uses_anonymous_args = 0
+ 842              		@ link register save eliminated.
+ 843 0000 90B4     		push	{r4, r7}
+ 844              	.LCFI48:
+ 845              		.cfi_def_cfa_offset 8
+ 846              		.cfi_offset 4, -8
+ 847              		.cfi_offset 7, -4
+ 848 0002 84B0     		sub	sp, sp, #16
+ 849              	.LCFI49:
+ 850              		.cfi_def_cfa_offset 24
+ 851 0004 00AF     		add	r7, sp, #0
+ 852              	.LCFI50:
+ 853              		.cfi_def_cfa_register 7
+ 854 0006 0346     		mov	r3, r0
+ 855 0008 3960     		str	r1, [r7, #0]
+ 856 000a FB80     		strh	r3, [r7, #6]	@ movhi
+ 757:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	uint32_t result = 0;
+ 857              		.loc 1 757 0
+ 858 000c 4FF00003 		mov	r3, #0
+ 859 0010 FB60     		str	r3, [r7, #12]
+ 758:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 759:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** //	__ASM volatile ("strexh %0, %2, [%1]" : "=r" (result) : "r" (addr), "r" (value) );
+ 760:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	/* same fix as above by lingvo */
+ 761:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 762:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("strexh %0, %2, [%1]" : "=&r" (result) : "r" (addr), "r" (value) );
+ 860              		.loc 1 762 0
+ 861 0012 3B68     		ldr	r3, [r7, #0]
+ 862 0014 FA88     		ldrh	r2, [r7, #6]	@ movhi
+ 863              	@ 762 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 864 0016 C3E8542F 		strexh r4, r2, [r3]
+ 865              	@ 0 "" 2
+ 866              		.thumb
+ 867 001a FC60     		str	r4, [r7, #12]
+ 763:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 764:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	return (result);
+ 868              		.loc 1 764 0
+ 869 001c FB68     		ldr	r3, [r7, #12]
+ 765:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 870              		.loc 1 765 0
+ 871 001e 1846     		mov	r0, r3
+ 872 0020 07F11007 		add	r7, r7, #16
+ 873 0024 BD46     		mov	sp, r7
+ 874 0026 90BC     		pop	{r4, r7}
+ 875 0028 7047     		bx	lr
+ 876              		.cfi_endproc
+ 877              	.LFE20:
+ 879 002a 00BF     		.section	.text.__STREXW,"ax",%progbits
+ 880              		.align	2
+ 881              		.global	__STREXW
+ 882              		.thumb
+ 883              		.thumb_func
+ 885              	__STREXW:
+ 886              	.LFB21:
+ 766:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 767:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** /**
+ 768:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @brief  STR Exclusive (32 bit)
+ 769:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 770:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  value  value to store
+ 771:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @param  *addr  address pointer
+ 772:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * @return        successful / failed
+ 773:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  *
+ 774:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  * Exclusive STR command for 32 bit values
+ 775:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c ****  */
+ 776:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** uint32_t __STREXW(uint32_t value, uint32_t *addr)
+ 777:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** {
+ 887              		.loc 1 777 0
+ 888              		.cfi_startproc
+ 889              		@ args = 0, pretend = 0, frame = 16
+ 890              		@ frame_needed = 1, uses_anonymous_args = 0
+ 891              		@ link register save eliminated.
+ 892 0000 90B4     		push	{r4, r7}
+ 893              	.LCFI51:
+ 894              		.cfi_def_cfa_offset 8
+ 895              		.cfi_offset 4, -8
+ 896              		.cfi_offset 7, -4
+ 897 0002 84B0     		sub	sp, sp, #16
+ 898              	.LCFI52:
+ 899              		.cfi_def_cfa_offset 24
+ 900 0004 00AF     		add	r7, sp, #0
+ 901              	.LCFI53:
+ 902              		.cfi_def_cfa_register 7
+ 903 0006 7860     		str	r0, [r7, #4]
+ 904 0008 3960     		str	r1, [r7, #0]
+ 778:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	uint32_t result = 0;
+ 905              		.loc 1 778 0
+ 906 000a 4FF00003 		mov	r3, #0
+ 907 000e FB60     		str	r3, [r7, #12]
+ 779:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 
+ 780:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	__ASM volatile ("strex %0, %2, [%1]" : "=r" (result) : "r" (addr), "r" (value) );
+ 908              		.loc 1 780 0
+ 909 0010 3B68     		ldr	r3, [r7, #0]
+ 910 0012 7A68     		ldr	r2, [r7, #4]
+ 911              	@ 780 "../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c" 1
+ 912 0014 43E80024 		strex r4, r2, [r3]
+ 913              	@ 0 "" 2
+ 914              		.thumb
+ 915 0018 FC60     		str	r4, [r7, #12]
+ 781:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** 	return (result);
+ 916              		.loc 1 781 0
+ 917 001a FB68     		ldr	r3, [r7, #12]
+ 782:../STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c **** }
+ 918              		.loc 1 782 0
+ 919 001c 1846     		mov	r0, r3
+ 920 001e 07F11007 		add	r7, r7, #16
+ 921 0022 BD46     		mov	sp, r7
+ 922 0024 90BC     		pop	{r4, r7}
+ 923 0026 7047     		bx	lr
+ 924              		.cfi_endproc
+ 925              	.LFE21:
+ 927              		.text
+ 928              	.Letext0:
+ 929              		.file 2 "/home/dragon/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-ea
+DEFINED SYMBOLS
+                            *ABS*:00000000 core_cm3.c
+     /tmp/cc0yM32p.s:19     .text.__get_PSP:00000000 $t
+     /tmp/cc0yM32p.s:24     .text.__get_PSP:00000000 __get_PSP
+     /tmp/cc0yM32p.s:50     .text.__set_PSP:00000000 $t
+     /tmp/cc0yM32p.s:55     .text.__set_PSP:00000000 __set_PSP
+     /tmp/cc0yM32p.s:75     .text.__get_MSP:00000000 $t
+     /tmp/cc0yM32p.s:80     .text.__get_MSP:00000000 __get_MSP
+     /tmp/cc0yM32p.s:105    .text.__set_MSP:00000000 $t
+     /tmp/cc0yM32p.s:110    .text.__set_MSP:00000000 __set_MSP
+     /tmp/cc0yM32p.s:130    .text.__get_BASEPRI:00000000 $t
+     /tmp/cc0yM32p.s:135    .text.__get_BASEPRI:00000000 __get_BASEPRI
+     /tmp/cc0yM32p.s:174    .text.__set_BASEPRI:00000000 $t
+     /tmp/cc0yM32p.s:179    .text.__set_BASEPRI:00000000 __set_BASEPRI
+     /tmp/cc0yM32p.s:212    .text.__get_PRIMASK:00000000 $t
+     /tmp/cc0yM32p.s:217    .text.__get_PRIMASK:00000000 __get_PRIMASK
+     /tmp/cc0yM32p.s:256    .text.__set_PRIMASK:00000000 $t
+     /tmp/cc0yM32p.s:261    .text.__set_PRIMASK:00000000 __set_PRIMASK
+     /tmp/cc0yM32p.s:294    .text.__get_FAULTMASK:00000000 $t
+     /tmp/cc0yM32p.s:299    .text.__get_FAULTMASK:00000000 __get_FAULTMASK
+     /tmp/cc0yM32p.s:338    .text.__set_FAULTMASK:00000000 $t
+     /tmp/cc0yM32p.s:343    .text.__set_FAULTMASK:00000000 __set_FAULTMASK
+     /tmp/cc0yM32p.s:376    .text.__get_CONTROL:00000000 $t
+     /tmp/cc0yM32p.s:381    .text.__get_CONTROL:00000000 __get_CONTROL
+     /tmp/cc0yM32p.s:420    .text.__set_CONTROL:00000000 $t
+     /tmp/cc0yM32p.s:425    .text.__set_CONTROL:00000000 __set_CONTROL
+     /tmp/cc0yM32p.s:458    .text.__REV:00000000 $t
+     /tmp/cc0yM32p.s:463    .text.__REV:00000000 __REV
+     /tmp/cc0yM32p.s:504    .text.__REV16:00000000 $t
+     /tmp/cc0yM32p.s:509    .text.__REV16:00000000 __REV16
+     /tmp/cc0yM32p.s:551    .text.__REVSH:00000000 $t
+     /tmp/cc0yM32p.s:556    .text.__REVSH:00000000 __REVSH
+     /tmp/cc0yM32p.s:598    .text.__RBIT:00000000 $t
+     /tmp/cc0yM32p.s:603    .text.__RBIT:00000000 __RBIT
+     /tmp/cc0yM32p.s:644    .text.__LDREXB:00000000 $t
+     /tmp/cc0yM32p.s:649    .text.__LDREXB:00000000 __LDREXB
+     /tmp/cc0yM32p.s:690    .text.__LDREXH:00000000 $t
+     /tmp/cc0yM32p.s:695    .text.__LDREXH:00000000 __LDREXH
+     /tmp/cc0yM32p.s:736    .text.__LDREXW:00000000 $t
+     /tmp/cc0yM32p.s:741    .text.__LDREXW:00000000 __LDREXW
+     /tmp/cc0yM32p.s:782    .text.__STREXB:00000000 $t
+     /tmp/cc0yM32p.s:787    .text.__STREXB:00000000 __STREXB
+     /tmp/cc0yM32p.s:831    .text.__STREXH:00000000 $t
+     /tmp/cc0yM32p.s:836    .text.__STREXH:00000000 __STREXH
+     /tmp/cc0yM32p.s:880    .text.__STREXW:00000000 $t
+     /tmp/cc0yM32p.s:885    .text.__STREXW:00000000 __STREXW
+                     .debug_frame:00000010 $d
+                           .group:00000000 wm4.1.3f1c4c3ecf94fe9b5c343fe975e01068
+                           .group:00000000 wm4.stdint.h.10.90b695f550ca6cc3fb08fa83baf01e05
+
+NO UNDEFINED SYMBOLS

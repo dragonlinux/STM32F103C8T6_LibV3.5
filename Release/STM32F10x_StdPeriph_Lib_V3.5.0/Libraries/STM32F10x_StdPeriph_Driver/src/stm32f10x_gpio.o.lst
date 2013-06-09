@@ -1,0 +1,513 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"stm32f10x_gpio.c"
+  15              		.section	.text.GPIO_DeInit,"ax",%progbits
+  16              		.align	1
+  17              		.global	GPIO_DeInit
+  18              		.thumb
+  19              		.thumb_func
+  21              	GPIO_DeInit:
+  22              		@ args = 0, pretend = 0, frame = 0
+  23              		@ frame_needed = 0, uses_anonymous_args = 0
+  24 0000 08B5     		push	{r3, lr}
+  25 0002 234B     		ldr	r3, .L10
+  26 0004 9842     		cmp	r0, r3
+  27 0006 05D1     		bne	.L2
+  28 0008 0420     		movs	r0, #4
+  29 000a 0121     		movs	r1, #1
+  30 000c FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+  31 0010 0420     		movs	r0, #4
+  32 0012 36E0     		b	.L9
+  33              	.L2:
+  34 0014 1F4B     		ldr	r3, .L10+4
+  35 0016 9842     		cmp	r0, r3
+  36 0018 05D1     		bne	.L3
+  37 001a 0820     		movs	r0, #8
+  38 001c 0121     		movs	r1, #1
+  39 001e FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+  40 0022 0820     		movs	r0, #8
+  41 0024 2DE0     		b	.L9
+  42              	.L3:
+  43 0026 1C4B     		ldr	r3, .L10+8
+  44 0028 9842     		cmp	r0, r3
+  45 002a 05D1     		bne	.L4
+  46 002c 1020     		movs	r0, #16
+  47 002e 0121     		movs	r1, #1
+  48 0030 FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+  49 0034 1020     		movs	r0, #16
+  50 0036 24E0     		b	.L9
+  51              	.L4:
+  52 0038 184B     		ldr	r3, .L10+12
+  53 003a 9842     		cmp	r0, r3
+  54 003c 05D1     		bne	.L5
+  55 003e 2020     		movs	r0, #32
+  56 0040 0121     		movs	r1, #1
+  57 0042 FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+  58 0046 2020     		movs	r0, #32
+  59 0048 1BE0     		b	.L9
+  60              	.L5:
+  61 004a 154B     		ldr	r3, .L10+16
+  62 004c 9842     		cmp	r0, r3
+  63 004e 05D1     		bne	.L6
+  64 0050 4020     		movs	r0, #64
+  65 0052 0121     		movs	r1, #1
+  66 0054 FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+  67 0058 4020     		movs	r0, #64
+  68 005a 12E0     		b	.L9
+  69              	.L6:
+  70 005c 114B     		ldr	r3, .L10+20
+  71 005e 9842     		cmp	r0, r3
+  72 0060 05D1     		bne	.L7
+  73 0062 8020     		movs	r0, #128
+  74 0064 0121     		movs	r1, #1
+  75 0066 FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+  76 006a 8020     		movs	r0, #128
+  77 006c 09E0     		b	.L9
+  78              	.L7:
+  79 006e 0E4B     		ldr	r3, .L10+24
+  80 0070 9842     		cmp	r0, r3
+  81 0072 0BD1     		bne	.L1
+  82 0074 4FF48070 		mov	r0, #256
+  83 0078 0121     		movs	r1, #1
+  84 007a FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+  85 007e 4FF48070 		mov	r0, #256
+  86              	.L9:
+  87 0082 0021     		movs	r1, #0
+  88 0084 BDE80840 		pop	{r3, lr}
+  89 0088 FFF7FEBF 		b	RCC_APB2PeriphResetCmd
+  90              	.L1:
+  91 008c 08BD     		pop	{r3, pc}
+  92              	.L11:
+  93 008e 00BF     		.align	2
+  94              	.L10:
+  95 0090 00080140 		.word	1073809408
+  96 0094 000C0140 		.word	1073810432
+  97 0098 00100140 		.word	1073811456
+  98 009c 00140140 		.word	1073812480
+  99 00a0 00180140 		.word	1073813504
+ 100 00a4 001C0140 		.word	1073814528
+ 101 00a8 00200140 		.word	1073815552
+ 103              		.section	.text.GPIO_AFIODeInit,"ax",%progbits
+ 104              		.align	1
+ 105              		.global	GPIO_AFIODeInit
+ 106              		.thumb
+ 107              		.thumb_func
+ 109              	GPIO_AFIODeInit:
+ 110              		@ args = 0, pretend = 0, frame = 0
+ 111              		@ frame_needed = 0, uses_anonymous_args = 0
+ 112 0000 0120     		movs	r0, #1
+ 113 0002 0146     		mov	r1, r0
+ 114 0004 08B5     		push	{r3, lr}
+ 115 0006 FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+ 116 000a 0120     		movs	r0, #1
+ 117 000c 0021     		movs	r1, #0
+ 118 000e BDE80840 		pop	{r3, lr}
+ 119 0012 FFF7FEBF 		b	RCC_APB2PeriphResetCmd
+ 121              		.section	.text.GPIO_Init,"ax",%progbits
+ 122              		.align	1
+ 123              		.global	GPIO_Init
+ 124              		.thumb
+ 125              		.thumb_func
+ 127              	GPIO_Init:
+ 128              		@ args = 0, pretend = 0, frame = 0
+ 129              		@ frame_needed = 0, uses_anonymous_args = 0
+ 130 0000 CB78     		ldrb	r3, [r1, #3]	@ zero_extendqisi2
+ 131 0002 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 132 0006 DA06     		lsls	r2, r3, #27
+ 133 0008 48BF     		it	mi
+ 134 000a 8A78     		ldrbmi	r2, [r1, #2]	@ zero_extendqisi2
+ 135 000c 0988     		ldrh	r1, [r1, #0]
+ 136 000e 03F00F05 		and	r5, r3, #15
+ 137 0012 48BF     		it	mi
+ 138 0014 1543     		orrmi	r5, r5, r2
+ 139 0016 11F0FF0F 		tst	r1, #255
+ 140 001a 1FD0     		beq	.L16
+ 141 001c 0468     		ldr	r4, [r0, #0]
+ 142 001e 0022     		movs	r2, #0
+ 143 0020 4FF0010C 		mov	ip, #1
+ 144 0024 4FF00F08 		mov	r8, #15
+ 145              	.L19:
+ 146 0028 0CFA02F7 		lsl	r7, ip, r2
+ 147 002c 07EA0106 		and	r6, r7, r1
+ 148 0030 BE42     		cmp	r6, r7
+ 149 0032 0FD1     		bne	.L17
+ 150 0034 9700     		lsls	r7, r2, #2
+ 151 0036 08FA07F9 		lsl	r9, r8, r7
+ 152 003a 05FA07F7 		lsl	r7, r5, r7
+ 153 003e 24EA0904 		bic	r4, r4, r9
+ 154 0042 282B     		cmp	r3, #40
+ 155 0044 44EA0704 		orr	r4, r4, r7
+ 156 0048 01D1     		bne	.L18
+ 157 004a 4661     		str	r6, [r0, #20]
+ 158 004c 02E0     		b	.L17
+ 159              	.L18:
+ 160 004e 482B     		cmp	r3, #72
+ 161 0050 08BF     		it	eq
+ 162 0052 0661     		streq	r6, [r0, #16]
+ 163              	.L17:
+ 164 0054 0132     		adds	r2, r2, #1
+ 165 0056 082A     		cmp	r2, #8
+ 166 0058 E6D1     		bne	.L19
+ 167 005a 0460     		str	r4, [r0, #0]
+ 168              	.L16:
+ 169 005c FF29     		cmp	r1, #255
+ 170 005e 21D9     		bls	.L13
+ 171 0060 4468     		ldr	r4, [r0, #4]
+ 172 0062 0022     		movs	r2, #0
+ 173 0064 4FF0010C 		mov	ip, #1
+ 174 0068 4FF00F08 		mov	r8, #15
+ 175              	.L23:
+ 176 006c 02F10807 		add	r7, r2, #8
+ 177 0070 0CFA07F7 		lsl	r7, ip, r7
+ 178 0074 07EA0106 		and	r6, r7, r1
+ 179 0078 BE42     		cmp	r6, r7
+ 180 007a 0FD1     		bne	.L21
+ 181 007c 9700     		lsls	r7, r2, #2
+ 182 007e 08FA07F9 		lsl	r9, r8, r7
+ 183 0082 05FA07F7 		lsl	r7, r5, r7
+ 184 0086 24EA0904 		bic	r4, r4, r9
+ 185 008a 282B     		cmp	r3, #40
+ 186 008c 44EA0704 		orr	r4, r4, r7
+ 187 0090 01D1     		bne	.L22
+ 188 0092 4661     		str	r6, [r0, #20]
+ 189 0094 02E0     		b	.L21
+ 190              	.L22:
+ 191 0096 482B     		cmp	r3, #72
+ 192 0098 08BF     		it	eq
+ 193 009a 0661     		streq	r6, [r0, #16]
+ 194              	.L21:
+ 195 009c 0132     		adds	r2, r2, #1
+ 196 009e 082A     		cmp	r2, #8
+ 197 00a0 E4D1     		bne	.L23
+ 198 00a2 4460     		str	r4, [r0, #4]
+ 199              	.L13:
+ 200 00a4 BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 202              		.section	.text.GPIO_StructInit,"ax",%progbits
+ 203              		.align	1
+ 204              		.global	GPIO_StructInit
+ 205              		.thumb
+ 206              		.thumb_func
+ 208              	GPIO_StructInit:
+ 209              		@ args = 0, pretend = 0, frame = 0
+ 210              		@ frame_needed = 0, uses_anonymous_args = 0
+ 211              		@ link register save eliminated.
+ 212 0000 4FF6FF73 		movw	r3, #65535
+ 213 0004 0380     		strh	r3, [r0, #0]	@ movhi
+ 214 0006 0223     		movs	r3, #2
+ 215 0008 8370     		strb	r3, [r0, #2]
+ 216 000a 0423     		movs	r3, #4
+ 217 000c C370     		strb	r3, [r0, #3]
+ 218 000e 7047     		bx	lr
+ 220              		.section	.text.GPIO_ReadInputDataBit,"ax",%progbits
+ 221              		.align	1
+ 222              		.global	GPIO_ReadInputDataBit
+ 223              		.thumb
+ 224              		.thumb_func
+ 226              	GPIO_ReadInputDataBit:
+ 227              		@ args = 0, pretend = 0, frame = 0
+ 228              		@ frame_needed = 0, uses_anonymous_args = 0
+ 229              		@ link register save eliminated.
+ 230 0000 8368     		ldr	r3, [r0, #8]
+ 231 0002 1942     		tst	r1, r3
+ 232 0004 0CBF     		ite	eq
+ 233 0006 0020     		moveq	r0, #0
+ 234 0008 0120     		movne	r0, #1
+ 235 000a 7047     		bx	lr
+ 237              		.section	.text.GPIO_ReadInputData,"ax",%progbits
+ 238              		.align	1
+ 239              		.global	GPIO_ReadInputData
+ 240              		.thumb
+ 241              		.thumb_func
+ 243              	GPIO_ReadInputData:
+ 244              		@ args = 0, pretend = 0, frame = 0
+ 245              		@ frame_needed = 0, uses_anonymous_args = 0
+ 246              		@ link register save eliminated.
+ 247 0000 8068     		ldr	r0, [r0, #8]
+ 248 0002 80B2     		uxth	r0, r0
+ 249 0004 7047     		bx	lr
+ 251              		.section	.text.GPIO_ReadOutputDataBit,"ax",%progbits
+ 252              		.align	1
+ 253              		.global	GPIO_ReadOutputDataBit
+ 254              		.thumb
+ 255              		.thumb_func
+ 257              	GPIO_ReadOutputDataBit:
+ 258              		@ args = 0, pretend = 0, frame = 0
+ 259              		@ frame_needed = 0, uses_anonymous_args = 0
+ 260              		@ link register save eliminated.
+ 261 0000 C368     		ldr	r3, [r0, #12]
+ 262 0002 1942     		tst	r1, r3
+ 263 0004 0CBF     		ite	eq
+ 264 0006 0020     		moveq	r0, #0
+ 265 0008 0120     		movne	r0, #1
+ 266 000a 7047     		bx	lr
+ 268              		.section	.text.GPIO_ReadOutputData,"ax",%progbits
+ 269              		.align	1
+ 270              		.global	GPIO_ReadOutputData
+ 271              		.thumb
+ 272              		.thumb_func
+ 274              	GPIO_ReadOutputData:
+ 275              		@ args = 0, pretend = 0, frame = 0
+ 276              		@ frame_needed = 0, uses_anonymous_args = 0
+ 277              		@ link register save eliminated.
+ 278 0000 C068     		ldr	r0, [r0, #12]
+ 279 0002 80B2     		uxth	r0, r0
+ 280 0004 7047     		bx	lr
+ 282              		.section	.text.GPIO_SetBits,"ax",%progbits
+ 283              		.align	1
+ 284              		.global	GPIO_SetBits
+ 285              		.thumb
+ 286              		.thumb_func
+ 288              	GPIO_SetBits:
+ 289              		@ args = 0, pretend = 0, frame = 0
+ 290              		@ frame_needed = 0, uses_anonymous_args = 0
+ 291              		@ link register save eliminated.
+ 292 0000 0161     		str	r1, [r0, #16]
+ 293 0002 7047     		bx	lr
+ 295              		.section	.text.GPIO_ResetBits,"ax",%progbits
+ 296              		.align	1
+ 297              		.global	GPIO_ResetBits
+ 298              		.thumb
+ 299              		.thumb_func
+ 301              	GPIO_ResetBits:
+ 302              		@ args = 0, pretend = 0, frame = 0
+ 303              		@ frame_needed = 0, uses_anonymous_args = 0
+ 304              		@ link register save eliminated.
+ 305 0000 4161     		str	r1, [r0, #20]
+ 306 0002 7047     		bx	lr
+ 308              		.section	.text.GPIO_WriteBit,"ax",%progbits
+ 309              		.align	1
+ 310              		.global	GPIO_WriteBit
+ 311              		.thumb
+ 312              		.thumb_func
+ 314              	GPIO_WriteBit:
+ 315              		@ args = 0, pretend = 0, frame = 0
+ 316              		@ frame_needed = 0, uses_anonymous_args = 0
+ 317              		@ link register save eliminated.
+ 318 0000 0AB1     		cbz	r2, .L37
+ 319 0002 0161     		str	r1, [r0, #16]
+ 320 0004 7047     		bx	lr
+ 321              	.L37:
+ 322 0006 4161     		str	r1, [r0, #20]
+ 323 0008 7047     		bx	lr
+ 325              		.section	.text.GPIO_Write,"ax",%progbits
+ 326              		.align	1
+ 327              		.global	GPIO_Write
+ 328              		.thumb
+ 329              		.thumb_func
+ 331              	GPIO_Write:
+ 332              		@ args = 0, pretend = 0, frame = 0
+ 333              		@ frame_needed = 0, uses_anonymous_args = 0
+ 334              		@ link register save eliminated.
+ 335 0000 C160     		str	r1, [r0, #12]
+ 336 0002 7047     		bx	lr
+ 338              		.section	.text.GPIO_PinLockConfig,"ax",%progbits
+ 339              		.align	1
+ 340              		.global	GPIO_PinLockConfig
+ 341              		.thumb
+ 342              		.thumb_func
+ 344              	GPIO_PinLockConfig:
+ 345              		@ args = 0, pretend = 0, frame = 0
+ 346              		@ frame_needed = 0, uses_anonymous_args = 0
+ 347              		@ link register save eliminated.
+ 348 0000 41F48033 		orr	r3, r1, #65536
+ 349 0004 8361     		str	r3, [r0, #24]
+ 350 0006 8161     		str	r1, [r0, #24]
+ 351 0008 8361     		str	r3, [r0, #24]
+ 352 000a 8369     		ldr	r3, [r0, #24]
+ 353 000c 8369     		ldr	r3, [r0, #24]
+ 354 000e 7047     		bx	lr
+ 356              		.section	.text.GPIO_EventOutputConfig,"ax",%progbits
+ 357              		.align	1
+ 358              		.global	GPIO_EventOutputConfig
+ 359              		.thumb
+ 360              		.thumb_func
+ 362              	GPIO_EventOutputConfig:
+ 363              		@ args = 0, pretend = 0, frame = 0
+ 364              		@ frame_needed = 0, uses_anonymous_args = 0
+ 365 0000 054A     		ldr	r2, .L42
+ 366 0002 10B5     		push	{r4, lr}
+ 367 0004 1468     		ldr	r4, [r2, #0]
+ 368 0006 4FF68073 		movw	r3, #65408
+ 369 000a 2340     		ands	r3, r3, r4
+ 370 000c 41EA0011 		orr	r1, r1, r0, lsl #4
+ 371 0010 0B43     		orrs	r3, r3, r1
+ 372 0012 1360     		str	r3, [r2, #0]
+ 373 0014 10BD     		pop	{r4, pc}
+ 374              	.L43:
+ 375 0016 00BF     		.align	2
+ 376              	.L42:
+ 377 0018 00000140 		.word	1073807360
+ 379              		.section	.text.GPIO_EventOutputCmd,"ax",%progbits
+ 380              		.align	1
+ 381              		.global	GPIO_EventOutputCmd
+ 382              		.thumb
+ 383              		.thumb_func
+ 385              	GPIO_EventOutputCmd:
+ 386              		@ args = 0, pretend = 0, frame = 0
+ 387              		@ frame_needed = 0, uses_anonymous_args = 0
+ 388              		@ link register save eliminated.
+ 389 0000 014B     		ldr	r3, .L45
+ 390 0002 1860     		str	r0, [r3, #0]
+ 391 0004 7047     		bx	lr
+ 392              	.L46:
+ 393 0006 00BF     		.align	2
+ 394              	.L45:
+ 395 0008 1C002042 		.word	1109393436
+ 397              		.section	.text.GPIO_PinRemapConfig,"ax",%progbits
+ 398              		.align	1
+ 399              		.global	GPIO_PinRemapConfig
+ 400              		.thumb
+ 401              		.thumb_func
+ 403              	GPIO_PinRemapConfig:
+ 404              		@ args = 0, pretend = 0, frame = 0
+ 405              		@ frame_needed = 0, uses_anonymous_args = 0
+ 406 0000 0028     		cmp	r0, #0
+ 407 0002 174B     		ldr	r3, .L60
+ 408 0004 30B5     		push	{r4, r5, lr}
+ 409 0006 00F44014 		and	r4, r0, #3145728
+ 410 000a B4BF     		ite	lt
+ 411 000c DB69     		ldrlt	r3, [r3, #28]
+ 412 000e 5B68     		ldrge	r3, [r3, #4]
+ 413 0010 B4F5401F 		cmp	r4, #3145728
+ 414 0014 82B2     		uxth	r2, r0
+ 415 0016 07D1     		bne	.L50
+ 416 0018 114C     		ldr	r4, .L60
+ 417 001a 23F07063 		bic	r3, r3, #251658240
+ 418 001e 6568     		ldr	r5, [r4, #4]
+ 419 0020 25F07065 		bic	r5, r5, #251658240
+ 420 0024 6560     		str	r5, [r4, #4]
+ 421 0026 0FE0     		b	.L51
+ 422              	.L50:
+ 423 0028 C402     		lsls	r4, r0, #11
+ 424 002a 05D5     		bpl	.L52
+ 425 002c C0F30344 		ubfx	r4, r0, #16, #4
+ 426 0030 0325     		movs	r5, #3
+ 427 0032 05FA04F4 		lsl	r4, r5, r4
+ 428 0036 03E0     		b	.L59
+ 429              	.L52:
+ 430 0038 440D     		lsrs	r4, r0, #21
+ 431 003a 2401     		lsls	r4, r4, #4
+ 432 003c 02FA04F4 		lsl	r4, r2, r4
+ 433              	.L59:
+ 434 0040 23EA0403 		bic	r3, r3, r4
+ 435 0044 43F07063 		orr	r3, r3, #251658240
+ 436              	.L51:
+ 437 0048 21B1     		cbz	r1, .L53
+ 438 004a 410D     		lsrs	r1, r0, #21
+ 439 004c 0901     		lsls	r1, r1, #4
+ 440 004e 02FA01F2 		lsl	r2, r2, r1
+ 441 0052 1343     		orrs	r3, r3, r2
+ 442              	.L53:
+ 443 0054 024A     		ldr	r2, .L60
+ 444 0056 0028     		cmp	r0, #0
+ 445 0058 B4BF     		ite	lt
+ 446 005a D361     		strlt	r3, [r2, #28]
+ 447 005c 5360     		strge	r3, [r2, #4]
+ 448 005e 30BD     		pop	{r4, r5, pc}
+ 449              	.L61:
+ 450              		.align	2
+ 451              	.L60:
+ 452 0060 00000140 		.word	1073807360
+ 454              		.section	.text.GPIO_EXTILineConfig,"ax",%progbits
+ 455              		.align	1
+ 456              		.global	GPIO_EXTILineConfig
+ 457              		.thumb
+ 458              		.thumb_func
+ 460              	GPIO_EXTILineConfig:
+ 461              		@ args = 0, pretend = 0, frame = 0
+ 462              		@ frame_needed = 0, uses_anonymous_args = 0
+ 463 0000 01F00302 		and	r2, r1, #3
+ 464 0004 30B5     		push	{r4, r5, lr}
+ 465 0006 9200     		lsls	r2, r2, #2
+ 466 0008 0F24     		movs	r4, #15
+ 467 000a 04FA02F4 		lsl	r4, r4, r2
+ 468 000e 00FA02F0 		lsl	r0, r0, r2
+ 469 0012 074B     		ldr	r3, .L63
+ 470 0014 8908     		lsrs	r1, r1, #2
+ 471 0016 0231     		adds	r1, r1, #2
+ 472 0018 53F82150 		ldr	r5, [r3, r1, lsl #2]
+ 473 001c 25EA0404 		bic	r4, r5, r4
+ 474 0020 43F82140 		str	r4, [r3, r1, lsl #2]
+ 475 0024 53F82140 		ldr	r4, [r3, r1, lsl #2]
+ 476 0028 0443     		orrs	r4, r4, r0
+ 477 002a 43F82140 		str	r4, [r3, r1, lsl #2]
+ 478 002e 30BD     		pop	{r4, r5, pc}
+ 479              	.L64:
+ 480              		.align	2
+ 481              	.L63:
+ 482 0030 00000140 		.word	1073807360
+ 484              		.section	.text.GPIO_ETH_MediaInterfaceConfig,"ax",%progbits
+ 485              		.align	1
+ 486              		.global	GPIO_ETH_MediaInterfaceConfig
+ 487              		.thumb
+ 488              		.thumb_func
+ 490              	GPIO_ETH_MediaInterfaceConfig:
+ 491              		@ args = 0, pretend = 0, frame = 0
+ 492              		@ frame_needed = 0, uses_anonymous_args = 0
+ 493              		@ link register save eliminated.
+ 494 0000 014B     		ldr	r3, .L66
+ 495 0002 1860     		str	r0, [r3, #0]
+ 496 0004 7047     		bx	lr
+ 497              	.L67:
+ 498 0006 00BF     		.align	2
+ 499              	.L66:
+ 500 0008 DC002042 		.word	1109393628
+ 502              		.ident	"GCC: (Sourcery CodeBench Lite 2013.05-23) 4.7.3"
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f10x_gpio.c
+     /tmp/ccoMAdMG.s:16     .text.GPIO_DeInit:00000000 $t
+     /tmp/ccoMAdMG.s:21     .text.GPIO_DeInit:00000000 GPIO_DeInit
+     /tmp/ccoMAdMG.s:95     .text.GPIO_DeInit:00000090 $d
+     /tmp/ccoMAdMG.s:104    .text.GPIO_AFIODeInit:00000000 $t
+     /tmp/ccoMAdMG.s:109    .text.GPIO_AFIODeInit:00000000 GPIO_AFIODeInit
+     /tmp/ccoMAdMG.s:122    .text.GPIO_Init:00000000 $t
+     /tmp/ccoMAdMG.s:127    .text.GPIO_Init:00000000 GPIO_Init
+     /tmp/ccoMAdMG.s:203    .text.GPIO_StructInit:00000000 $t
+     /tmp/ccoMAdMG.s:208    .text.GPIO_StructInit:00000000 GPIO_StructInit
+     /tmp/ccoMAdMG.s:221    .text.GPIO_ReadInputDataBit:00000000 $t
+     /tmp/ccoMAdMG.s:226    .text.GPIO_ReadInputDataBit:00000000 GPIO_ReadInputDataBit
+     /tmp/ccoMAdMG.s:238    .text.GPIO_ReadInputData:00000000 $t
+     /tmp/ccoMAdMG.s:243    .text.GPIO_ReadInputData:00000000 GPIO_ReadInputData
+     /tmp/ccoMAdMG.s:252    .text.GPIO_ReadOutputDataBit:00000000 $t
+     /tmp/ccoMAdMG.s:257    .text.GPIO_ReadOutputDataBit:00000000 GPIO_ReadOutputDataBit
+     /tmp/ccoMAdMG.s:269    .text.GPIO_ReadOutputData:00000000 $t
+     /tmp/ccoMAdMG.s:274    .text.GPIO_ReadOutputData:00000000 GPIO_ReadOutputData
+     /tmp/ccoMAdMG.s:283    .text.GPIO_SetBits:00000000 $t
+     /tmp/ccoMAdMG.s:288    .text.GPIO_SetBits:00000000 GPIO_SetBits
+     /tmp/ccoMAdMG.s:296    .text.GPIO_ResetBits:00000000 $t
+     /tmp/ccoMAdMG.s:301    .text.GPIO_ResetBits:00000000 GPIO_ResetBits
+     /tmp/ccoMAdMG.s:309    .text.GPIO_WriteBit:00000000 $t
+     /tmp/ccoMAdMG.s:314    .text.GPIO_WriteBit:00000000 GPIO_WriteBit
+     /tmp/ccoMAdMG.s:326    .text.GPIO_Write:00000000 $t
+     /tmp/ccoMAdMG.s:331    .text.GPIO_Write:00000000 GPIO_Write
+     /tmp/ccoMAdMG.s:339    .text.GPIO_PinLockConfig:00000000 $t
+     /tmp/ccoMAdMG.s:344    .text.GPIO_PinLockConfig:00000000 GPIO_PinLockConfig
+     /tmp/ccoMAdMG.s:357    .text.GPIO_EventOutputConfig:00000000 $t
+     /tmp/ccoMAdMG.s:362    .text.GPIO_EventOutputConfig:00000000 GPIO_EventOutputConfig
+     /tmp/ccoMAdMG.s:377    .text.GPIO_EventOutputConfig:00000018 $d
+     /tmp/ccoMAdMG.s:380    .text.GPIO_EventOutputCmd:00000000 $t
+     /tmp/ccoMAdMG.s:385    .text.GPIO_EventOutputCmd:00000000 GPIO_EventOutputCmd
+     /tmp/ccoMAdMG.s:395    .text.GPIO_EventOutputCmd:00000008 $d
+     /tmp/ccoMAdMG.s:398    .text.GPIO_PinRemapConfig:00000000 $t
+     /tmp/ccoMAdMG.s:403    .text.GPIO_PinRemapConfig:00000000 GPIO_PinRemapConfig
+     /tmp/ccoMAdMG.s:452    .text.GPIO_PinRemapConfig:00000060 $d
+     /tmp/ccoMAdMG.s:455    .text.GPIO_EXTILineConfig:00000000 $t
+     /tmp/ccoMAdMG.s:460    .text.GPIO_EXTILineConfig:00000000 GPIO_EXTILineConfig
+     /tmp/ccoMAdMG.s:482    .text.GPIO_EXTILineConfig:00000030 $d
+     /tmp/ccoMAdMG.s:485    .text.GPIO_ETH_MediaInterfaceConfig:00000000 $t
+     /tmp/ccoMAdMG.s:490    .text.GPIO_ETH_MediaInterfaceConfig:00000000 GPIO_ETH_MediaInterfaceConfig
+     /tmp/ccoMAdMG.s:500    .text.GPIO_ETH_MediaInterfaceConfig:00000008 $d
+
+UNDEFINED SYMBOLS
+RCC_APB2PeriphResetCmd

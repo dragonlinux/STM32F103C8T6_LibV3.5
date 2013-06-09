@@ -1,0 +1,435 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"stm32f10x_it.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.NMI_Handler,"ax",%progbits
+  19              		.align	2
+  20              		.global	NMI_Handler
+  21              		.thumb
+  22              		.thumb_func
+  24              	NMI_Handler:
+  25              	.LFB29:
+  26              		.file 1 "../src/stm32f10x_it.c"
+   1:../src/stm32f10x_it.c **** /**
+   2:../src/stm32f10x_it.c ****   ******************************************************************************
+   3:../src/stm32f10x_it.c ****   * @file    GPIO/IOToggle/stm32f10x_it.c 
+   4:../src/stm32f10x_it.c ****   * @author  MCD Application Team
+   5:../src/stm32f10x_it.c ****   * @version V3.5.0
+   6:../src/stm32f10x_it.c ****   * @date    08-April-2011
+   7:../src/stm32f10x_it.c ****   * @brief   Main Interrupt Service Routines.
+   8:../src/stm32f10x_it.c ****   *          This file provides template for all exceptions handler and peripherals
+   9:../src/stm32f10x_it.c ****   *          interrupt service routine.
+  10:../src/stm32f10x_it.c ****   ******************************************************************************
+  11:../src/stm32f10x_it.c ****   * @attention
+  12:../src/stm32f10x_it.c ****   *
+  13:../src/stm32f10x_it.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  14:../src/stm32f10x_it.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  15:../src/stm32f10x_it.c ****   * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+  16:../src/stm32f10x_it.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  17:../src/stm32f10x_it.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  18:../src/stm32f10x_it.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  19:../src/stm32f10x_it.c ****   *
+  20:../src/stm32f10x_it.c ****   * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
+  21:../src/stm32f10x_it.c ****   ******************************************************************************
+  22:../src/stm32f10x_it.c ****   */
+  23:../src/stm32f10x_it.c **** 
+  24:../src/stm32f10x_it.c **** /* Includes ------------------------------------------------------------------*/
+  25:../src/stm32f10x_it.c **** #include "stm32f10x_it.h"
+  26:../src/stm32f10x_it.c **** 
+  27:../src/stm32f10x_it.c **** /** @addtogroup STM32F10x_StdPeriph_Examples
+  28:../src/stm32f10x_it.c ****   * @{
+  29:../src/stm32f10x_it.c ****   */
+  30:../src/stm32f10x_it.c **** 
+  31:../src/stm32f10x_it.c **** /** @addtogroup GPIO_IOToggle
+  32:../src/stm32f10x_it.c ****   * @{
+  33:../src/stm32f10x_it.c ****   */
+  34:../src/stm32f10x_it.c **** 
+  35:../src/stm32f10x_it.c **** /* Private typedef -----------------------------------------------------------*/
+  36:../src/stm32f10x_it.c **** /* Private define ------------------------------------------------------------*/
+  37:../src/stm32f10x_it.c **** /* Private macro -------------------------------------------------------------*/
+  38:../src/stm32f10x_it.c **** /* Private variables ---------------------------------------------------------*/
+  39:../src/stm32f10x_it.c **** /* Private function prototypes -----------------------------------------------*/
+  40:../src/stm32f10x_it.c **** /* Private functions ---------------------------------------------------------*/
+  41:../src/stm32f10x_it.c **** 
+  42:../src/stm32f10x_it.c **** /******************************************************************************/
+  43:../src/stm32f10x_it.c **** /*            Cortex-M3 Processor Exceptions Handlers                         */
+  44:../src/stm32f10x_it.c **** /******************************************************************************/
+  45:../src/stm32f10x_it.c **** 
+  46:../src/stm32f10x_it.c **** /**
+  47:../src/stm32f10x_it.c ****   * @brief  This function handles NMI exception.
+  48:../src/stm32f10x_it.c ****   * @param  None
+  49:../src/stm32f10x_it.c ****   * @retval None
+  50:../src/stm32f10x_it.c ****   */
+  51:../src/stm32f10x_it.c **** void NMI_Handler(void)
+  52:../src/stm32f10x_it.c **** {
+  27              		.loc 1 52 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32 0000 80B4     		push	{r7}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 4
+  35              		.cfi_offset 7, -4
+  36 0002 00AF     		add	r7, sp, #0
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_register 7
+  53:../src/stm32f10x_it.c **** }
+  39              		.loc 1 53 0
+  40 0004 BD46     		mov	sp, r7
+  41 0006 80BC     		pop	{r7}
+  42 0008 7047     		bx	lr
+  43              		.cfi_endproc
+  44              	.LFE29:
+  46 000a 00BF     		.section	.text.HardFault_Handler,"ax",%progbits
+  47              		.align	2
+  48              		.global	HardFault_Handler
+  49              		.thumb
+  50              		.thumb_func
+  52              	HardFault_Handler:
+  53              	.LFB30:
+  54:../src/stm32f10x_it.c **** 
+  55:../src/stm32f10x_it.c **** /**
+  56:../src/stm32f10x_it.c ****   * @brief  This function handles Hard Fault exception.
+  57:../src/stm32f10x_it.c ****   * @param  None
+  58:../src/stm32f10x_it.c ****   * @retval None
+  59:../src/stm32f10x_it.c ****   */
+  60:../src/stm32f10x_it.c **** void HardFault_Handler(void)
+  61:../src/stm32f10x_it.c **** {
+  54              		.loc 1 61 0
+  55              		.cfi_startproc
+  56              		@ args = 0, pretend = 0, frame = 0
+  57              		@ frame_needed = 1, uses_anonymous_args = 0
+  58              		@ link register save eliminated.
+  59 0000 80B4     		push	{r7}
+  60              	.LCFI2:
+  61              		.cfi_def_cfa_offset 4
+  62              		.cfi_offset 7, -4
+  63 0002 00AF     		add	r7, sp, #0
+  64              	.LCFI3:
+  65              		.cfi_def_cfa_register 7
+  66              	.L3:
+  62:../src/stm32f10x_it.c ****   /* Go to infinite loop when Hard Fault exception occurs */
+  63:../src/stm32f10x_it.c ****   while (1)
+  64:../src/stm32f10x_it.c ****   {
+  65:../src/stm32f10x_it.c ****   }
+  67              		.loc 1 65 0 discriminator 1
+  68 0004 FEE7     		b	.L3
+  69              		.cfi_endproc
+  70              	.LFE30:
+  72 0006 00BF     		.section	.text.MemManage_Handler,"ax",%progbits
+  73              		.align	2
+  74              		.global	MemManage_Handler
+  75              		.thumb
+  76              		.thumb_func
+  78              	MemManage_Handler:
+  79              	.LFB31:
+  66:../src/stm32f10x_it.c **** }
+  67:../src/stm32f10x_it.c **** 
+  68:../src/stm32f10x_it.c **** /**
+  69:../src/stm32f10x_it.c ****   * @brief  This function handles Memory Manage exception.
+  70:../src/stm32f10x_it.c ****   * @param  None
+  71:../src/stm32f10x_it.c ****   * @retval None
+  72:../src/stm32f10x_it.c ****   */
+  73:../src/stm32f10x_it.c **** void MemManage_Handler(void)
+  74:../src/stm32f10x_it.c **** {
+  80              		.loc 1 74 0
+  81              		.cfi_startproc
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 1, uses_anonymous_args = 0
+  84              		@ link register save eliminated.
+  85 0000 80B4     		push	{r7}
+  86              	.LCFI4:
+  87              		.cfi_def_cfa_offset 4
+  88              		.cfi_offset 7, -4
+  89 0002 00AF     		add	r7, sp, #0
+  90              	.LCFI5:
+  91              		.cfi_def_cfa_register 7
+  92              	.L5:
+  75:../src/stm32f10x_it.c ****   /* Go to infinite loop when Memory Manage exception occurs */
+  76:../src/stm32f10x_it.c ****   while (1)
+  77:../src/stm32f10x_it.c ****   {
+  78:../src/stm32f10x_it.c ****   }
+  93              		.loc 1 78 0 discriminator 1
+  94 0004 FEE7     		b	.L5
+  95              		.cfi_endproc
+  96              	.LFE31:
+  98 0006 00BF     		.section	.text.BusFault_Handler,"ax",%progbits
+  99              		.align	2
+ 100              		.global	BusFault_Handler
+ 101              		.thumb
+ 102              		.thumb_func
+ 104              	BusFault_Handler:
+ 105              	.LFB32:
+  79:../src/stm32f10x_it.c **** }
+  80:../src/stm32f10x_it.c **** 
+  81:../src/stm32f10x_it.c **** /**
+  82:../src/stm32f10x_it.c ****   * @brief  This function handles Bus Fault exception.
+  83:../src/stm32f10x_it.c ****   * @param  None
+  84:../src/stm32f10x_it.c ****   * @retval None
+  85:../src/stm32f10x_it.c ****   */
+  86:../src/stm32f10x_it.c **** void BusFault_Handler(void)
+  87:../src/stm32f10x_it.c **** {
+ 106              		.loc 1 87 0
+ 107              		.cfi_startproc
+ 108              		@ args = 0, pretend = 0, frame = 0
+ 109              		@ frame_needed = 1, uses_anonymous_args = 0
+ 110              		@ link register save eliminated.
+ 111 0000 80B4     		push	{r7}
+ 112              	.LCFI6:
+ 113              		.cfi_def_cfa_offset 4
+ 114              		.cfi_offset 7, -4
+ 115 0002 00AF     		add	r7, sp, #0
+ 116              	.LCFI7:
+ 117              		.cfi_def_cfa_register 7
+ 118              	.L7:
+  88:../src/stm32f10x_it.c ****   /* Go to infinite loop when Bus Fault exception occurs */
+  89:../src/stm32f10x_it.c ****   while (1)
+  90:../src/stm32f10x_it.c ****   {
+  91:../src/stm32f10x_it.c ****   }
+ 119              		.loc 1 91 0 discriminator 1
+ 120 0004 FEE7     		b	.L7
+ 121              		.cfi_endproc
+ 122              	.LFE32:
+ 124 0006 00BF     		.section	.text.UsageFault_Handler,"ax",%progbits
+ 125              		.align	2
+ 126              		.global	UsageFault_Handler
+ 127              		.thumb
+ 128              		.thumb_func
+ 130              	UsageFault_Handler:
+ 131              	.LFB33:
+  92:../src/stm32f10x_it.c **** }
+  93:../src/stm32f10x_it.c **** 
+  94:../src/stm32f10x_it.c **** /**
+  95:../src/stm32f10x_it.c ****   * @brief  This function handles Usage Fault exception.
+  96:../src/stm32f10x_it.c ****   * @param  None
+  97:../src/stm32f10x_it.c ****   * @retval None
+  98:../src/stm32f10x_it.c ****   */
+  99:../src/stm32f10x_it.c **** void UsageFault_Handler(void)
+ 100:../src/stm32f10x_it.c **** {
+ 132              		.loc 1 100 0
+ 133              		.cfi_startproc
+ 134              		@ args = 0, pretend = 0, frame = 0
+ 135              		@ frame_needed = 1, uses_anonymous_args = 0
+ 136              		@ link register save eliminated.
+ 137 0000 80B4     		push	{r7}
+ 138              	.LCFI8:
+ 139              		.cfi_def_cfa_offset 4
+ 140              		.cfi_offset 7, -4
+ 141 0002 00AF     		add	r7, sp, #0
+ 142              	.LCFI9:
+ 143              		.cfi_def_cfa_register 7
+ 144              	.L9:
+ 101:../src/stm32f10x_it.c ****   /* Go to infinite loop when Usage Fault exception occurs */
+ 102:../src/stm32f10x_it.c ****   while (1)
+ 103:../src/stm32f10x_it.c ****   {
+ 104:../src/stm32f10x_it.c ****   }
+ 145              		.loc 1 104 0 discriminator 1
+ 146 0004 FEE7     		b	.L9
+ 147              		.cfi_endproc
+ 148              	.LFE33:
+ 150 0006 00BF     		.section	.text.SVC_Handler,"ax",%progbits
+ 151              		.align	2
+ 152              		.global	SVC_Handler
+ 153              		.thumb
+ 154              		.thumb_func
+ 156              	SVC_Handler:
+ 157              	.LFB34:
+ 105:../src/stm32f10x_it.c **** }
+ 106:../src/stm32f10x_it.c **** 
+ 107:../src/stm32f10x_it.c **** /**
+ 108:../src/stm32f10x_it.c ****   * @brief  This function handles SVCall exception.
+ 109:../src/stm32f10x_it.c ****   * @param  None
+ 110:../src/stm32f10x_it.c ****   * @retval None
+ 111:../src/stm32f10x_it.c ****   */
+ 112:../src/stm32f10x_it.c **** void SVC_Handler(void)
+ 113:../src/stm32f10x_it.c **** {
+ 158              		.loc 1 113 0
+ 159              		.cfi_startproc
+ 160              		@ args = 0, pretend = 0, frame = 0
+ 161              		@ frame_needed = 1, uses_anonymous_args = 0
+ 162              		@ link register save eliminated.
+ 163 0000 80B4     		push	{r7}
+ 164              	.LCFI10:
+ 165              		.cfi_def_cfa_offset 4
+ 166              		.cfi_offset 7, -4
+ 167 0002 00AF     		add	r7, sp, #0
+ 168              	.LCFI11:
+ 169              		.cfi_def_cfa_register 7
+ 114:../src/stm32f10x_it.c **** }
+ 170              		.loc 1 114 0
+ 171 0004 BD46     		mov	sp, r7
+ 172 0006 80BC     		pop	{r7}
+ 173 0008 7047     		bx	lr
+ 174              		.cfi_endproc
+ 175              	.LFE34:
+ 177 000a 00BF     		.section	.text.DebugMon_Handler,"ax",%progbits
+ 178              		.align	2
+ 179              		.global	DebugMon_Handler
+ 180              		.thumb
+ 181              		.thumb_func
+ 183              	DebugMon_Handler:
+ 184              	.LFB35:
+ 115:../src/stm32f10x_it.c **** 
+ 116:../src/stm32f10x_it.c **** /**
+ 117:../src/stm32f10x_it.c ****   * @brief  This function handles Debug Monitor exception.
+ 118:../src/stm32f10x_it.c ****   * @param  None
+ 119:../src/stm32f10x_it.c ****   * @retval None
+ 120:../src/stm32f10x_it.c ****   */
+ 121:../src/stm32f10x_it.c **** void DebugMon_Handler(void)
+ 122:../src/stm32f10x_it.c **** {
+ 185              		.loc 1 122 0
+ 186              		.cfi_startproc
+ 187              		@ args = 0, pretend = 0, frame = 0
+ 188              		@ frame_needed = 1, uses_anonymous_args = 0
+ 189              		@ link register save eliminated.
+ 190 0000 80B4     		push	{r7}
+ 191              	.LCFI12:
+ 192              		.cfi_def_cfa_offset 4
+ 193              		.cfi_offset 7, -4
+ 194 0002 00AF     		add	r7, sp, #0
+ 195              	.LCFI13:
+ 196              		.cfi_def_cfa_register 7
+ 123:../src/stm32f10x_it.c **** }
+ 197              		.loc 1 123 0
+ 198 0004 BD46     		mov	sp, r7
+ 199 0006 80BC     		pop	{r7}
+ 200 0008 7047     		bx	lr
+ 201              		.cfi_endproc
+ 202              	.LFE35:
+ 204 000a 00BF     		.section	.text.PendSV_Handler,"ax",%progbits
+ 205              		.align	2
+ 206              		.global	PendSV_Handler
+ 207              		.thumb
+ 208              		.thumb_func
+ 210              	PendSV_Handler:
+ 211              	.LFB36:
+ 124:../src/stm32f10x_it.c **** 
+ 125:../src/stm32f10x_it.c **** /**
+ 126:../src/stm32f10x_it.c ****   * @brief  This function handles PendSV_Handler exception.
+ 127:../src/stm32f10x_it.c ****   * @param  None
+ 128:../src/stm32f10x_it.c ****   * @retval None
+ 129:../src/stm32f10x_it.c ****   */
+ 130:../src/stm32f10x_it.c **** void PendSV_Handler(void)
+ 131:../src/stm32f10x_it.c **** {
+ 212              		.loc 1 131 0
+ 213              		.cfi_startproc
+ 214              		@ args = 0, pretend = 0, frame = 0
+ 215              		@ frame_needed = 1, uses_anonymous_args = 0
+ 216              		@ link register save eliminated.
+ 217 0000 80B4     		push	{r7}
+ 218              	.LCFI14:
+ 219              		.cfi_def_cfa_offset 4
+ 220              		.cfi_offset 7, -4
+ 221 0002 00AF     		add	r7, sp, #0
+ 222              	.LCFI15:
+ 223              		.cfi_def_cfa_register 7
+ 132:../src/stm32f10x_it.c **** }
+ 224              		.loc 1 132 0
+ 225 0004 BD46     		mov	sp, r7
+ 226 0006 80BC     		pop	{r7}
+ 227 0008 7047     		bx	lr
+ 228              		.cfi_endproc
+ 229              	.LFE36:
+ 231 000a 00BF     		.section	.text.SysTick_Handler,"ax",%progbits
+ 232              		.align	2
+ 233              		.global	SysTick_Handler
+ 234              		.thumb
+ 235              		.thumb_func
+ 237              	SysTick_Handler:
+ 238              	.LFB37:
+ 133:../src/stm32f10x_it.c **** 
+ 134:../src/stm32f10x_it.c **** /**
+ 135:../src/stm32f10x_it.c ****   * @brief  This function handles SysTick Handler.
+ 136:../src/stm32f10x_it.c ****   * @param  None
+ 137:../src/stm32f10x_it.c ****   * @retval None
+ 138:../src/stm32f10x_it.c ****   */
+ 139:../src/stm32f10x_it.c **** void SysTick_Handler(void)
+ 140:../src/stm32f10x_it.c **** {
+ 239              		.loc 1 140 0
+ 240              		.cfi_startproc
+ 241              		@ args = 0, pretend = 0, frame = 0
+ 242              		@ frame_needed = 1, uses_anonymous_args = 0
+ 243              		@ link register save eliminated.
+ 244 0000 80B4     		push	{r7}
+ 245              	.LCFI16:
+ 246              		.cfi_def_cfa_offset 4
+ 247              		.cfi_offset 7, -4
+ 248 0002 00AF     		add	r7, sp, #0
+ 249              	.LCFI17:
+ 250              		.cfi_def_cfa_register 7
+ 141:../src/stm32f10x_it.c **** }
+ 251              		.loc 1 141 0
+ 252 0004 BD46     		mov	sp, r7
+ 253 0006 80BC     		pop	{r7}
+ 254 0008 7047     		bx	lr
+ 255              		.cfi_endproc
+ 256              	.LFE37:
+ 258 000a 00BF     		.text
+ 259              	.Letext0:
+ 260              		.file 2 "/home/dragon/workspace/STM32F103C8T6_LibV3.5/STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMS
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f10x_it.c
+     /tmp/ccNVRLXV.s:19     .text.NMI_Handler:00000000 $t
+     /tmp/ccNVRLXV.s:24     .text.NMI_Handler:00000000 NMI_Handler
+     /tmp/ccNVRLXV.s:47     .text.HardFault_Handler:00000000 $t
+     /tmp/ccNVRLXV.s:52     .text.HardFault_Handler:00000000 HardFault_Handler
+     /tmp/ccNVRLXV.s:73     .text.MemManage_Handler:00000000 $t
+     /tmp/ccNVRLXV.s:78     .text.MemManage_Handler:00000000 MemManage_Handler
+     /tmp/ccNVRLXV.s:99     .text.BusFault_Handler:00000000 $t
+     /tmp/ccNVRLXV.s:104    .text.BusFault_Handler:00000000 BusFault_Handler
+     /tmp/ccNVRLXV.s:125    .text.UsageFault_Handler:00000000 $t
+     /tmp/ccNVRLXV.s:130    .text.UsageFault_Handler:00000000 UsageFault_Handler
+     /tmp/ccNVRLXV.s:151    .text.SVC_Handler:00000000 $t
+     /tmp/ccNVRLXV.s:156    .text.SVC_Handler:00000000 SVC_Handler
+     /tmp/ccNVRLXV.s:178    .text.DebugMon_Handler:00000000 $t
+     /tmp/ccNVRLXV.s:183    .text.DebugMon_Handler:00000000 DebugMon_Handler
+     /tmp/ccNVRLXV.s:205    .text.PendSV_Handler:00000000 $t
+     /tmp/ccNVRLXV.s:210    .text.PendSV_Handler:00000000 PendSV_Handler
+     /tmp/ccNVRLXV.s:232    .text.SysTick_Handler:00000000 $t
+     /tmp/ccNVRLXV.s:237    .text.SysTick_Handler:00000000 SysTick_Handler
+                     .debug_frame:00000010 $d
+                           .group:00000000 wm4.1.3f1c4c3ecf94fe9b5c343fe975e01068
+                           .group:00000000 wm4.stm32f10x.h.51.b859cb68ed44ee02c916b41cb8c68f1c
+                           .group:00000000 wm4.core_cm3.h.25.d35e9a9b04ec4aaebae9bf79fff061f9
+                           .group:00000000 wm4.stdint.h.10.90b695f550ca6cc3fb08fa83baf01e05
+                           .group:00000000 wm4.core_cm3.h.113.b286929a54d33b4c8909a7132437b244
+                           .group:00000000 wm4.stm32f10x.h.522.9a9f642c8c562acb4a63ad5d933b7c01
+                           .group:00000000 wm4.stm32f10x_adc.h.83.4d35a50d598070ecea6f33bcef02c922
+                           .group:00000000 wm4.stm32f10x_bkp.h.25.4622919f1e30efdad5eb44e12edd5513
+                           .group:00000000 wm4.stm32f10x_can.h.25.48aab46fcce6d08400bf960b028e4698
+                           .group:00000000 wm4.stm32f10x_cec.h.25.8f03450e7bbb704d96e7bc73ec0f66a7
+                           .group:00000000 wm4.stm32f10x_dac.h.25.6e7f2924f39c60c10815105b99b8b446
+                           .group:00000000 wm4.stm32f10x_dbgmcu.h.25.d3351200fc7f9c8615d1ae81d40db08a
+                           .group:00000000 wm4.stm32f10x_dma.h.25.94e36204daa98cae5dcc70a10a9694d5
+                           .group:00000000 wm4.stm32f10x_exti.h.25.b9064155c5c006b5154b39788c79001a
+                           .group:00000000 wm4.stm32f10x_flash.h.25.4be61fcb02863962a1e006449d310650
+                           .group:00000000 wm4.stm32f10x_fsmc.h.25.bca154da2699cdb6024c0c6c4fc5aa89
+                           .group:00000000 wm4.stm32f10x_gpio.h.25.80c981af0e637567395034c576cfb3ce
+                           .group:00000000 wm4.stm32f10x_i2c.h.25.7b6cbaea24c6f25f538f8516d1814cb2
+                           .group:00000000 wm4.stm32f10x_iwdg.h.25.da9374ab9856795610487f312ccf3122
+                           .group:00000000 wm4.stm32f10x_pwr.h.25.37ef75009f751ef5fe27910e0bf00a62
+                           .group:00000000 wm4.stm32f10x_rcc.h.25.968bcf08d813e68e57c280a4da69fa5a
+                           .group:00000000 wm4.stm32f10x_rtc.h.25.361142606ba98ddcd10369f321f6e636
+                           .group:00000000 wm4.stm32f10x_sdio.h.25.1fb5280a7690ef99070096bf8c866b3a
+                           .group:00000000 wm4.stm32f10x_spi.h.25.68b3d5ccfcf895f9fe505ce20c0c300f
+                           .group:00000000 wm4.stm32f10x_tim.h.25.21c6ec062f1e74898cb96a57da276fec
+                           .group:00000000 wm4.stm32f10x_usart.h.25.29629c699b65db3f3efd3561f66b0bf6
+                           .group:00000000 wm4.stm32f10x_wwdg.h.25.dde12201d86b5aa9ecaafb5eccdc6549
+                           .group:00000000 wm4.misc.h.25.068e106f368fa5369a681ef57c106f4b
+                           .group:00000000 wm4.stm32f10x.h.8304.f7d8ad90959e99679b3257267c3aadfe
+
+NO UNDEFINED SYMBOLS

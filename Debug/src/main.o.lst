@@ -1,0 +1,587 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"main.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.delay,"ax",%progbits
+  19              		.align	2
+  20              		.global	delay
+  21              		.thumb
+  22              		.thumb_func
+  24              	delay:
+  25              	.LFB29:
+  26              		.file 1 "../src/main.c"
+   1:../src/main.c **** /**
+   2:../src/main.c ****  ******************************************************************************
+   3:../src/main.c ****  * @file    GPIO/IOToggle/main.c
+   4:../src/main.c ****  * @author  MCD Application Team
+   5:../src/main.c ****  * @version V3.5.0
+   6:../src/main.c ****  * @date    08-April-2011
+   7:../src/main.c ****  * @brief   Main program body.
+   8:../src/main.c ****  ******************************************************************************
+   9:../src/main.c ****  * @attention
+  10:../src/main.c ****  *
+  11:../src/main.c ****  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  12:../src/main.c ****  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  13:../src/main.c ****  * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+  14:../src/main.c ****  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  15:../src/main.c ****  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  16:../src/main.c ****  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  17:../src/main.c ****  *
+  18:../src/main.c ****  * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
+  19:../src/main.c ****  ******************************************************************************
+  20:../src/main.c ****  */
+  21:../src/main.c **** 
+  22:../src/main.c **** /* Includes ------------------------------------------------------------------*/
+  23:../src/main.c **** #include "stm32f10x.h"
+  24:../src/main.c **** #include "stdio.h"
+  25:../src/main.c **** 
+  26:../src/main.c **** /** @addtogroup STM32F10x_StdPeriph_Examples
+  27:../src/main.c ****  * @{
+  28:../src/main.c ****  */
+  29:../src/main.c **** 
+  30:../src/main.c **** /** @addtogroup GPIO_IOToggle
+  31:../src/main.c ****  * @{
+  32:../src/main.c ****  */
+  33:../src/main.c **** 
+  34:../src/main.c **** void delay(vu32 i)
+  35:../src/main.c **** {
+  27              		.loc 1 35 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 8
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32 0000 80B4     		push	{r7}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 4
+  35              		.cfi_offset 7, -4
+  36 0002 83B0     		sub	sp, sp, #12
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_offset 16
+  39 0004 00AF     		add	r7, sp, #0
+  40              	.LCFI2:
+  41              		.cfi_def_cfa_register 7
+  42 0006 7860     		str	r0, [r7, #4]
+  36:../src/main.c **** 	while (i--)
+  43              		.loc 1 36 0
+  44 0008 00BF     		nop
+  45              	.L2:
+  46              		.loc 1 36 0 is_stmt 0 discriminator 1
+  47 000a 7B68     		ldr	r3, [r7, #4]
+  48 000c 002B     		cmp	r3, #0
+  49 000e 0CBF     		ite	eq
+  50 0010 0022     		moveq	r2, #0
+  51 0012 0122     		movne	r2, #1
+  52 0014 D2B2     		uxtb	r2, r2
+  53 0016 03F1FF33 		add	r3, r3, #-1
+  54 001a 7B60     		str	r3, [r7, #4]
+  55 001c 002A     		cmp	r2, #0
+  56 001e F4D1     		bne	.L2
+  37:../src/main.c **** 		;
+  38:../src/main.c **** }
+  57              		.loc 1 38 0 is_stmt 1
+  58 0020 07F10C07 		add	r7, r7, #12
+  59 0024 BD46     		mov	sp, r7
+  60 0026 80BC     		pop	{r7}
+  61 0028 7047     		bx	lr
+  62              		.cfi_endproc
+  63              	.LFE29:
+  65 002a 00BF     		.section	.text.packageUsart1,"ax",%progbits
+  66              		.align	2
+  67              		.global	packageUsart1
+  68              		.thumb
+  69              		.thumb_func
+  71              	packageUsart1:
+  72              	.LFB30:
+  39:../src/main.c **** 
+  40:../src/main.c **** //串口1初始化
+  41:../src/main.c **** void packageUsart1()
+  42:../src/main.c **** {
+  73              		.loc 1 42 0
+  74              		.cfi_startproc
+  75              		@ args = 0, pretend = 0, frame = 24
+  76              		@ frame_needed = 1, uses_anonymous_args = 0
+  77 0000 80B5     		push	{r7, lr}
+  78              	.LCFI3:
+  79              		.cfi_def_cfa_offset 8
+  80              		.cfi_offset 7, -8
+  81              		.cfi_offset 14, -4
+  82 0002 86B0     		sub	sp, sp, #24
+  83              	.LCFI4:
+  84              		.cfi_def_cfa_offset 32
+  85 0004 00AF     		add	r7, sp, #0
+  86              	.LCFI5:
+  87              		.cfi_def_cfa_register 7
+  43:../src/main.c **** 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_AFIO, ENABLE);
+  88              		.loc 1 43 0
+  89 0006 44F20100 		movw	r0, #16385
+  90 000a 4FF00101 		mov	r1, #1
+  91 000e FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+  44:../src/main.c **** 
+  45:../src/main.c **** 	/**********************引脚分配*****************************/
+  46:../src/main.c **** 	GPIO_InitTypeDef GPIO_InitStruct;
+  47:../src/main.c **** 	GPIO_StructInit(&GPIO_InitStruct);
+  92              		.loc 1 47 0
+  93 0012 07F11403 		add	r3, r7, #20
+  94 0016 1846     		mov	r0, r3
+  95 0018 FFF7FEFF 		bl	GPIO_StructInit
+  48:../src/main.c **** 
+  49:../src/main.c **** 	// Initialize USART1_Tx 初始化发送
+  50:../src/main.c **** 	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_9 ;
+  96              		.loc 1 50 0
+  97 001c 4FF40073 		mov	r3, #512
+  98 0020 BB82     		strh	r3, [r7, #20]	@ movhi
+  51:../src/main.c **** 	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
+  99              		.loc 1 51 0
+ 100 0022 4FF00303 		mov	r3, #3
+ 101 0026 BB75     		strb	r3, [r7, #22]
+  52:../src/main.c **** 	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP;
+ 102              		.loc 1 52 0
+ 103 0028 4FF01803 		mov	r3, #24
+ 104 002c FB75     		strb	r3, [r7, #23]
+  53:../src/main.c **** 	GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 105              		.loc 1 53 0
+ 106 002e 07F11403 		add	r3, r7, #20
+ 107 0032 1548     		ldr	r0, .L4
+ 108 0034 1946     		mov	r1, r3
+ 109 0036 FFF7FEFF 		bl	GPIO_Init
+  54:../src/main.c **** 
+  55:../src/main.c **** 	// Initialize USART1_RX 初始化接收
+  56:../src/main.c **** 	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_10 ;
+ 110              		.loc 1 56 0
+ 111 003a 4FF48063 		mov	r3, #1024
+ 112 003e BB82     		strh	r3, [r7, #20]	@ movhi
+  57:../src/main.c **** 	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+ 113              		.loc 1 57 0
+ 114 0040 4FF00403 		mov	r3, #4
+ 115 0044 FB75     		strb	r3, [r7, #23]
+  58:../src/main.c **** 	GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 116              		.loc 1 58 0
+ 117 0046 07F11403 		add	r3, r7, #20
+ 118 004a 0F48     		ldr	r0, .L4
+ 119 004c 1946     		mov	r1, r3
+ 120 004e FFF7FEFF 		bl	GPIO_Init
+  59:../src/main.c **** 	/**********************引脚分配*****************************/
+  60:../src/main.c **** 
+  61:../src/main.c **** 	/**********************串口初始化****************************/
+  62:../src/main.c **** 	USART_InitTypeDef USART_InitStructure;
+  63:../src/main.c **** 	// Initialize USART structure
+  64:../src/main.c **** 	USART_StructInit(&USART_InitStructure);
+ 121              		.loc 1 64 0
+ 122 0052 07F10403 		add	r3, r7, #4
+ 123 0056 1846     		mov	r0, r3
+ 124 0058 FFF7FEFF 		bl	USART_StructInit
+  65:../src/main.c **** 	// Modify USART_InitStructure for non - default values , e.g.
+  66:../src/main.c **** 	// USART_InitStructure . USART_BaudRate = 38400;
+  67:../src/main.c **** 	USART_InitStructure.USART_BaudRate = 9600;
+ 125              		.loc 1 67 0
+ 126 005c 4FF41653 		mov	r3, #9600
+ 127 0060 7B60     		str	r3, [r7, #4]
+  68:../src/main.c **** 	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+ 128              		.loc 1 68 0
+ 129 0062 4FF00C03 		mov	r3, #12
+ 130 0066 FB81     		strh	r3, [r7, #14]	@ movhi
+  69:../src/main.c **** 
+  70:../src/main.c **** 	USART_Init(USART1, &USART_InitStructure);	//初始化所使用的串口外设
+ 131              		.loc 1 70 0
+ 132 0068 07F10403 		add	r3, r7, #4
+ 133 006c 0748     		ldr	r0, .L4+4
+ 134 006e 1946     		mov	r1, r3
+ 135 0070 FFF7FEFF 		bl	USART_Init
+  71:../src/main.c **** 	USART_Cmd(USART1, ENABLE);	//使能或者失能USART外设
+ 136              		.loc 1 71 0
+ 137 0074 0548     		ldr	r0, .L4+4
+ 138 0076 4FF00101 		mov	r1, #1
+ 139 007a FFF7FEFF 		bl	USART_Cmd
+  72:../src/main.c **** 	/**********************串口初始化****************************/
+  73:../src/main.c **** }
+ 140              		.loc 1 73 0
+ 141 007e 07F11807 		add	r7, r7, #24
+ 142 0082 BD46     		mov	sp, r7
+ 143 0084 80BD     		pop	{r7, pc}
+ 144              	.L5:
+ 145 0086 00BF     		.align	2
+ 146              	.L4:
+ 147 0088 00080140 		.word	1073809408
+ 148 008c 00380140 		.word	1073821696
+ 149              		.cfi_endproc
+ 150              	.LFE30:
+ 152              		.comm	GPIO_InitStructure,4,4
+ 153              		.section	.rodata
+ 154              		.align	2
+ 155              	.LC0:
+ 156 0000 4F4B2D2D 		.ascii	"OK-->%d\012\015\000"
+ 156      3E25640A 
+ 156      0D00
+ 157 000a 0000     		.section	.text.main,"ax",%progbits
+ 158              		.align	2
+ 159              		.global	main
+ 160              		.thumb
+ 161              		.thumb_func
+ 163              	main:
+ 164              	.LFB31:
+  74:../src/main.c **** 
+  75:../src/main.c **** /* Private typedef -----------------------------------------------------------*/
+  76:../src/main.c **** /* Private define ------------------------------------------------------------*/
+  77:../src/main.c **** /* Private macro -------------------------------------------------------------*/
+  78:../src/main.c **** /* Private variables ---------------------------------------------------------*/
+  79:../src/main.c **** GPIO_InitTypeDef GPIO_InitStructure;
+  80:../src/main.c **** 
+  81:../src/main.c **** /* Private function prototypes -----------------------------------------------*/
+  82:../src/main.c **** /* Private functions ---------------------------------------------------------*/
+  83:../src/main.c **** 
+  84:../src/main.c **** /**
+  85:../src/main.c ****  * @brief  Main program.
+  86:../src/main.c ****  * @param  None
+  87:../src/main.c ****  * @retval None
+  88:../src/main.c ****  */
+  89:../src/main.c **** int main(void)
+  90:../src/main.c **** {
+ 165              		.loc 1 90 0
+ 166              		.cfi_startproc
+ 167              		@ args = 0, pretend = 0, frame = 8
+ 168              		@ frame_needed = 1, uses_anonymous_args = 0
+ 169 0000 80B5     		push	{r7, lr}
+ 170              	.LCFI6:
+ 171              		.cfi_def_cfa_offset 8
+ 172              		.cfi_offset 7, -8
+ 173              		.cfi_offset 14, -4
+ 174 0002 82B0     		sub	sp, sp, #8
+ 175              	.LCFI7:
+ 176              		.cfi_def_cfa_offset 16
+ 177 0004 00AF     		add	r7, sp, #0
+ 178              	.LCFI8:
+ 179              		.cfi_def_cfa_register 7
+  91:../src/main.c **** 	/*!< At this stage the microcontroller clock setting is already configured,
+  92:../src/main.c **** 	 this is done through SystemInit() function which is called from startup
+  93:../src/main.c **** 	 file (startup_stm32f10x_xx.s) before to branch to application main.
+  94:../src/main.c **** 	 To reconfigure the default setting of SystemInit() function, refer to
+  95:../src/main.c **** 	 system_stm32f10x.c file
+  96:../src/main.c **** 	 */
+  97:../src/main.c **** 
+  98:../src/main.c **** 	packageUsart1();
+ 180              		.loc 1 98 0
+ 181 0006 FFF7FEFF 		bl	packageUsart1
+  99:../src/main.c **** 
+ 100:../src/main.c **** 	/* GPIOD Periph clock enable */
+ 101:../src/main.c **** 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB, ENABLE);
+ 182              		.loc 1 101 0
+ 183 000a 4FF00C00 		mov	r0, #12
+ 184 000e 4FF00101 		mov	r1, #1
+ 185 0012 FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+ 102:../src/main.c **** 
+ 103:../src/main.c **** 	/* Configure PB0/1/10/11/12 in output pushpull mode */
+ 104:../src/main.c **** 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_10 | GP
+ 186              		.loc 1 104 0
+ 187 0016 5A4B     		ldr	r3, .L10
+ 188 0018 41F60372 		movw	r2, #7939
+ 189 001c 1A80     		strh	r2, [r3, #0]	@ movhi
+ 105:../src/main.c **** 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+ 190              		.loc 1 105 0
+ 191 001e 584B     		ldr	r3, .L10
+ 192 0020 4FF00302 		mov	r2, #3
+ 193 0024 9A70     		strb	r2, [r3, #2]
+ 106:../src/main.c **** 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+ 194              		.loc 1 106 0
+ 195 0026 564B     		ldr	r3, .L10
+ 196 0028 4FF01002 		mov	r2, #16
+ 197 002c DA70     		strb	r2, [r3, #3]
+ 107:../src/main.c **** 	GPIO_Init(GPIOB, &GPIO_InitStructure);
+ 198              		.loc 1 107 0
+ 199 002e 5548     		ldr	r0, .L10+4
+ 200 0030 5349     		ldr	r1, .L10
+ 201 0032 FFF7FEFF 		bl	GPIO_Init
+ 108:../src/main.c **** 
+ 109:../src/main.c **** 	/* To achieve GPIO toggling maximum frequency, the following  sequence is mandatory.
+ 110:../src/main.c **** 	 You can monitor PD0 or PD2 on the scope to measure the output signal.
+ 111:../src/main.c **** 	 If you need to fine tune this frequency, you can add more GPIO set/reset
+ 112:../src/main.c **** 	 cycles to minimize more the infinite loop timing.
+ 113:../src/main.c **** 	 This code needs to be compiled with high speed optimization option.  */
+ 114:../src/main.c **** 	setvbuf(stdin, NULL, _IONBF, 0);
+ 202              		.loc 1 114 0
+ 203 0036 544B     		ldr	r3, .L10+8
+ 204 0038 1B68     		ldr	r3, [r3, #0]
+ 205 003a 5B68     		ldr	r3, [r3, #4]
+ 206 003c 1846     		mov	r0, r3
+ 207 003e 4FF00001 		mov	r1, #0
+ 208 0042 4FF00202 		mov	r2, #2
+ 209 0046 4FF00003 		mov	r3, #0
+ 210 004a FFF7FEFF 		bl	setvbuf
+ 115:../src/main.c **** 	setvbuf(stdout, NULL, _IONBF, 0);
+ 211              		.loc 1 115 0
+ 212 004e 4E4B     		ldr	r3, .L10+8
+ 213 0050 1B68     		ldr	r3, [r3, #0]
+ 214 0052 9B68     		ldr	r3, [r3, #8]
+ 215 0054 1846     		mov	r0, r3
+ 216 0056 4FF00001 		mov	r1, #0
+ 217 005a 4FF00202 		mov	r2, #2
+ 218 005e 4FF00003 		mov	r3, #0
+ 219 0062 FFF7FEFF 		bl	setvbuf
+ 116:../src/main.c **** 	setvbuf(stderr, NULL, _IONBF, 0);
+ 220              		.loc 1 116 0
+ 221 0066 484B     		ldr	r3, .L10+8
+ 222 0068 1B68     		ldr	r3, [r3, #0]
+ 223 006a DB68     		ldr	r3, [r3, #12]
+ 224 006c 1846     		mov	r0, r3
+ 225 006e 4FF00001 		mov	r1, #0
+ 226 0072 4FF00202 		mov	r2, #2
+ 227 0076 4FF00003 		mov	r3, #0
+ 228 007a FFF7FEFF 		bl	setvbuf
+ 117:../src/main.c **** 	int i = 0;
+ 229              		.loc 1 117 0
+ 230 007e 4FF00003 		mov	r3, #0
+ 231 0082 7B60     		str	r3, [r7, #4]
+ 232              	.L9:
+ 118:../src/main.c **** 	while (1)
+ 119:../src/main.c **** 	{
+ 120:../src/main.c **** 		/* Set PD0 and PD2 */
+ 121:../src/main.c **** 		GPIO_ResetBits(GPIOB, GPIO_Pin_0 );
+ 233              		.loc 1 121 0
+ 234 0084 3F48     		ldr	r0, .L10+4
+ 235 0086 4FF00101 		mov	r1, #1
+ 236 008a FFF7FEFF 		bl	GPIO_ResetBits
+ 122:../src/main.c **** 		delay(0xffff);
+ 237              		.loc 1 122 0
+ 238 008e 4FF6FF70 		movw	r0, #65535
+ 239 0092 FFF7FEFF 		bl	delay
+ 123:../src/main.c **** 		GPIO_SetBits(GPIOB, GPIO_Pin_0 );
+ 240              		.loc 1 123 0
+ 241 0096 3B48     		ldr	r0, .L10+4
+ 242 0098 4FF00101 		mov	r1, #1
+ 243 009c FFF7FEFF 		bl	GPIO_SetBits
+ 124:../src/main.c **** 		delay(0xffff);
+ 244              		.loc 1 124 0
+ 245 00a0 4FF6FF70 		movw	r0, #65535
+ 246 00a4 FFF7FEFF 		bl	delay
+ 125:../src/main.c **** 		GPIO_ResetBits(GPIOB, GPIO_Pin_1 );
+ 247              		.loc 1 125 0
+ 248 00a8 3648     		ldr	r0, .L10+4
+ 249 00aa 4FF00201 		mov	r1, #2
+ 250 00ae FFF7FEFF 		bl	GPIO_ResetBits
+ 126:../src/main.c **** 
+ 127:../src/main.c **** 		delay(0xffff);
+ 251              		.loc 1 127 0
+ 252 00b2 4FF6FF70 		movw	r0, #65535
+ 253 00b6 FFF7FEFF 		bl	delay
+ 128:../src/main.c **** 		GPIO_SetBits(GPIOB, GPIO_Pin_1 );
+ 254              		.loc 1 128 0
+ 255 00ba 3248     		ldr	r0, .L10+4
+ 256 00bc 4FF00201 		mov	r1, #2
+ 257 00c0 FFF7FEFF 		bl	GPIO_SetBits
+ 129:../src/main.c **** 		delay(0xffff);
+ 258              		.loc 1 129 0
+ 259 00c4 4FF6FF70 		movw	r0, #65535
+ 260 00c8 FFF7FEFF 		bl	delay
+ 130:../src/main.c **** 
+ 131:../src/main.c **** 		GPIO_ResetBits(GPIOB, GPIO_Pin_10 );
+ 261              		.loc 1 131 0
+ 262 00cc 2D48     		ldr	r0, .L10+4
+ 263 00ce 4FF48061 		mov	r1, #1024
+ 264 00d2 FFF7FEFF 		bl	GPIO_ResetBits
+ 132:../src/main.c **** 		delay(0xffff);
+ 265              		.loc 1 132 0
+ 266 00d6 4FF6FF70 		movw	r0, #65535
+ 267 00da FFF7FEFF 		bl	delay
+ 133:../src/main.c **** 		GPIO_SetBits(GPIOB, GPIO_Pin_10 );
+ 268              		.loc 1 133 0
+ 269 00de 2948     		ldr	r0, .L10+4
+ 270 00e0 4FF48061 		mov	r1, #1024
+ 271 00e4 FFF7FEFF 		bl	GPIO_SetBits
+ 134:../src/main.c **** 		delay(0xffff);
+ 272              		.loc 1 134 0
+ 273 00e8 4FF6FF70 		movw	r0, #65535
+ 274 00ec FFF7FEFF 		bl	delay
+ 135:../src/main.c **** 
+ 136:../src/main.c **** 		GPIO_ResetBits(GPIOB, GPIO_Pin_11 );
+ 275              		.loc 1 136 0
+ 276 00f0 2448     		ldr	r0, .L10+4
+ 277 00f2 4FF40061 		mov	r1, #2048
+ 278 00f6 FFF7FEFF 		bl	GPIO_ResetBits
+ 137:../src/main.c **** 		delay(0xffff);
+ 279              		.loc 1 137 0
+ 280 00fa 4FF6FF70 		movw	r0, #65535
+ 281 00fe FFF7FEFF 		bl	delay
+ 138:../src/main.c **** 		GPIO_SetBits(GPIOB, GPIO_Pin_11 );
+ 282              		.loc 1 138 0
+ 283 0102 2048     		ldr	r0, .L10+4
+ 284 0104 4FF40061 		mov	r1, #2048
+ 285 0108 FFF7FEFF 		bl	GPIO_SetBits
+ 139:../src/main.c **** 		delay(0xffff);
+ 286              		.loc 1 139 0
+ 287 010c 4FF6FF70 		movw	r0, #65535
+ 288 0110 FFF7FEFF 		bl	delay
+ 140:../src/main.c **** 
+ 141:../src/main.c **** 		GPIO_ResetBits(GPIOB, GPIO_Pin_12 );
+ 289              		.loc 1 141 0
+ 290 0114 1B48     		ldr	r0, .L10+4
+ 291 0116 4FF48051 		mov	r1, #4096
+ 292 011a FFF7FEFF 		bl	GPIO_ResetBits
+ 142:../src/main.c **** 		delay(0xffff);
+ 293              		.loc 1 142 0
+ 294 011e 4FF6FF70 		movw	r0, #65535
+ 295 0122 FFF7FEFF 		bl	delay
+ 143:../src/main.c **** 		GPIO_SetBits(GPIOB, GPIO_Pin_12 );
+ 296              		.loc 1 143 0
+ 297 0126 1748     		ldr	r0, .L10+4
+ 298 0128 4FF48051 		mov	r1, #4096
+ 299 012c FFF7FEFF 		bl	GPIO_SetBits
+ 144:../src/main.c **** 		delay(0xffff);
+ 300              		.loc 1 144 0
+ 301 0130 4FF6FF70 		movw	r0, #65535
+ 302 0134 FFF7FEFF 		bl	delay
+ 145:../src/main.c **** 
+ 146:../src/main.c **** 		while (USART_GetFlagStatus(USART1, USART_FLAG_TXE ) == RESET)
+ 303              		.loc 1 146 0
+ 304 0138 00BF     		nop
+ 305              	.L7:
+ 306              		.loc 1 146 0 is_stmt 0 discriminator 1
+ 307 013a 1448     		ldr	r0, .L10+12
+ 308 013c 4FF08001 		mov	r1, #128
+ 309 0140 FFF7FEFF 		bl	USART_GetFlagStatus
+ 310 0144 0346     		mov	r3, r0
+ 311 0146 002B     		cmp	r3, #0
+ 312 0148 F7D0     		beq	.L7
+ 147:../src/main.c **** 			;
+ 148:../src/main.c **** 		USART1 ->DR = 'a';
+ 313              		.loc 1 148 0 is_stmt 1
+ 314 014a 104B     		ldr	r3, .L10+12
+ 315 014c 4FF06102 		mov	r2, #97
+ 316 0150 9A80     		strh	r2, [r3, #4]	@ movhi
+ 149:../src/main.c **** 
+ 150:../src/main.c **** 		while (USART_GetFlagStatus(USART1, USART_FLAG_TXE ) == RESET)
+ 317              		.loc 1 150 0
+ 318 0152 00BF     		nop
+ 319              	.L8:
+ 320              		.loc 1 150 0 is_stmt 0 discriminator 1
+ 321 0154 0D48     		ldr	r0, .L10+12
+ 322 0156 4FF08001 		mov	r1, #128
+ 323 015a FFF7FEFF 		bl	USART_GetFlagStatus
+ 324 015e 0346     		mov	r3, r0
+ 325 0160 002B     		cmp	r3, #0
+ 326 0162 F7D0     		beq	.L8
+ 151:../src/main.c **** 			;
+ 152:../src/main.c **** 		USART1 ->DR = 'b';
+ 327              		.loc 1 152 0 is_stmt 1
+ 328 0164 094B     		ldr	r3, .L10+12
+ 329 0166 4FF06202 		mov	r2, #98
+ 330 016a 9A80     		strh	r2, [r3, #4]	@ movhi
+ 153:../src/main.c **** 
+ 154:../src/main.c **** 		printf("OK-->%d\n\r", i++);
+ 331              		.loc 1 154 0
+ 332 016c 7B68     		ldr	r3, [r7, #4]
+ 333 016e 7A68     		ldr	r2, [r7, #4]
+ 334 0170 02F10102 		add	r2, r2, #1
+ 335 0174 7A60     		str	r2, [r7, #4]
+ 336 0176 0648     		ldr	r0, .L10+16
+ 337 0178 1946     		mov	r1, r3
+ 338 017a FFF7FEFF 		bl	printf
+ 155:../src/main.c **** 		///////////////////////////
+ 156:../src/main.c **** 
+ 157:../src/main.c **** 	}
+ 339              		.loc 1 157 0
+ 340 017e 81E7     		b	.L9
+ 341              	.L11:
+ 342              		.align	2
+ 343              	.L10:
+ 344 0180 00000000 		.word	GPIO_InitStructure
+ 345 0184 000C0140 		.word	1073810432
+ 346 0188 00000000 		.word	_impure_ptr
+ 347 018c 00380140 		.word	1073821696
+ 348 0190 00000000 		.word	.LC0
+ 349              		.cfi_endproc
+ 350              	.LFE31:
+ 352              		.text
+ 353              	.Letext0:
+ 354              		.file 2 "/home/dragon/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-ea
+ 355              		.file 3 "/home/dragon/workspace/STM32F103C8T6_LibV3.5/STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMS
+ 356              		.file 4 "/home/dragon/workspace/STM32F103C8T6_LibV3.5/STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/STM
+ 357              		.file 5 "/home/dragon/workspace/STM32F103C8T6_LibV3.5/STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/STM
+ 358              		.file 6 "/home/dragon/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-ea
+ 359              		.file 7 "/home/dragon/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-ea
+ 360              		.file 8 "/home/dragon/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-ea
+ 361              		.file 9 "/home/dragon/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-ea
+ 362              		.file 10 "/home/dragon/workspace/STM32F103C8T6_LibV3.5/STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CM
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+     /tmp/ccN13itG.s:19     .text.delay:00000000 $t
+     /tmp/ccN13itG.s:24     .text.delay:00000000 delay
+     /tmp/ccN13itG.s:66     .text.packageUsart1:00000000 $t
+     /tmp/ccN13itG.s:71     .text.packageUsart1:00000000 packageUsart1
+     /tmp/ccN13itG.s:147    .text.packageUsart1:00000088 $d
+                            *COM*:00000004 GPIO_InitStructure
+     /tmp/ccN13itG.s:154    .rodata:00000000 $d
+     /tmp/ccN13itG.s:158    .text.main:00000000 $t
+     /tmp/ccN13itG.s:163    .text.main:00000000 main
+     /tmp/ccN13itG.s:344    .text.main:00000180 $d
+                     .debug_frame:00000010 $d
+                           .group:00000000 wm4.1.3f1c4c3ecf94fe9b5c343fe975e01068
+                           .group:00000000 wm4.stm32f10x.h.51.b859cb68ed44ee02c916b41cb8c68f1c
+                           .group:00000000 wm4.core_cm3.h.25.d35e9a9b04ec4aaebae9bf79fff061f9
+                           .group:00000000 wm4.stdint.h.10.90b695f550ca6cc3fb08fa83baf01e05
+                           .group:00000000 wm4.core_cm3.h.113.b286929a54d33b4c8909a7132437b244
+                           .group:00000000 wm4.stm32f10x.h.522.9a9f642c8c562acb4a63ad5d933b7c01
+                           .group:00000000 wm4.stm32f10x_adc.h.83.4d35a50d598070ecea6f33bcef02c922
+                           .group:00000000 wm4.stm32f10x_bkp.h.25.4622919f1e30efdad5eb44e12edd5513
+                           .group:00000000 wm4.stm32f10x_can.h.25.48aab46fcce6d08400bf960b028e4698
+                           .group:00000000 wm4.stm32f10x_cec.h.25.8f03450e7bbb704d96e7bc73ec0f66a7
+                           .group:00000000 wm4.stm32f10x_dac.h.25.6e7f2924f39c60c10815105b99b8b446
+                           .group:00000000 wm4.stm32f10x_dbgmcu.h.25.d3351200fc7f9c8615d1ae81d40db08a
+                           .group:00000000 wm4.stm32f10x_dma.h.25.94e36204daa98cae5dcc70a10a9694d5
+                           .group:00000000 wm4.stm32f10x_exti.h.25.b9064155c5c006b5154b39788c79001a
+                           .group:00000000 wm4.stm32f10x_flash.h.25.4be61fcb02863962a1e006449d310650
+                           .group:00000000 wm4.stm32f10x_fsmc.h.25.bca154da2699cdb6024c0c6c4fc5aa89
+                           .group:00000000 wm4.stm32f10x_gpio.h.25.80c981af0e637567395034c576cfb3ce
+                           .group:00000000 wm4.stm32f10x_i2c.h.25.7b6cbaea24c6f25f538f8516d1814cb2
+                           .group:00000000 wm4.stm32f10x_iwdg.h.25.da9374ab9856795610487f312ccf3122
+                           .group:00000000 wm4.stm32f10x_pwr.h.25.37ef75009f751ef5fe27910e0bf00a62
+                           .group:00000000 wm4.stm32f10x_rcc.h.25.968bcf08d813e68e57c280a4da69fa5a
+                           .group:00000000 wm4.stm32f10x_rtc.h.25.361142606ba98ddcd10369f321f6e636
+                           .group:00000000 wm4.stm32f10x_sdio.h.25.1fb5280a7690ef99070096bf8c866b3a
+                           .group:00000000 wm4.stm32f10x_spi.h.25.68b3d5ccfcf895f9fe505ce20c0c300f
+                           .group:00000000 wm4.stm32f10x_tim.h.25.21c6ec062f1e74898cb96a57da276fec
+                           .group:00000000 wm4.stm32f10x_usart.h.25.29629c699b65db3f3efd3561f66b0bf6
+                           .group:00000000 wm4.stm32f10x_wwdg.h.25.dde12201d86b5aa9ecaafb5eccdc6549
+                           .group:00000000 wm4.misc.h.25.068e106f368fa5369a681ef57c106f4b
+                           .group:00000000 wm4.stm32f10x.h.8304.f7d8ad90959e99679b3257267c3aadfe
+                           .group:00000000 wm4.newlib.h.8.e1d498e57c12962fc6d7be5061a6981a
+                           .group:00000000 wm4.config.h.148.52fe83653334d06815a0c57b59a3e584
+                           .group:00000000 wm4._ansi.h.23.95dee4059009fe3ab635a191bb73dc66
+                           .group:00000000 wm4.stdio.h.31.f48311dde756a2aec27351b58a280fb9
+                           .group:00000000 wm4.stddef.h.187.9e651b6b8b16e149c1353259404973ea
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4._default_types.h.6.1dbd2e581fd590860c7c17f21d147e91
+                           .group:00000000 wm4.lock.h.2.9bc98482741e5e2a9450b12934a684ea
+                           .group:00000000 wm4.stddef.h.349.31f4c5baff3fa2689010b32028da9c47
+                           .group:00000000 wm4.reent.h.16.58b23a9f0faf0e7f2dfe7e2d33154afd
+                           .group:00000000 wm4.types.h.23.0d949686bbcadd1621462d4fa1f884f9
+                           .group:00000000 wm4.stddef.h.40.cf962ebbec441b3ac67502735f0765db
+                           .group:00000000 wm4.types.h.2.e9cec8c90ab35f77d9f499e06ae02400
+                           .group:00000000 wm4.types.h.80.f2bfdfeee9f340633702c07fad9b5e01
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.63.1f4bc553faa62c5c69dd9cb47f9f1417
+
+UNDEFINED SYMBOLS
+RCC_APB2PeriphClockCmd
+GPIO_StructInit
+GPIO_Init
+USART_StructInit
+USART_Init
+USART_Cmd
+setvbuf
+GPIO_ResetBits
+GPIO_SetBits
+USART_GetFlagStatus
+printf
+_impure_ptr
